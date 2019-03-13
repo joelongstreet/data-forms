@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import DatumEntry from './DatumEntry';
+import ShapeSelector from './ShapeSelector'
 
 function Settings(props) {
 
-  const [tabPosition, setTabPosition] = useState(0);
+  const [tabPosition, setTabPosition] = useState(1);
 
   return (
     <div>
@@ -20,15 +20,15 @@ function Settings(props) {
       </AppBar>
 
       { tabPosition === 0 && 
-        <Typography>
-          <DatumEntry datum={props.datum} onDatumChange={props.onDatumChange} />
-        </Typography>
+        <DatumEntry datum={props.datum} onDatumChange={props.onDatumChange} />
       }
       {
         tabPosition === 1 &&
-        <Typography>
-          Settings stuff
-        </Typography>
+        <ShapeSelector
+          shapeType={props.shapeType}
+          onShapeTypeChange={props.onShapeTypeChange}
+          shapeSideCount={props.shapeSideCount}
+          onShapeSideCountChange={props.onShapeSideCountChange} />
       }
     </div>
   )

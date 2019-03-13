@@ -4,6 +4,8 @@ import Settings from './Settings'
 import { Grid } from '@material-ui/core';
 
 function App() {
+  const [shapeType, setShapeType] = useState('polygon');
+  const [shapeSideCount, setShapeSideCount] = useState(4);
   const [datum, setDatum] = useState('1,2');
 
   return (    
@@ -15,9 +17,16 @@ function App() {
         <Grid item xs={4}>
           <Settings
             datum={datum}
-            onDatumChange={setDatum} />
+            onDatumChange={setDatum}
+            shapeType={shapeType}
+            onShapeTypeChange={setShapeType}
+            shapeSideCount={shapeSideCount}
+            onShapeSideCountChange={setShapeSideCount}
+          />
         </Grid>
       </Grid>
+      <p>{shapeSideCount}</p>
+      <p>{shapeType}</p>
     </div>
   );
 }
