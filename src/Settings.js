@@ -80,7 +80,7 @@ function Settings() {
                 onChange={(e) => context.setUnits(e.target.value)}>
               >
                 <FormControlLabel value="in" control={<Radio />} label="in" />
-                <FormControlLabel value="mm" control={<Radio />} label="mm" />
+                <FormControlLabel value="cm" control={<Radio />} label="cm" />
               </RadioGroup>
             </FormControl>
           }
