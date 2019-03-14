@@ -1,14 +1,17 @@
 import React from 'react';
 
-function DatumEntry(props){
+import SettingsContext from './Settings.context'
 
-  function onDatumChange(e) {
-    const val = e.target.value;
-    props.onDatumChange(val);
-  }
-
+function DatumEntry(){
   return (
-    <textarea value={props.datum} onChange={onDatumChange}></textarea>
+    <SettingsContext.Consumer>
+      {(context) => (
+        <textarea
+          value={context.state.datum}
+          onChange={(e) => context.setDatum(e.target.value)}>
+        </textarea>
+      )}
+    </SettingsContext.Consumer>
   )
 }
 

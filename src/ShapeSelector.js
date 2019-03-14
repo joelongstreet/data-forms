@@ -6,29 +6,38 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import Slider from '@material-ui/lab/Slider';
 
-function ShapeSelector(props) {
+import SettingsContext from './Settings.context'
 
+function ShapeSelector() {
   return (
-    <div>
-      <ToggleButtonGroup value={props.shapeType} exclusive onChange={(e, val) => props.onShapeTypeChange(val)}>
-        <ToggleButton value="polygon">
-          <ShapeIcon />
-        </ToggleButton>
-        <ToggleButton value="outline">
-          <GraphIcon />
-        </ToggleButton>
-        </ToggleButtonGroup>
-        <br />
-        { props.shapeType === 'polygon' && 
-          <Slider
-            value={props.shapeSideCount}
-            min={1}
-            max={8}
-            step={1}
-            onChange={(e, val) => props.onShapeSideCountChange(val)}
-          />
-        }
-    </div>
+    <SettingsContext.Consumer>
+      {(context) => (
+        <React.Fragment>
+          <ToggleButtonGroup
+            value={context.state.shapeType}
+            exclusive
+            onChange={(e, val) => context.setShapeType(val)}
+          >
+            <ToggleButton value="surround">
+              <ShapeIcon />
+            </ToggleButton>
+            <ToggleButton value="isolate">
+              <GraphIcon />
+            </ToggleButton>
+          </ToggleButtonGroup>
+          <br />
+          { context.state.shapeType === 'surround' && 
+            <Slider
+              value={context.state.shapeSideCount}
+              min={1}
+              max={8}
+              step={1}
+              onChange={(e, val) => context.setShapeSideCount(val)}
+            />
+          }
+        </React.Fragment>
+      )}
+    </SettingsContext.Consumer>
   )
 }
 
