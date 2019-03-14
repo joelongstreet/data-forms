@@ -13,6 +13,7 @@ class SettingsProvider extends Component {
     cellSizeMin: 3,
     cellSizeMax: 10,
     cellStepSize: 0.5,
+    cellConstrainRatio: true,
   }
   render() {
     return (
@@ -30,12 +31,24 @@ class SettingsProvider extends Component {
         setShapeSideCount: (count) => this.setState({
           shapeSideCount: count
         }),
-        setCellWidth: (width) => this.setState({
-          cellWidth: width
-        }),
-        setCellHeight: (height) => this.setState({
-          cellHeight: height
-        })
+        setCellWidth: (width) => {
+          this.setState({ cellWidth: width });
+          if (this.state.cellConstrainRatio) {
+            this.setState({ cellHeight: width });
+          }
+        },
+        setCellHeight: (height) => {
+          this.setState({ cellHeight: height });
+          if (this.state.cellConstrainRatio) {
+            this.setState({ cellWidth: height });
+          }
+        },
+        toggleCellConstrainRatio: () => {
+          const bool = !this.state.cellConstrainRatio;
+          this.setState({
+            cellConstrainRatio: bool
+          });
+        }
       }}>
         {this.props.children}
       </SettingsContext.Provider>

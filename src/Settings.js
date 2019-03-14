@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@material-ui/core';
-
+import {
+  AppBar,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  IconButton,
+  Radio,
+  RadioGroup,
+  Tab,
+  Tabs,
+} from '@material-ui/core';
+import {
+  Lock as IconLock,
+  LockOpen as IconLockOpen
+} from '@material-ui/icons';
 import DatumEntry from './DatumEntry';
 import ShapeSelector from './ShapeSelector'
 import SettingsContext from './Settings.context'
@@ -13,7 +23,7 @@ import UnitSlider from './UnitSlider'
 
 function Settings() {
 
-  const [tabPosition, setTabPosition] = useState(1);
+  const [tabPosition, setTabPosition] = useState(0);
 
   return (
     <SettingsContext.Consumer>
@@ -30,6 +40,13 @@ function Settings() {
           { tabPosition === 0 && 
             <React.Fragment>
               <ShapeSelector />
+              <IconButton onClick={context.toggleCellConstrainRatio}>
+                { context.state.cellConstrainRatio ? (
+                  <IconLock></IconLock>
+                ) : (
+                  <IconLockOpen></IconLockOpen>
+                )}
+              </IconButton>
               <UnitSlider
                 label="Width"
                 onChange={context.setCellWidth}
