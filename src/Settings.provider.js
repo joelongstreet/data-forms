@@ -7,6 +7,10 @@ class SettingsProvider extends Component {
     datum: '1,2,3',
     shapeType: 'surround',
     shapeSideCount: 4,
+    cellWidth: 3,
+    cellSizeMin: 3,
+    cellSizeMax: 30,
+    cellStepSize: 0.5,
   }
   render() {
     return (
@@ -20,6 +24,9 @@ class SettingsProvider extends Component {
         }),
         setShapeSideCount: (count) => this.setState({
           shapeSideCount: count
+        }),
+        setCellWidth: (width) => this.setState({
+          cellWidth: width
         })
       }}>
         {this.props.children}

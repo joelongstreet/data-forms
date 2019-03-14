@@ -11,6 +11,7 @@ function Tile() {
           <p>Datum: {context.state.datum}</p>
           <p>Shape Type: {context.state.shapeType}</p>
           <p>Shape Side Count: {context.state.shapeSideCount}</p>
+          <p>Cell Width: {context.state.cellWidth}</p>
         </React.Fragment>
       )}
     </SettingsContext.Consumer>
