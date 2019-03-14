@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
   AppBar,
   FormControl,
@@ -15,6 +14,7 @@ import {
   Lock as IconLock,
   LockOpen as IconLockOpen
 } from '@material-ui/icons';
+
 import DatumEntry from './DatumEntry';
 import ShapeSelector from './ShapeSelector';
 import SettingsContext from './Settings.context';

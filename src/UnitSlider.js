@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from '@material-ui/lab/Slider';
+
 import SettingsContext from './Settings.context';
 
 function UnitSlider(props){

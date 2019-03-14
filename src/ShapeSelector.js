@@ -1,10 +1,13 @@
 import React from 'react';
-
-import GraphIcon from '@material-ui/icons/Timeline';
-import ShapeIcon from '@material-ui/icons/Lens';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import Slider from '@material-ui/lab/Slider';
+import {
+  Timeline as GraphIcon,
+  Lens as ShapeIcon
+} from '@material-ui/icons';
+import {
+  ToggleButton,
+  ToggleButtonGroup,
+  Slider
+} from '@material-ui/lab';
 
 import SettingsContext from './Settings.context';
 
