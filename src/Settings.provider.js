@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-
-import SettingsContext from './Settings.context'
 import { zipObject, round } from 'lodash';
+
+import SettingsContext from './Settings.context';
 
 const precision = 2;
 
@@ -16,13 +16,13 @@ class SettingsProvider extends Component {
     cellSizeMin: 1,
     cellSizeMax: 10,
     cellStepSize: 0.01,
-    cellConstrainRatio: true,
+    cellConstrainRatio: true
   }
 
   getStateKeysWithUnits = () => {
     return [
       'cellWidth', 'cellHeight', 'cellSizeMin', 'cellSizeMax', 'cellStepSize'
-    ]
+    ];
   }
 
   render() {
@@ -30,22 +30,21 @@ class SettingsProvider extends Component {
       <SettingsContext.Provider value={{
         state: this.state,
         setUnits: (unit) => {
-          if (this.state.units != unit) {
+          const { state } = this;
+          if (state.units !== unit) {
             const factor = unit === 'cm' ? 2.54 : 0.393701;
 
             const keys = this.getStateKeysWithUnits();
             const zipped = zipObject(
               keys,
-              keys.map((key) => round(this.state[key]*factor, precision))
+              keys.map((key) => round(state[key]*factor, precision))
             );
             this.setState(zipped);
           }
 
           this.setState({ units: unit });
         },
-        setDatum: (datum) => this.setState({
-          datum: datum
-        }),
+        setDatum: (datum) => this.setState({ datum }),
         setShapeType: (type) => this.setState({
           shapeType: type
         }),
@@ -53,21 +52,24 @@ class SettingsProvider extends Component {
           shapeSideCount: count
         }),
         setCellWidth: (width) => {
+          const { state } = this;
           const s = round(width, 2);
           this.setState({ cellWidth: s });
-          if (this.state.cellConstrainRatio) {
+          if (state.cellConstrainRatio) {
             this.setState({ cellHeight: s });
           }
         },
         setCellHeight: (height) => {
+          const { state } = this;
           const s = round(height, 2);
           this.setState({ cellHeight: s });
-          if (this.state.cellConstrainRatio) {
+          if (state.cellConstrainRatio) {
             this.setState({ cellWidth: s });
           }
         },
         toggleCellConstrainRatio: () => {
-          const bool = !this.state.cellConstrainRatio;
+          const { state } = this;
+          const bool = !state.cellConstrainRatio;
           this.setState({
             cellConstrainRatio: bool
           });
@@ -75,8 +77,8 @@ class SettingsProvider extends Component {
       }}>
         {this.props.children}
       </SettingsContext.Provider>
-    )
+    );
   }
 }
 
-export default SettingsProvider
+export default SettingsProvider;

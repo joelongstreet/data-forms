@@ -6,7 +6,7 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import Slider from '@material-ui/lab/Slider';
 
-import SettingsContext from './Settings.context'
+import SettingsContext from './Settings.context';
 
 function ShapeSelector() {
   return (
@@ -38,7 +38,7 @@ function ShapeSelector() {
         </React.Fragment>
       )}
     </SettingsContext.Consumer>
-  )
+  );
 }
 
 export default ShapeSelector;

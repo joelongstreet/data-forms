@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SettingsContext from './Settings.context'
+import SettingsContext from './Settings.context';
 
 function DatumEntry(){
   return (
@@ -12,7 +12,7 @@ function DatumEntry(){
         </textarea>
       )}
     </SettingsContext.Consumer>
-  )
+  );
 }
 
 export default DatumEntry;

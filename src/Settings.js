@@ -16,9 +16,9 @@ import {
   LockOpen as IconLockOpen
 } from '@material-ui/icons';
 import DatumEntry from './DatumEntry';
-import ShapeSelector from './ShapeSelector'
-import SettingsContext from './Settings.context'
-import UnitSlider from './UnitSlider'
+import ShapeSelector from './ShapeSelector';
+import SettingsContext from './Settings.context';
+import UnitSlider from './UnitSlider';
 
 
 function Settings() {
@@ -78,7 +78,6 @@ function Settings() {
                 name="units"
                 value={context.state.units}
                 onChange={(e) => context.setUnits(e.target.value)}>
-              >
                 <FormControlLabel value="in" control={<Radio />} label="in" />
                 <FormControlLabel value="cm" control={<Radio />} label="cm" />
               </RadioGroup>
@@ -87,7 +86,7 @@ function Settings() {
         </React.Fragment>
       )}
     </SettingsContext.Consumer>
-  )
+  );
 }
 
 export default Settings;

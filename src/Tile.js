@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SettingsContext from './Settings.context'
+import SettingsContext from './Settings.context';
 
 function Tile() {
 

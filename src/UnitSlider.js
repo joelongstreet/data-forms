@@ -1,8 +1,6 @@
 import React from 'react';
-
-import SettingsContext from './Settings.context'
-
 import Slider from '@material-ui/lab/Slider';
+import SettingsContext from './Settings.context';
 
 function UnitSlider(props){
   return (
@@ -26,7 +24,7 @@ function UnitSlider(props){
         </React.Fragment>
       )}
     </SettingsContext.Consumer>
-  )
+  );
 }
 
 export default UnitSlider;
