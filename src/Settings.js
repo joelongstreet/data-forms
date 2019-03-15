@@ -40,6 +40,8 @@ function Settings() {
           { tabPosition === 0 && 
             <React.Fragment>
               <ShapeSelector />
+
+              <hr />
               <IconButton onClick={context.toggleCellConstrainRatio}>
                 { context.state.cellConstrainRatio ? (
                   <IconLock></IconLock>
@@ -53,7 +55,6 @@ function Settings() {
                 value={context.state.cellWidth}
                 min={context.state.cellSizeMin}
                 max={context.state.cellSizeMax}
-                step={context.state.cellStepSize}
               />
               <UnitSlider
                 label="Height"
@@ -61,7 +62,38 @@ function Settings() {
                 value={context.state.cellHeight}
                 min={context.state.cellSizeMin}
                 max={context.state.cellSizeMax}
-                step={context.state.cellStepSize}
+              />
+
+              { context.state.shapeType === 'surround' && 
+                <UnitSlider
+                  label="Sides"
+                  onChange={context.setShapeSideCount}
+                  value={context.state.shapeSideCount}
+                  min={1}
+                  max={8}
+                  step={1}
+                />
+              }
+              <hr />
+
+              <input type='checkbox'
+                checked={context.state.throughHoleExists}
+                onChange={context.toggleThroughHoleExists}
+              />
+
+              <UnitSlider
+                label="x"
+                onChange={context.setThroughHoleX}
+                value={context.state.throughHoleX}
+                min={0}
+                max={context.state.cellWidth}
+              />
+              <UnitSlider
+                label="y"
+                onChange={context.setThroughHoleY}
+                value={context.state.throughHoleY}
+                min={0}
+                max={context.state.cellHeight}
               />
             </React.Fragment>
           }
@@ -71,17 +103,33 @@ function Settings() {
           }
           {
             tabPosition === 2 &&
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Units</FormLabel>
-              <RadioGroup
-                aria-label="units"
-                name="units"
-                value={context.state.units}
-                onChange={(e) => context.setUnits(e.target.value)}>
-                <FormControlLabel value="in" control={<Radio />} label="in" />
-                <FormControlLabel value="cm" control={<Radio />} label="cm" />
-              </RadioGroup>
-            </FormControl>
+            <React.Fragment>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Units</FormLabel>
+                <RadioGroup
+                  aria-label="units"
+                  name="units"
+                  value={context.state.units}
+                  onChange={(e) => context.setUnits(e.target.value)}>
+                  <FormControlLabel value="in" control={<Radio />} label="in" />
+                  <FormControlLabel value="cm" control={<Radio />} label="cm" />
+                </RadioGroup>
+              </FormControl>
+              <UnitSlider
+                label="w"
+                onChange={context.setPageWidth}
+                value={context.state.pageWidth}
+                min={0}
+                max={context.state.pageWidthMax}
+              />
+              <UnitSlider
+                label="h"
+                onChange={context.setPageHeight}
+                value={context.state.pageHeight}
+                min={0}
+                max={context.state.pageHeightMax}
+              />
+            </React.Fragment>
           }
         </React.Fragment>
       )}

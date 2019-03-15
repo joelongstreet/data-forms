@@ -5,8 +5,7 @@ import {
 } from '@material-ui/icons';
 import {
   ToggleButton,
-  ToggleButtonGroup,
-  Slider
+  ToggleButtonGroup
 } from '@material-ui/lab';
 
 import SettingsContext from './Settings.context';
@@ -29,15 +28,6 @@ function ShapeSelector() {
             </ToggleButton>
           </ToggleButtonGroup>
           <br />
-          { context.state.shapeType === 'surround' && 
-            <Slider
-              value={context.state.shapeSideCount}
-              min={1}
-              max={8}
-              step={1}
-              onChange={(e, val) => context.setShapeSideCount(val)}
-            />
-          }
         </React.Fragment>
       )}
     </SettingsContext.Consumer>

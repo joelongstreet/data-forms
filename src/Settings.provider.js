@@ -8,6 +8,7 @@ const precision = 2;
 class SettingsProvider extends Component {
   state = {
     units: 'in',
+    defaultSliderStepSize: 0.01,
     datum: '1,2,3',
     shapeType: 'surround',
     shapeSideCount: 4,
@@ -15,13 +16,23 @@ class SettingsProvider extends Component {
     cellHeight: 4,
     cellSizeMin: 1,
     cellSizeMax: 10,
-    cellStepSize: 0.01,
-    cellConstrainRatio: true
+    cellConstrainRatio: true,
+    throughHoleExists: true,
+    throughHholeRadius: .05,
+    throughHoleX: 3,
+    throughHoleY: 3,
+    pageWidth: 24,
+    pageWidthMax: 48,
+    pageHeight: 12,
+    pageHeightMax: 96
   }
 
   getStateKeysWithUnits = () => {
     return [
-      'cellWidth', 'cellHeight', 'cellSizeMin', 'cellSizeMax', 'cellStepSize'
+      'defaultSliderStepSize',
+      'cellWidth', 'cellHeight', 'cellSizeMin', 'cellSizeMax',
+      'throughHholeRadius', 'throughHoleX', 'throughHoleY',
+      'pageWidth', 'pageWidthMax', 'pageHeight', 'pageHeightMax',
     ];
   }
 
@@ -48,8 +59,8 @@ class SettingsProvider extends Component {
         setShapeType: (type) => this.setState({
           shapeType: type
         }),
-        setShapeSideCount: (count) => this.setState({
-          shapeSideCount: count
+        setShapeSideCount: (shapeSideCount) => this.setState({
+          shapeSideCount
         }),
         setCellWidth: (width) => {
           const { state } = this;
@@ -73,6 +84,29 @@ class SettingsProvider extends Component {
           this.setState({
             cellConstrainRatio: bool
           });
+        },
+        toggleThroughHoleExists: () => {
+          const { state } = this;
+          const bool = !state.throughHoleExists;
+          this.setState({
+            throughHoleExists: bool
+          });
+        },
+        setThroughHoleX: (x) => {
+          const throughHoleX = round(x, 2);
+          this.setState({ throughHoleX });
+        },
+        setThroughHoleY: (y) => {
+          const throughHoleY = round(y, 2);
+          this.setState({ throughHoleY });
+        },
+        setPageWidth: (w) => {
+          const pageWidth = round(w, 2);
+          this.setState({ pageWidth });
+        },
+        setPageHeight: (h) => {
+          const pageHeight = round(h, 2);
+          this.setState({ pageHeight });
         }
       }}>
         {this.props.children}
