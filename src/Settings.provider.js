@@ -12,6 +12,7 @@ class SettingsProvider extends Component {
     datum: '1,2,3',
     shapeType: 'surround',
     shapeSideCount: 4,
+    effectType: 'etch',
     cellWidth: 4,
     cellHeight: 4,
     cellSizeMin: 1,
@@ -56,9 +57,13 @@ class SettingsProvider extends Component {
           this.setState({ units: unit });
         },
         setDatum: (datum) => this.setState({ datum }),
-        setShapeType: (type) => this.setState({
-          shapeType: type
-        }),
+        setShapeType: (shapeType) => {
+          this.setState({ shapeType });
+          if (shapeType === 'isolate') {
+            this.setState({ effectType: 'cut' });
+          }
+        },
+        setEffectType: (effectType) => this.setState({ effectType }),
         setShapeSideCount: (shapeSideCount) => this.setState({
           shapeSideCount
         }),

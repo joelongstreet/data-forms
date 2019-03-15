@@ -1,5 +1,9 @@
 import React from 'react';
-import { Tabs } from 'antd';
+import {
+  Tabs,
+  Row,
+  Col
+} from 'antd';
 
 import SettingsShape from './Settings-shape';
 import SettingsDatum from './Settings-datum';
@@ -10,15 +14,27 @@ const { TabPane } = Tabs;
 function Settings() {
 
   return (
-    <Tabs defaultActiveKey="1">
+    <Tabs defaultActiveKey="1" tabBarStyle={{textAlign: 'center'}}>
       <TabPane tab="Form" key="1">
-        <SettingsShape />
+        <Row>
+          <Col span={20} offset={2}>
+            <SettingsShape />
+          </Col>
+        </Row>
       </TabPane>
       <TabPane tab="Data" key="2">
-        <SettingsDatum />
+        <Row>
+          <Col span={20} offset={2}>
+            <SettingsDatum />
+          </Col>
+        </Row>
       </TabPane>
       <TabPane tab="Page" key="3">
-        <SettingsPage />
+        <Row>
+          <Col span={20} offset={2}>
+            <SettingsPage />
+          </Col>
+        </Row>
       </TabPane>
     </Tabs>
   );

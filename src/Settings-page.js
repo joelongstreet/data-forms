@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Radio,
-  Select
+  Select,
 } from 'antd';
 
 import UnitSlider from './UnitSlider';

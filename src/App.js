@@ -1,24 +1,37 @@
 import React from 'react';
-import { Grid, CssBaseline } from '@material-ui/core';
+import { Layout } from 'antd';
 
 import Tile from './Tile';
 import Settings from './Settings';
 import SettingsProvider from './Settings.provider';
 
+const {
+  Content,
+  Header,
+  Sider
+} = Layout;
+
 function App() {
   return (
     <SettingsProvider>
-      <React.Fragment>
-        <CssBaseline />
-        <Grid container spacing={24}>
-          <Grid item xs={8}>
-            <Tile />
-          </Grid>
-          <Grid item xs={4}>
-            <Settings />
-          </Grid>
-        </Grid>
-      </React.Fragment>
+      <Layout>
+        <Layout>
+          <Header className="header">
+            <h1 style={{'color': 'white'}}>Data Forms</h1>
+          </Header>
+          <Content>
+            <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+              <Tile />
+            </div>
+            
+          </Content>
+        </Layout>
+
+        <Sider width={500} style={{ background: '#fff' }} minHeight={500}>
+          <Settings />
+        </Sider>
+
+      </Layout>
     </SettingsProvider>
   );
 }

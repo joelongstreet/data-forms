@@ -14,10 +14,10 @@ function UnitSlider(props){
     <SettingsContext.Consumer>
       {(context) => (
         <Row>
-          <Col span={2}>
-            {props.label}
+          <Col span={4}>
+            <div style={{'marginTop': '7px'}}>{props.label}</div>
           </Col>
-          <Col span={12}>
+          <Col span={14}>
             <Slider
               value={props.value}
               min={props.min}
@@ -26,18 +26,24 @@ function UnitSlider(props){
               onChange={props.onChange}
             />
           </Col>
-          <Col span={4}>
+          <Col span={6}>
             <InputNumber
-              style={{ marginLeft: 16 }}
+              style={{'float':'right'}}
               min={props.min}
               max={props.max}
               value={props.value}
               onChange={props.onChange}
+              step={props.step || context.state.defaultSliderStepSize}
+              formatter={(value) => {
+                if (!props.hideUnits) {
+                  return `${value} ${context.state.units}`;
+                }
+                return value;
+              }}
+              parser={value => value.replace(context.state.units, '')}
             />
           </Col>
-          <Col span={3}>
-            { !props.hideUnits && context.state.units }
-          </Col>
+          
         </Row>
       )}
     </SettingsContext.Consumer>
