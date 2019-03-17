@@ -1,33 +1,49 @@
 import React from 'react';
-import { Layout } from 'antd';
+import {
+  Col,
+  Layout,
+  Row
+} from 'antd';
 
+import * as Styles from './Styles';
 import Tile from './Tile';
 import Settings from './Settings';
 import SettingsProvider from './Settings.provider';
 
 const {
   Content,
-  Header,
   Sider
 } = Layout;
 
 function App() {
   return (
     <SettingsProvider>
-      <Layout>
-        <Layout>
-          <Header className="header">
-            <h1 style={{'color': 'white'}}>Data Forms</h1>
-          </Header>
-          <Content>
-            <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-              <Tile />
-            </div>
-            
-          </Content>
-        </Layout>
+      <Row style={{ backgroundColor: '#1890ff' }}>
+        <Col span={23} offset={1}>
+          <h1 style={{
+            fontFamily: "'Bungee Shade', cursive",
+            color: 'white',
+            padding: 10,
+            margin: 0,
+            letterSpacing: '15px',
+            fontSize: '32px'
+          }}>DATA FORMS</h1>
+        </Col>
+      </Row>
 
-        <Sider width={500} style={{ background: '#fff' }} minHeight={500}>
+      <Layout style={{background: 'none'}}>
+        <Content>
+          <Row>
+            <Col
+              span={20}
+              offset={2}
+              style={{background: Styles.colors[0], border: `1px solid ${Styles.colors[2]}`, padding: 20, marginTop: 20}}>
+              <Tile />
+            </Col>
+          </Row>
+        </Content>
+
+        <Sider width={500} style={{ background: Styles.colors[0], marginRight: 20, marginTop: -35, border: `1px solid ${Styles.colors[2]}`, paddingBottom: 50 }}>
           <Settings />
         </Sider>
 
