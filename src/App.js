@@ -6,7 +6,7 @@ import {
 } from 'antd';
 
 import * as Styles from './Styles';
-import Tile from './Tile';
+import SvgPreview from './SvgPreview';
 import Settings from './Settings';
 import SettingsProvider from './Settings.provider';
 
@@ -37,13 +37,22 @@ function App() {
             <Col
               span={20}
               offset={2}
-              style={{background: Styles.colors[0], border: `1px solid ${Styles.colors[2]}`, padding: 20, marginTop: 20}}>
-              <Tile />
+              style={{marginTop: 20}}>
+              <SvgPreview />
             </Col>
           </Row>
         </Content>
 
-        <Sider width={500} style={{ background: Styles.colors[0], marginRight: 20, marginTop: -35, border: `1px solid ${Styles.colors[2]}`, paddingBottom: 50 }}>
+        <Sider
+          width={500}
+          style={{
+            background: Styles.colors[0],
+            marginRight: 20,
+            marginTop: -35,
+            border: `1px solid ${Styles.colors[2]}`,
+            borderBottom: 'none',
+            paddingBottom: 50
+          }}>
           <Settings />
         </Sider>
 

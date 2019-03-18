@@ -9,7 +9,7 @@ class SettingsProvider extends Component {
   state = {
     units: 'in',
     defaultSliderStepSize: 0.01,
-    datum: '1,2,3',
+    datum: '1,2,3 \n4,5,6 ',
     shapeType: 'surround',
     shapeSideCount: 4,
     effectType: 'etch',
@@ -19,9 +19,9 @@ class SettingsProvider extends Component {
     cellSizeMax: 10,
     cellConstrainRatio: true,
     throughHoleExists: true,
-    throughHholeRadius: .05,
-    throughHoleX: 3,
-    throughHoleY: 3,
+    throughHoleRadius: 0.25,
+    throughHoleX: 3.5,
+    throughHoleY: 0.5,
     pageWidth: 24,
     pageWidthMax: 48,
     pageHeight: 12,
@@ -32,7 +32,7 @@ class SettingsProvider extends Component {
     return [
       'defaultSliderStepSize',
       'cellWidth', 'cellHeight', 'cellSizeMin', 'cellSizeMax',
-      'throughHholeRadius', 'throughHoleX', 'throughHoleY',
+      'throughHoleRadius', 'throughHoleX', 'throughHoleY',
       'pageWidth', 'pageWidthMax', 'pageHeight', 'pageHeightMax',
     ];
   }
@@ -96,6 +96,10 @@ class SettingsProvider extends Component {
           this.setState({
             throughHoleExists: bool
           });
+        },
+        setThroughHoleRadius: (r) => {
+          const throughHoleRadius = round(r, 2);
+          this.setState({ throughHoleRadius });
         },
         setThroughHoleX: (x) => {
           const throughHoleX = round(x, 2);

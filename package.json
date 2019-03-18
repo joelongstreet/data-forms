@@ -5,6 +5,8 @@
   "dependencies": {
     "@ant-design/colors": "^2.1.0",
     "antd": "^3.15.0",
+    "d3": "^5.9.2",
+    "d3-selection": "^1.4.0",
     "lodash": "^4.17.11",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",

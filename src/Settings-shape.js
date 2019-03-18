@@ -86,6 +86,13 @@ function SettingsShape(){
             onChange={context.toggleThroughHoleExists}>Through Hole</Checkbox>
 
           <UnitSlider
+            label="Radius"
+            onChange={context.setThroughHoleRadius}
+            value={context.state.throughHoleRadius}
+            min={0}
+            max={Math.min(context.state.cellHeight, context.state.cellWidth)}
+          />
+          <UnitSlider
             label="X"
             onChange={context.setThroughHoleX}
             value={context.state.throughHoleX}
