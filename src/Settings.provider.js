@@ -7,25 +7,25 @@ const precision = 2;
 
 class SettingsProvider extends Component {
   state = {
-    units: 'in',
-    defaultSliderStepSize: 0.01,
-    datum: '1,2,3 \n4,5,6 ',
-    shapeType: 'surround',
-    shapeSideCount: 4,
-    effectType: 'etch',
     cellWidth: 4,
     cellHeight: 4,
     cellSizeMin: 1,
     cellSizeMax: 10,
     cellConstrainRatio: true,
+    datum: '1,2,3 \n4,5,6 ',
+    defaultSliderStepSize: 0.01,
+    effectType: 'etch',
+    pageWidth: 24,
+    pageWidthMax: 48,
+    pageHeight: 12,
+    pageHeightMax: 96,
+    shapeType: 'surround',
+    shapeSideCount: 4,
     throughHoleExists: true,
     throughHoleRadius: 0.25,
     throughHoleX: 3.5,
     throughHoleY: 0.5,
-    pageWidth: 24,
-    pageWidthMax: 48,
-    pageHeight: 12,
-    pageHeightMax: 96
+    units: 'in',
   }
 
   getStateKeysWithUnits = () => {

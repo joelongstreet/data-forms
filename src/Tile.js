@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { select } from 'd3-selection';
 
-import { convertUnitsToPixels } from './util';
 import SettingsContext from './Settings.context';
 
 
@@ -20,26 +19,32 @@ class Tile extends Component {
   }
 
   createSvg() {
-    const { node, context } = this;
+    const { props } = this;
+
     const {
-      units,
-      shapeSideCount,
       cellWidth,
       cellHeight,
+      node,
+      shapeSideCount,
       throughHoleExists,
       throughHoleRadius,
       throughHoleX,
       throughHoleY,
-    } = context.state;
+      xOffset,
+      yOffset,
+    } = props;
 
-    select(node).selectAll('*').remove();
+    const group = select(node)
+      .append('g')
+      .attr('x', xOffset)
+      .attr('y', yOffset);
 
-    select(node)
+    group
       .append('rect')
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('width', convertUnitsToPixels(cellWidth))
-      .attr('height', convertUnitsToPixels(cellHeight))
+      .attr('x', xOffset)
+      .attr('y', yOffset)
+      .attr('width', cellWidth)
+      .attr('height', cellHeight)
       .attr('fill', 'none')
       .attr('rx', 3)
       .attr('ry', 3)
@@ -47,35 +52,19 @@ class Tile extends Component {
       .attr('stroke-width', 2);
     
     if (throughHoleExists) {
-      select(node).append('circle')
+      group.append('circle')
         .attr(
           'transform',
-          `translate(${convertUnitsToPixels(throughHoleX)}, ${convertUnitsToPixels(throughHoleY)})`
+          `translate(${throughHoleX}, ${throughHoleY})`
         )
         .attr('fill', 'none')
         .attr('stroke', 'red')
-        .attr('r', convertUnitsToPixels(throughHoleRadius))
+        .attr('r', throughHoleRadius)
         .attr('stroke-width', 2);
     }
   }
 
-  render() {
-    const { context } = this;
-    const { cellWidth, cellHeight } = context.state;
-    const width = convertUnitsToPixels(cellWidth);
-    const height = convertUnitsToPixels(cellHeight);
-
-    return <div style={{
-      width,
-      height,
-      float: 'left',
-      marginRight: 10
-    }}>
-      <svg ref={node => this.node = node}
-        width={width} height={height}>
-      </svg>
-    </div>;
-  }
+  render() { return ''; }
 }
 
 Tile.contextType = SettingsContext;
