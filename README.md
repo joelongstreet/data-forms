@@ -1,6 +1,3 @@
-# debt
-* draw polygons, not just rectangles - http://bl.ocks.org/kennelliott/4749dddd8409aede8115
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

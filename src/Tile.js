@@ -1,7 +1,40 @@
 import { Component } from 'react';
 import { select } from 'd3-selection';
+import * as d3 from 'd3';
 
 import SettingsContext from './Settings.context';
+
+const line = d3.line()
+  .x((d) => d[0])
+  .y((d) => d[1]);
+
+function convertToRadians(degrees) {
+  return (degrees * Math.PI) / 180;
+};
+
+function getXCoord (angle, radius) {
+  return Math.round(Math.cos(angle) * radius) + radius;
+};
+
+function getYCoord (angle, radius) {
+  return Math.round(Math.sin(angle) * radius) + radius;
+};
+
+function getVertices(shapeSideCount, radius) {
+  const vertices = [...Array(shapeSideCount)].map((x, i) => {
+    const angle = (360 / shapeSideCount) * i;
+    const radian = convertToRadians(angle);
+
+    return [
+      getXCoord(radian, radius),
+      getYCoord(radian, radius)
+    ];
+  }); 
+
+  vertices.push(vertices[0]);
+  return vertices;
+}
+
 
 
 class Tile extends Component {
@@ -39,16 +72,17 @@ class Tile extends Component {
         'transform',
         `translate(${xOffset}, ${yOffset})`
       );
-
+    
+    const vertices = getVertices(shapeSideCount, cellWidth/2);
     this.group
-      .append('rect')
-      .attr('width', cellWidth)
-      .attr('height', cellHeight)
+      .append('path')
+      .datum(vertices)
       .attr('fill', 'none')
       .attr('rx', 3)
       .attr('ry', 3)
       .attr('stroke', 'red')
-      .attr('stroke-width', 2);
+      .attr('stroke-width', 1)
+      .attr('d', line);
     
     if (throughHoleExists) {
       this.group.append('circle')
@@ -57,7 +91,7 @@ class Tile extends Component {
         .attr('fill', 'none')
         .attr('stroke', 'red')
         .attr('r', throughHoleRadius)
-        .attr('stroke-width', 2);
+        .attr('stroke-width', 1);
     }
   }
 
