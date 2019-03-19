@@ -22,16 +22,16 @@ class SvgPreview extends Component {
     return <SettingsContext.Consumer>
       {(context) => (
         <svg ref={node => this.node = node}
-          width={convertUnitsToPixels(context.state.cellWidth)*getDatum(context).length}
-          height={convertUnitsToPixels(context.state.cellHeight)}
+          width={convertUnitsToPixels(context.state.cellWidth, context.state.units)*getDatum(context).length}
+          height={convertUnitsToPixels(context.state.cellHeight, context.state.units)}
         >
           { context.state.datum.split('\n').map((data, i) => {
             return <Tile
               key={i}
-              xOffset={convertUnitsToPixels(i*context.state.cellWidth)}
+              xOffset={convertUnitsToPixels(i*context.state.cellWidth, context.state.units)}
               yOffset={0}
-              cellWidth={convertUnitsToPixels(context.state.cellWidth)}
-              cellHeight={convertUnitsToPixels(context.state.cellHeight)}
+              cellWidth={convertUnitsToPixels(context.state.cellWidth, context.state.units)}
+              cellHeight={convertUnitsToPixels(context.state.cellHeight, context.state.units)}
               throughHoleExists={context.state.throughHole}
               throughHoleRadius={context.state.throughHoleRadius}
               throughHoleX={context.state.throughHoleX}

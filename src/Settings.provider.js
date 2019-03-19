@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { zipObject, round } from 'lodash';
 
+import { inchesPerCentimenter, centimetersPerInch } from './util';
 import SettingsContext from './Settings.context';
 
 const precision = 2;
@@ -44,7 +45,7 @@ class SettingsProvider extends Component {
         setUnits: (unit) => {
           const { state } = this;
           if (state.units !== unit) {
-            const factor = unit === 'cm' ? 2.54 : 0.393701;
+            const factor = unit === 'cm' ? centimetersPerInch : inchesPerCentimenter;
 
             const keys = this.getStateKeysWithUnits();
             const zipped = zipObject(
