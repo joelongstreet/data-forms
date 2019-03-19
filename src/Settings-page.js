@@ -58,9 +58,10 @@ function handlePresetChange(val, context) {
     context.setUnits('in');
   }
 
-  const preset = presets[val];
-  context.setPageHeight(preset.height);
-  context.setPageWidth(preset.width);
+  const current = { width: context.state.pageWidth, height: context.state.pageHeight }
+  const dimensions = presets[val] || current;
+  context.setPageHeight(dimensions.height);
+  context.setPageWidth(dimensions.width);
 }
 
 function SettingsShape(){
