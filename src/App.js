@@ -18,15 +18,16 @@ const {
 function App() {
   return (
     <SettingsProvider>
-      <Row style={{ backgroundColor: '#1890ff' }}>
+      <Row style={{ backgroundColor: Styles.colors[0] }}>
         <Col span={23} offset={1}>
           <h1 style={{
-            fontFamily: "'Bungee Shade', cursive",
-            color: 'white',
-            padding: 10,
+            fontFamily: "'Share Tech Mono', monospace",
+            color: Styles.colors[1],
+            padding: '10px 0 7px 0',
             margin: 0,
-            letterSpacing: '15px',
-            fontSize: '32px'
+            letterSpacing: '10px',
+            fontSize: '40px',
+            fontWeight: 'bold'
           }}>DATA FORMS</h1>
         </Col>
       </Row>
@@ -35,8 +36,7 @@ function App() {
         <Content>
           <Row>
             <Col
-              span={20}
-              offset={2}
+              span={24}
               style={{marginTop: 20}}>
               <SvgPreview />
             </Col>
@@ -46,10 +46,10 @@ function App() {
         <Sider
           width={500}
           style={{
-            background: Styles.colors[0],
+            background: Styles.colors[1],
             marginRight: 20,
             marginTop: -35,
-            border: `1px solid ${Styles.colors[2]}`,
+            border: `1px solid ${Styles.colors[0]}`,
             borderBottom: 'none',
             paddingBottom: 50
           }}>

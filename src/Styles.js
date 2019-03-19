@@ -1,5 +1,6 @@
-import { generate, presetPalettes as presets } from '@ant-design/colors';
+const colors = [
+  '#262626', // almost black
+  '#ffffff' // white
+];
 
-const colors = generate('#bfbfbf');
-
-export {colors, presets};
+export { colors };
