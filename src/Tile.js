@@ -7,24 +7,24 @@ import SettingsContext from './Settings.context';
 class Tile extends Component {
   constructor(props) {
     super(props);
-    this.createSvg = this.createSvg.bind(this);
+    this.updateSvg = this.updateSvg.bind(this);
   }
 
   componentDidMount() {
-    this.createSvg();
+    const { node } = this.props;
+    this.group = select(node).append('g');
+    this.updateSvg();
   }
 
   componentDidUpdate() {
-    this.createSvg();
+    this.group.selectAll('*').remove();
+    this.updateSvg();
   }
 
-  createSvg() {
-    const { props } = this;
-
+  updateSvg() {
     const {
       cellWidth,
       cellHeight,
-      node,
       shapeSideCount,
       throughHoleExists,
       throughHoleRadius,
@@ -32,17 +32,16 @@ class Tile extends Component {
       throughHoleY,
       xOffset,
       yOffset,
-    } = props;
+    } = this.props;
 
-    const group = select(node)
-      .append('g')
-      .attr('x', xOffset)
-      .attr('y', yOffset);
+    this.group
+      .attr(
+        'transform',
+        `translate(${xOffset}, ${yOffset})`
+      );
 
-    group
+    this.group
       .append('rect')
-      .attr('x', xOffset)
-      .attr('y', yOffset)
       .attr('width', cellWidth)
       .attr('height', cellHeight)
       .attr('fill', 'none')
@@ -52,11 +51,9 @@ class Tile extends Component {
       .attr('stroke-width', 2);
     
     if (throughHoleExists) {
-      group.append('circle')
-        .attr(
-          'transform',
-          `translate(${throughHoleX}, ${throughHoleY})`
-        )
+      this.group.append('circle')
+        .attr('cx', throughHoleX)
+        .attr('cy', throughHoleY)
         .attr('fill', 'none')
         .attr('stroke', 'red')
         .attr('r', throughHoleRadius)

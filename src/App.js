@@ -6,7 +6,7 @@ import {
 } from 'antd';
 
 import * as Styles from './Styles';
-import SvgPreview from './SvgPreview';
+import Preview from './Preview';
 import Settings from './Settings';
 import SettingsProvider from './Settings.provider';
 
@@ -38,7 +38,7 @@ function App() {
             <Col
               span={24}
               style={{marginTop: 20}}>
-              <SvgPreview />
+              <Preview />
             </Col>
           </Row>
         </Content>
