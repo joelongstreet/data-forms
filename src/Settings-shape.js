@@ -80,10 +80,14 @@ function SettingsShape(){
           }
 
           <Divider>Through</Divider>
-
-          <Checkbox
-            checked={context.state.throughHoleExists}
-            onChange={context.toggleThroughHoleExists}>Through Hole</Checkbox>
+          <Row>
+            <Col>
+              <Checkbox
+                style={{float: 'right', marginBottom: 20}}
+                checked={context.state.throughHoleExists}
+                onChange={context.toggleThroughHoleExists}>Through Hole</Checkbox>
+            </Col>
+          </Row>
 
           <UnitSlider
             label="Radius"

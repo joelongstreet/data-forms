@@ -3,10 +3,12 @@ import { select } from 'd3-selection';
 import * as d3 from 'd3';
 
 import SettingsContext from './Settings.context';
+import * as Styles from './Styles';
 
 const line = d3.line()
   .x((d) => d[0])
-  .y((d) => d[1]);
+  .y((d) => d[1])
+  .curve(d3.curveLinear);
 
 function convertToRadians(degrees) {
   return (degrees * Math.PI) / 180;
@@ -78,10 +80,9 @@ class Tile extends Component {
       .append('path')
       .datum(vertices)
       .attr('fill', 'none')
-      .attr('rx', 3)
-      .attr('ry', 3)
-      .attr('stroke', 'red')
+      .attr('stroke', Styles.colors[2])
       .attr('stroke-width', 1)
+      .attr('transform', `rotate(45, ${cellWidth/2}, ${cellHeight/2})`)
       .attr('d', line);
     
     if (throughHoleExists) {
@@ -89,7 +90,7 @@ class Tile extends Component {
         .attr('cx', throughHoleX)
         .attr('cy', throughHoleY)
         .attr('fill', 'none')
-        .attr('stroke', 'red')
+        .attr('stroke', Styles.colors[2])
         .attr('r', throughHoleRadius)
         .attr('stroke-width', 1);
     }
