@@ -10,6 +10,11 @@ const line = d3.line()
   .y((d) => d[1])
   .curve(d3.curveLinear);
 
+const rotationMap = {
+  0: 0, 1: 0, 2: 0, 3: -90,
+  4: 45, 5: -18, 6: 0, 7: 13, 8: 1,
+};
+
 function convertToRadians(degrees) {
   return (degrees * Math.PI) / 180;
 };
@@ -69,11 +74,15 @@ class Tile extends Component {
       yOffset,
     } = this.props;
 
+    const rotation = rotationMap[shapeSideCount];
+
     this.group
       .attr(
         'transform',
         `translate(${xOffset}, ${yOffset})`
-      );
+      )
+      .attr('width', cellWidth)
+      .attr('height', cellHeight);
     
     const vertices = getVertices(shapeSideCount, cellWidth/2);
     this.group
@@ -82,7 +91,7 @@ class Tile extends Component {
       .attr('fill', 'none')
       .attr('stroke', Styles.colors[2])
       .attr('stroke-width', 1)
-      .attr('transform', `rotate(45, ${cellWidth/2}, ${cellHeight/2})`)
+      .attr('transform', `rotate(${rotation}, ${cellWidth/2}, ${cellHeight/2})`)
       .attr('d', line);
     
     if (throughHoleExists) {
