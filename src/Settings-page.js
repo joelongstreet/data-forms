@@ -1,6 +1,9 @@
 import React from 'react';
 import {
+  Col,
+  Divider,
   Radio,
+  Row,
   Select,
 } from 'antd';
 
@@ -69,28 +72,41 @@ function SettingsShape(){
     <SettingsContext.Consumer>
       {(context) => (
         <React.Fragment>
-          <Radio.Group
-            value={context.state.units}
-            buttonStyle="solid"
-            onChange={(e) => context.setUnits(e.target.value)}
-          >
-            <Radio.Button value="in">Inches</Radio.Button>
-            <Radio.Button value="cm">Centimeters</Radio.Button>
-          </Radio.Group>
+          <Divider>Units</Divider>
 
-          <Select defaultValue={6} style={{ width: 200 }} onChange={(val) => handlePresetChange(val, context)}>
-            {presetOptions}
-          </Select>
+          <Row>
+            <Col>
+              <Radio.Group
+                style={{margin: 'auto', display: 'block', textAlign: 'center'}}
+                value={context.state.units}
+                buttonStyle="solid"
+                onChange={(e) => context.setUnits(e.target.value)}
+              >
+                <Radio.Button value="in">Inches</Radio.Button>
+                <Radio.Button value="cm">Centimeters</Radio.Button>
+              </Radio.Group>
+            </Col>
+          </Row>
+
+          <Divider>Dimensions</Divider>
+
+          <Row style={{'marginBottom': 10}}>
+            <Col>
+              <Select defaultValue={6} style={{ width: 200, float: 'right' }} onChange={(val) => handlePresetChange(val, context)}>
+                {presetOptions}
+              </Select>
+            </Col>
+          </Row>
 
           <UnitSlider
-            label="w"
+            label="Width"
             onChange={context.setPageWidth}
             value={context.state.pageWidth}
             min={0}
             max={context.state.pageWidthMax}
           />
           <UnitSlider
-            label="h"
+            label="Height"
             onChange={context.setPageHeight}
             value={context.state.pageHeight}
             min={0}

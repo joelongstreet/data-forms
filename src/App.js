@@ -28,7 +28,6 @@ function App() {
             letterSpacing: 20,
             fontSize: '40px',
             fontWeight: 'bold',
-            borderBottom: `5px solid ${Styles.colors[4]}`
           }}>DATA FORMS</h1>
         </Col>
       </Row>
