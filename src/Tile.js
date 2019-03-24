@@ -2,46 +2,44 @@ import { Component } from 'react';
 import { select } from 'd3-selection';
 import * as d3 from 'd3';
 
-import SettingsContext from './Settings.context';
+import scaleRadial from './d3/scale-radial';
 import * as Styles from './Styles';
+import {
+  convertDegreesToRadians,
+  getCoordsFromRadiansAndRadius,
+} from './util';
 
-const line = d3.line()
-  .x((d) => d[0])
-  .y((d) => d[1])
-  .curve(d3.curveLinear);
 
+// surrounding polygons can "look" off center.
+// rotate each polygon a certain number of degrees
+// dependent on the number of sides
 const rotationMap = {
-  0: 0, 1: 0, 2: 0, 3: -90,
-  4: 45, 5: -18, 6: 0, 7: 13, 8: 1,
+  1: 0, 2: 0, 3: -90, 4: 45, 5: -18, 6: 0, 7: 13, 8: 1,
 };
 
-function convertToRadians(degrees) {
-  return (degrees * Math.PI) / 180;
-};
+// scale the x axis around a circle
+const radialXF = scaleRadial().range([0, 2 * Math.PI]);
 
-function getXCoord (angle, radius) {
-  return Math.round(Math.cos(angle) * radius) + radius;
-};
+// straight lines to connect the vertices of a polygon
+const polygonSurroundLineFunction = d3
+  .line()
+  .x(d => d[0])
+  .y(d => d[1])
+  .curve(d3.curveLinearClosed);
 
-function getYCoord (angle, radius) {
-  return Math.round(Math.sin(angle) * radius) + radius;
-};
-
-function getVertices(shapeSideCount, radius) {
+// return a [[x, y], [x,y]...] list of points to create the
+// vertices of a surrounding polygon
+function getVerticesForSurroundingPolygon(shapeSideCount, radius) {
   const vertices = [...Array(shapeSideCount)].map((x, i) => {
     const angle = (360 / shapeSideCount) * i;
-    const radian = convertToRadians(angle);
+    const radian = convertDegreesToRadians(angle);
 
-    return [
-      getXCoord(radian, radius),
-      getYCoord(radian, radius)
-    ];
-  }); 
+    return getCoordsFromRadiansAndRadius(radian, radius);
+  });
 
   vertices.push(vertices[0]);
   return vertices;
 }
-
 
 
 class Tile extends Component {
@@ -65,35 +63,73 @@ class Tile extends Component {
     const {
       cellWidth,
       cellHeight,
+      data,
       shapeSideCount,
+      shapeType,
       throughHoleExists,
       throughHoleRadius,
       throughHoleX,
       throughHoleY,
       xOffset,
+      yDataDomain,
       yOffset,
     } = this.props;
 
-    const rotation = rotationMap[shapeSideCount];
+    // set min and max y values
+    // constrain the y axis to the passed domain
+    const halfSquared = ((cellWidth / 2) ** 2) * 2;
+    const radialYF = scaleRadial().range([
+      cellWidth / 5,
+      Math.sqrt(halfSquared) * 0.5,
+    ]).domain(yDataDomain);
 
+    // constrain the x axis to this tile's x domain
+    radialXF.domain(d3.extent(data, d => d[0]));
+
+    const radialLineFunction = d3.lineRadial()
+      .angle(d => radialXF(d[0]))
+      .radius(d => radialYF(d[1]))
+      // .curve(d3.curveLinearClosed);
+      .curve(d3.curveBasisClosed);
+
+    // draw the group for this tile which contains all other shapes
     this.group
       .attr(
         'transform',
-        `translate(${xOffset}, ${yOffset})`
+        `translate(${xOffset}, ${yOffset})`,
       )
       .attr('width', cellWidth)
       .attr('height', cellHeight);
-    
-    const vertices = getVertices(shapeSideCount, cellWidth/2);
+
+    // optionally draw a surrounding polygon
+    if (shapeType === 'surround') {
+      const rotation = rotationMap[shapeSideCount] || 0;
+      const vertices = getVerticesForSurroundingPolygon(shapeSideCount, cellWidth / 2);
+
+      this.group
+        .append('path')
+        .datum(vertices)
+        .attr('fill', 'none')
+        .attr('stroke', Styles.colors[2])
+        .attr('stroke-width', 1)
+        .attr('transform', `rotate(${rotation}, ${cellWidth / 2}, ${cellHeight / 2})`)
+        .attr('d', polygonSurroundLineFunction);
+    }
+
     this.group
       .append('path')
-      .datum(vertices)
+      .attr(
+        'transform',
+        `translate(${(cellWidth / 2)}, ${(cellWidth / 2)})`,
+      )
+      .datum(data)
       .attr('fill', 'none')
       .attr('stroke', Styles.colors[2])
-      .attr('stroke-width', 1)
-      .attr('transform', `rotate(${rotation}, ${cellWidth/2}, ${cellHeight/2})`)
-      .attr('d', line);
-    
+      .attr('d', radialLineFunction)
+      .style('stroke-linecap', 'round')
+      .style('stroke-linejoin', 'round')
+      .attr('stroke-width', 3);
+
     if (throughHoleExists) {
       this.group.append('circle')
         .attr('cx', throughHoleX)
@@ -108,5 +144,4 @@ class Tile extends Component {
   render() { return ''; }
 }
 
-Tile.contextType = SettingsContext;
 export default Tile;
