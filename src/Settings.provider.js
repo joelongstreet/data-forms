@@ -13,7 +13,7 @@ class SettingsProvider extends Component {
     cellSizeMin: 1,
     cellSizeMax: 10,
     cellConstrainRatio: true,
-    datum: '1,2,3 \n4,5,6 ',
+    datum: '1,14,2,10,3,10,4,500,5,100',
     defaultSliderStepSize: 0.01,
     effectType: 'etch',
     pageWidth: 24,
@@ -29,14 +29,12 @@ class SettingsProvider extends Component {
     units: 'in',
   }
 
-  getStateKeysWithUnits = () => {
-    return [
-      'defaultSliderStepSize',
-      'cellWidth', 'cellHeight', 'cellSizeMin', 'cellSizeMax',
-      'throughHoleRadius', 'throughHoleX', 'throughHoleY',
-      'pageWidth', 'pageWidthMax', 'pageHeight', 'pageHeightMax',
-    ];
-  }
+  getStateKeysWithUnits = () => [
+    'defaultSliderStepSize',
+    'cellWidth', 'cellHeight', 'cellSizeMin', 'cellSizeMax',
+    'throughHoleRadius', 'throughHoleX', 'throughHoleY',
+    'pageWidth', 'pageWidthMax', 'pageHeight', 'pageHeightMax',
+  ]
 
   render() {
     return (
@@ -50,23 +48,23 @@ class SettingsProvider extends Component {
             const keys = this.getStateKeysWithUnits();
             const zipped = zipObject(
               keys,
-              keys.map((key) => round(state[key]*factor, precision))
+              keys.map(key => round(state[key] * factor, precision)),
             );
             this.setState(zipped);
           }
 
           this.setState({ units: unit });
         },
-        setDatum: (datum) => this.setState({ datum }),
+        setDatum: datum => this.setState({ datum }),
         setShapeType: (shapeType) => {
           this.setState({ shapeType });
           if (shapeType === 'isolate') {
             this.setState({ effectType: 'cut' });
           }
         },
-        setEffectType: (effectType) => this.setState({ effectType }),
-        setShapeSideCount: (shapeSideCount) => this.setState({
-          shapeSideCount
+        setEffectType: effectType => this.setState({ effectType }),
+        setShapeSideCount: shapeSideCount => this.setState({
+          shapeSideCount,
         }),
         setCellWidth: (width) => {
           const { state } = this;
@@ -88,14 +86,14 @@ class SettingsProvider extends Component {
           const { state } = this;
           const bool = !state.cellConstrainRatio;
           this.setState({
-            cellConstrainRatio: bool
+            cellConstrainRatio: bool,
           });
         },
         toggleThroughHoleExists: () => {
           const { state } = this;
           const bool = !state.throughHoleExists;
           this.setState({
-            throughHoleExists: bool
+            throughHoleExists: bool,
           });
         },
         setThroughHoleRadius: (r) => {
@@ -117,8 +115,9 @@ class SettingsProvider extends Component {
         setPageHeight: (h) => {
           const pageHeight = round(h, 2);
           this.setState({ pageHeight });
-        }
-      }}>
+        },
+      }}
+      >
         {this.props.children}
       </SettingsContext.Provider>
     );

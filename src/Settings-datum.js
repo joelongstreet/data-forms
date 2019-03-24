@@ -26,10 +26,11 @@ const examples = [
 ];
 
 const examplesOptions = examples.map((e, i) => {
+  // eslint-disable-next-line react/no-array-index-key
   return <Option key={i} value={i}>{e.name}</Option>;
 });
 examplesOptions.push(
-  <Option key='custom' value={examples.length}>Custom</Option>
+  <Option key="custom" value={examples.length}>Custom</Option>,
 );
 
 function handleExampleChange(val, context) {

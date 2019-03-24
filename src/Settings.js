@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Tabs,
   Row,
-  Col
+  Col,
 } from 'antd';
 
 import SettingsShape from './Settings-shape';
@@ -12,9 +12,8 @@ import SettingsPage from './Settings-page';
 const { TabPane } = Tabs;
 
 function Settings() {
-
   return (
-    <Tabs defaultActiveKey="1" tabBarStyle={{textAlign: 'center'}}>
+    <Tabs defaultActiveKey="1" tabBarStyle={{ textAlign: 'center' }}>
       <TabPane tab="Form" key="1">
         <Row>
           <Col span={20} offset={2}>

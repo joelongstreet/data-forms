@@ -5,17 +5,17 @@ import {
   Divider,
   Radio,
   Row,
-  Icon
+  Icon,
 } from 'antd';
 
 import UnitSlider from './UnitSlider';
 import SettingsContext from './Settings.context';
 
 
-function SettingsShape(){
+function SettingsShape() {
   return (
     <SettingsContext.Consumer>
-      {(context) => (
+      {context => (
         <React.Fragment>
           <Divider>Form</Divider>
 
@@ -24,7 +24,7 @@ function SettingsShape(){
               <Radio.Group
                 value={context.state.shapeType}
                 buttonStyle="solid"
-                onChange={(e) => context.setShapeType(e.target.value)}
+                onChange={e => context.setShapeType(e.target.value)}
               >
                 <Radio.Button value="surround">Surround</Radio.Button>
                 <Radio.Button value="isolate">Isolate</Radio.Button>
@@ -34,7 +34,7 @@ function SettingsShape(){
               <Radio.Group
                 value={context.state.effectType}
                 buttonStyle="solid"
-                onChange={(e) => context.setEffectType(e.target.value)}
+                onChange={e => context.setEffectType(e.target.value)}
               >
                 <Radio.Button value="etch" disabled={context.state.shapeType === 'isolate'}>Etch</Radio.Button>
                 <Radio.Button value="cut">Cut</Radio.Button>
@@ -44,7 +44,7 @@ function SettingsShape(){
 
           <Divider>Cell</Divider>
 
-          <div style={{'position': 'relative', 'top': '45px', 'left': '-30px'}}>
+          <div style={{ position: 'relative', top: '45px', left: '-30px' }}>
             { context.state.cellConstrainRatio ? (
               <Icon type="lock" onClick={context.toggleCellConstrainRatio} />
             ) : (
@@ -67,25 +67,28 @@ function SettingsShape(){
             max={context.state.cellSizeMax}
           />
 
-          { context.state.shapeType === 'surround' && 
-            <UnitSlider
-              label="Sides"
-              onChange={context.setShapeSideCount}
-              value={context.state.shapeSideCount}
-              min={1}
-              max={8}
-              step={1}
-              hideUnits
-            />
-          }
+          { context.state.shapeType === 'surround' && (
+          <UnitSlider
+            label="Sides"
+            onChange={context.setShapeSideCount}
+            value={context.state.shapeSideCount}
+            min={1}
+            max={8}
+            step={1}
+            hideUnits
+          />
+          )}
 
           <Divider>Through</Divider>
           <Row>
             <Col>
               <Checkbox
-                style={{float: 'right', marginBottom: 20}}
+                style={{ float: 'right', marginBottom: 20 }}
                 checked={context.state.throughHoleExists}
-                onChange={context.toggleThroughHoleExists}>Through Hole</Checkbox>
+                onChange={context.toggleThroughHoleExists}
+              >
+                Through Hole
+              </Checkbox>
             </Col>
           </Row>
 

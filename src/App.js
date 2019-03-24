@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Col,
   Layout,
-  Row
+  Row,
 } from 'antd';
 
 import * as Styles from './Styles';
@@ -12,7 +12,7 @@ import SettingsProvider from './Settings.provider';
 
 const {
   Content,
-  Sider
+  Sider,
 } = Layout;
 
 function App() {
@@ -28,16 +28,20 @@ function App() {
             letterSpacing: 20,
             fontSize: '40px',
             fontWeight: 'bold',
-          }}>DATA FORMS</h1>
+          }}
+          >
+            DATA FORMS
+          </h1>
         </Col>
       </Row>
 
-      <Layout style={{background: 'none'}}>
+      <Layout style={{ background: 'none' }}>
         <Content>
           <Row>
             <Col
               span={24}
-              style={{marginTop: 20}}>
+              style={{ marginTop: 20 }}
+            >
               <Preview />
             </Col>
           </Row>
@@ -51,8 +55,9 @@ function App() {
             marginTop: -35,
             border: `1px solid ${Styles.colors[0]}`,
             borderBottom: 'none',
-            paddingBottom: 50
-          }}>
+            paddingBottom: 50,
+          }}
+        >
           <Settings />
         </Sider>
 

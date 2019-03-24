@@ -4,18 +4,18 @@ import {
   Row,
   Col,
   Slider,
-  InputNumber
+  InputNumber,
 } from 'antd';
 
 import SettingsContext from './Settings.context';
 
-function UnitSlider(props){
+function UnitSlider(props) {
   return (
     <SettingsContext.Consumer>
-      {(context) => (
+      {context => (
         <Row>
           <Col span={4}>
-            <div style={{'marginTop': '7px'}}>{props.label}</div>
+            <div style={{ marginTop: '7px' }}>{props.label}</div>
           </Col>
           <Col span={14}>
             <Slider
@@ -28,7 +28,7 @@ function UnitSlider(props){
           </Col>
           <Col span={6}>
             <InputNumber
-              style={{'float':'right'}}
+              style={{ float: 'right' }}
               min={props.min}
               max={props.max}
               value={props.value}
@@ -43,7 +43,6 @@ function UnitSlider(props){
               parser={value => value.replace(context.state.units, '')}
             />
           </Col>
-          
         </Row>
       )}
     </SettingsContext.Consumer>

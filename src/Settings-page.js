@@ -25,19 +25,19 @@ const presets = [
   {
     name: 'Epilog Helix',
     width: 24,
-    height: 18
+    height: 18,
   },
   {
     name: 'Epilog Mini 24',
     width: 18,
-    height: 12
+    height: 12,
   },
   {
     name: 'Epilog Mini 18',
     width: 18,
-    height: 12
+    height: 12,
   },
-  { 
+  {
     name: 'Epilog Zing 24',
     width: 24,
     height: 12,
@@ -53,7 +53,7 @@ const presetOptions = presets.map((p, i) => {
   return <Option key={p.name} value={i}>{p.name}</Option>;
 });
 presetOptions.push(
-  <Option key='default' value={presets.length}>Custom</Option>
+  <Option key="default" value={presets.length}>Custom</Option>,
 );
 
 function handlePresetChange(val, context) {
@@ -67,20 +67,20 @@ function handlePresetChange(val, context) {
   context.setPageWidth(dimensions.width);
 }
 
-function SettingsShape(){
+function SettingsShape() {
   return (
     <SettingsContext.Consumer>
-      {(context) => (
+      {context => (
         <React.Fragment>
           <Divider>Units</Divider>
 
           <Row>
             <Col>
               <Radio.Group
-                style={{margin: 'auto', display: 'block', textAlign: 'center'}}
+                style={{ margin: 'auto', display: 'block', textAlign: 'center' }}
                 value={context.state.units}
                 buttonStyle="solid"
-                onChange={(e) => context.setUnits(e.target.value)}
+                onChange={e => context.setUnits(e.target.value)}
               >
                 <Radio.Button value="in">Inches</Radio.Button>
                 <Radio.Button value="cm">Centimeters</Radio.Button>
@@ -90,9 +90,9 @@ function SettingsShape(){
 
           <Divider>Dimensions</Divider>
 
-          <Row style={{'marginBottom': 10}}>
+          <Row style={{ marginBottom: 10 }}>
             <Col>
-              <Select defaultValue={6} style={{ width: 200, float: 'right' }} onChange={(val) => handlePresetChange(val, context)}>
+              <Select defaultValue={6} style={{ width: 200, float: 'right' }} onChange={val => handlePresetChange(val, context)}>
                 {presetOptions}
               </Select>
             </Col>

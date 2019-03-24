@@ -6,4 +6,5 @@ const colors = [
   '#faad14', // gold
 ];
 
+// eslint-disable-next-line import/prefer-default-export
 export { colors };
