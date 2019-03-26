@@ -2,11 +2,13 @@
   "name": "data-forms",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://joelongstreet.com/data-forms/",
   "dependencies": {
     "antd": "^3.15.0",
     "customize-cra": "^0.2.12",
     "d3": "^5.9.2",
     "d3-selection": "^1.4.0",
+    "gh-pages": "^2.0.1",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "lodash": "^4.17.11",
@@ -18,7 +20,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
