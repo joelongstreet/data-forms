@@ -72,7 +72,7 @@ function SettingsShape() {
             label="Sides"
             onChange={context.setShapeSideCount}
             value={context.state.shapeSideCount}
-            min={1}
+            min={2}
             max={8}
             step={1}
             hideUnits

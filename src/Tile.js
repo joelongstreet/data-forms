@@ -14,7 +14,7 @@ import {
 // rotate each polygon a certain number of degrees
 // dependent on the number of sides
 const rotationMap = {
-  1: 0, 2: 0, 3: -90, 4: 45, 5: -18, 6: 0, 7: 13, 8: 1,
+  3: -90, 4: 45, 5: -18, 6: 0, 7: 13, 8: 1,
 };
 
 // scale the x axis around a circle
@@ -106,14 +106,24 @@ class Tile extends Component {
       const rotation = rotationMap[shapeSideCount] || 0;
       const vertices = getVerticesForSurroundingPolygon(shapeSideCount, cellWidth / 2);
 
-      this.group
-        .append('path')
-        .datum(vertices)
-        .attr('fill', 'none')
-        .attr('stroke', Styles.colors[2])
-        .attr('stroke-width', 1)
-        .attr('transform', `rotate(${rotation}, ${cellWidth / 2}, ${cellHeight / 2})`)
-        .attr('d', polygonSurroundLineFunction);
+      if (shapeSideCount === 2) {
+        this.group.append('circle')
+          .attr('fill', 'none')
+          .attr('stroke', Styles.colors[2])
+          .attr('r', cellWidth / 2)
+          .attr('cx', cellWidth / 2)
+          .attr('cy', cellWidth / 2)
+          .attr('stroke-width', 1);
+      } else {
+        this.group
+          .append('path')
+          .datum(vertices)
+          .attr('fill', 'none')
+          .attr('stroke', Styles.colors[2])
+          .attr('stroke-width', 1)
+          .attr('transform', `rotate(${rotation}, ${cellWidth / 2}, ${cellHeight / 2})`)
+          .attr('d', polygonSurroundLineFunction);
+      }
     }
 
     this.group
