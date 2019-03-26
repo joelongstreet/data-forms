@@ -48,13 +48,13 @@ class Tile extends Component {
     this.updateSvg = this.updateSvg.bind(this);
   }
 
-  componentDidMount() {
-    const { node } = this.props;
-    this.group = select(node).append('g');
-    this.updateSvg();
-  }
-
   componentDidUpdate() {
+    // I don't know why I can't put this in the component did mount...
+    const { node } = this.props;
+    if (!this.group) {
+      this.group = select(node).append('g');
+    }
+
     this.group.selectAll('*').remove();
     this.updateSvg();
   }

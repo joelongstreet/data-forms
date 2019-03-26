@@ -12,14 +12,6 @@ class TileGroup extends Component {
     this.subProps = { dataSets: [] };
   }
 
-  componentDidMount() {
-    this.setSubProps();
-  }
-
-  componentDidUpdate() {
-    this.setSubProps();
-  }
-
   setSubProps() {
     const { props: p } = this;
     this.subProps = { ...p };
@@ -53,6 +45,7 @@ class TileGroup extends Component {
   }
 
   render() {
+    this.setSubProps();
     return (
       <svg
         ref={(node) => { this.node = node; }}
