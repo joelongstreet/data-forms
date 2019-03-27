@@ -14,6 +14,7 @@
     "lodash": "^4.17.11",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-fullstory": "^1.0.3",
     "react-scripts": "2.1.8"
   },
   "scripts": {
