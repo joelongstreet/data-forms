@@ -9,7 +9,7 @@ import * as Styles from './Styles';
 import Preview from './Preview';
 import Settings from './Settings';
 import SettingsProvider from './Settings.provider';
-import Fullstory from './Fullstory';
+import Analytics from './Analytics';
 
 const {
   Content,
@@ -63,7 +63,7 @@ function App() {
         </Sider>
 
       </Layout>
-      <Fullstory />
+      <Analytics />
     </SettingsProvider>
   );
 }
