@@ -6,7 +6,7 @@ testElement.setAttribute('id', 'test-element');
 testElement.setAttribute('style', 'width: 1in; height: 1in');
 document.body.appendChild(testElement);
 
-const pixelsPerInch = testElement.offsetWidth;
+const pixelsPerInch = testElement.offsetWidth + testElement.offsetWidth / window.devicePixelRatio;
 
 function convertUnitsToPixels(float, unit) {
   if (unit === 'in') {
