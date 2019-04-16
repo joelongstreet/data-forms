@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { extent } from 'd3';
-import { chunk, uniq } from 'lodash';
+import { uniq } from 'lodash';
 
 import Tile from './Tile';
 import { convertUnitsToPixels } from './util';
@@ -20,21 +20,22 @@ class TileGroup extends Component {
     const dataSets = p
       .datum
       .split('\n')
-      .map(ds => chunk(ds.split(','), 2));
+      // eslint-disable-next-line arrow-body-style
+      .map((ds) => {
+        return ds.split(',')
+          .map(d => Number(d));
+      });
 
-    // list all possible ranges for the y column
-    const yDataRange = uniq(
-      dataSets.map(ds => (
-        ds.map(d => d[1])
-      )).flat(),
+    // find the highest and lowest values for the data set
+    const dataDomain = extent(
+      uniq(
+        dataSets.flat(),
+      ),
     );
-
-    // find the highest and lowest values for the y value
-    const yDataDomain = extent(yDataRange);
 
     Object.assign(this.subProps, {
       dataSets,
-      yDataDomain,
+      dataDomain,
       cellWidth: convertUnitsToPixels(p.cellWidth, p.units),
       cellHeight: convertUnitsToPixels(p.cellHeight, p.units),
       throughHoleRadius: convertUnitsToPixels(p.throughHoleRadius, p.units),
@@ -57,6 +58,7 @@ class TileGroup extends Component {
             cellWidth={this.subProps.cellWidth}
             cellHeight={this.subProps.cellHeight}
             data={data}
+            dataDomain={this.subProps.dataDomain}
             // eslint-disable-next-line react/no-array-index-key
             key={i}
             node={this.node}
@@ -67,7 +69,6 @@ class TileGroup extends Component {
             throughHoleX={this.subProps.throughHoleX}
             throughHoleY={this.subProps.throughHoleY}
             xOffset={i * this.subProps.cellWidth}
-            yDataDomain={this.subProps.yDataDomain}
             yOffset={0}
           />
         ))}

@@ -17,9 +17,6 @@ const rotationMap = {
   3: -90, 4: 45, 5: -18, 6: 0, 7: 13, 8: 1,
 };
 
-// scale the x axis around a circle
-const radialXF = scaleRadial().range([0, 2 * Math.PI]);
-
 // straight lines to connect the vertices of a polygon
 const polygonSurroundLineFunction = d3
   .line()
@@ -64,6 +61,7 @@ class Tile extends Component {
       cellWidth,
       cellHeight,
       data,
+      dataDomain,
       shapeSideCount,
       shapeType,
       throughHoleExists,
@@ -71,25 +69,29 @@ class Tile extends Component {
       throughHoleX,
       throughHoleY,
       xOffset,
-      yDataDomain,
       yOffset,
     } = this.props;
 
-    // set min and max y values
-    // constrain the y axis to the passed domain
+    // create a multidimensional array to give each item an x value (the indece)
+    const datum = data.map((d, i) => [i, d]);
+
     const halfSquared = ((cellWidth / 2) ** 2) * 2;
-    const radialYF = scaleRadial().range([
+
+    // scale the x axis around a circle
+    // and to the length of the data set
+    const xF = d3.scaleTime()
+      .range([0, 2 * Math.PI])
+      .domain([0, data.length]);
+
+    // constrain the y axis to the passed domain
+    const yF = scaleRadial().range([
       cellWidth / 5,
       Math.sqrt(halfSquared) * 0.5,
-    ]).domain(yDataDomain);
+    ]).domain(dataDomain);
 
-    // constrain the x axis to this tile's x domain
-    radialXF.domain(d3.extent(data, d => d[0]));
-
-    const radialLineFunction = d3.lineRadial()
-      .angle(d => radialXF(d[0]))
-      .radius(d => radialYF(d[1]))
-      // .curve(d3.curveLinearClosed);
+    const lineF = d3.lineRadial()
+      .angle(d => xF(d[0]))
+      .radius(d => yF(d[1]))
       .curve(d3.curveBasisClosed);
 
     // draw the group for this tile which contains all other shapes
@@ -132,10 +134,10 @@ class Tile extends Component {
         'transform',
         `translate(${(cellWidth / 2)}, ${(cellWidth / 2)})`,
       )
-      .datum(data)
+      .datum(datum)
       .attr('fill', 'none')
       .attr('stroke', Styles.colors[2])
-      .attr('d', radialLineFunction)
+      .attr('d', lineF)
       .style('stroke-linecap', 'round')
       .style('stroke-linejoin', 'round')
       .attr('stroke-width', 3);

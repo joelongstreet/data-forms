@@ -12,11 +12,11 @@ function radial() {
   }
 
   scale.domain = function domain(_) {
-    return arguments.length ? (linear.domain(_), scale) : linear.domain();
+    return (linear.domain(_), scale);
   };
 
   scale.range = function range(_) {
-    return arguments.length ? (linear.range(_.map(square)), scale) : linear.range().map(Math.sqrt);
+    return (linear.range(_.map(square)), scale);
   };
 
   return scale;
