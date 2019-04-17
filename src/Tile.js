@@ -60,6 +60,7 @@ class Tile extends Component {
     const {
       cellWidth,
       cellHeight,
+      curveType,
       data,
       dataDomain,
       shapeSideCount,
@@ -81,7 +82,7 @@ class Tile extends Component {
     // and to the length of the data set
     const xF = d3.scaleTime()
       .range([0, 2 * Math.PI])
-      .domain([0, data.length]);
+      .domain([0, data.length - 1]);
 
     // constrain the y axis to the passed domain
     const yF = scaleRadial().range([
@@ -92,7 +93,7 @@ class Tile extends Component {
     const lineF = d3.lineRadial()
       .angle(d => xF(d[0]))
       .radius(d => yF(d[1]))
-      .curve(d3.curveBasisClosed);
+      .curve(d3[curveType]);
 
     // draw the group for this tile which contains all other shapes
     this.group

@@ -8,6 +8,7 @@ function Preview() {
     <SettingsContext.Consumer>
       {context => (
         <TileGroup
+          curveType={context.state.curveType}
           cellWidth={context.state.cellWidth}
           cellHeight={context.state.cellHeight}
           datum={context.state.datum}

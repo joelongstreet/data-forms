@@ -13,6 +13,7 @@ class SettingsProvider extends Component {
     cellSizeMin: 1,
     cellSizeMax: 10,
     cellConstrainRatio: true,
+    curveType: 'curveBasis',
     datum: '39,0,44,0,58,0,69,0,78,0,86,0,92,0,90,0,82,0,70,0,56,0,43,0\n22,28,41,57,70,79,84,81,72,58,41,27',
     defaultSliderStepSize: 0.01,
     effectType: 'etch',
@@ -82,6 +83,9 @@ class SettingsProvider extends Component {
           if (state.cellConstrainRatio) {
             this.setState({ cellWidth: s });
           }
+        },
+        setCurveType: (curveType) => {
+          this.setState({ curveType });
         },
         toggleCellConstrainRatio: () => {
           const { state } = this;

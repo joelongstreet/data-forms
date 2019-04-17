@@ -57,6 +57,7 @@ class TileGroup extends Component {
           <Tile
             cellWidth={this.subProps.cellWidth}
             cellHeight={this.subProps.cellHeight}
+            curveType={this.subProps.curveType}
             data={data}
             dataDomain={this.subProps.dataDomain}
             // eslint-disable-next-line react/no-array-index-key
