@@ -59,6 +59,7 @@ class SettingsProvider extends Component {
         setShapeType: (shapeType) => {
           this.setState({ shapeType });
           if (shapeType === 'isolate') {
+            this.setState({ throughHoleExists: false });
             this.setState({ effectType: 'cut' });
           }
         },
