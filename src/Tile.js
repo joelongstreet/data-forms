@@ -2,7 +2,6 @@ import { Component } from 'react';
 import { select } from 'd3-selection';
 import * as d3 from 'd3';
 
-import scaleRadial from './d3/scale-radial';
 import * as Styles from './Styles';
 import {
   convertDegreesToRadians,
@@ -88,7 +87,7 @@ class Tile extends Component {
       .domain([0, xDomainMax]);
 
     // constrain the y axis to the passed domain
-    const yF = scaleRadial().range([
+    const yF = d3.scaleLinear().range([
       cellWidth / 5,
       Math.sqrt(halfSquared) * 0.5,
     ]).domain(dataDomain);
