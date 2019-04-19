@@ -14,16 +14,20 @@ const { TextArea } = Input;
 
 /* eslint-disable no-multi-spaces */
 const curves = [
-  { functionName: 'curveBasis',             title: 'Basis'        },
-  { functionName: 'curveCardinal',          title: 'Cardinal'     },
-  { functionName: 'curveCatmullRom',        title: 'CatmullRom'   },
-  { functionName: 'curveLinear',            title: 'Linear'       },
-  { functionName: 'curveMonotoneX',         title: 'MonotoneX'    },
-  { functionName: 'curveMonotoneY',         title: 'MonotoneY'    },
-  { functionName: 'curveNatural',           title: 'Natural'      },
-  { functionName: 'curveStep',              title: 'Step'         },
-  { functionName: 'curveStepAfter',         title: 'Step After'   },
-  { functionName: 'curveStepBefore',        title: 'Step Before'  },
+  { functionName: 'curveBasis',             title: 'Basis'              },
+  { functionName: 'curveBasisClosed',       title: 'BasisClosed'        },
+  { functionName: 'curveCardinal',          title: 'Cardinal'           },
+  { functionName: 'curveCardinalClosed',    title: 'Cardinal Closed'    },
+  { functionName: 'curveCatmullRom',        title: 'CatmullRom'         },
+  { functionName: 'curveCatmullRomClosed',  title: 'Catmull-Rom Closed' },
+  { functionName: 'curveLinear',            title: 'Linear'             },
+  { functionName: 'curveLinearClosed',      title: 'Linear Closed'      },
+  { functionName: 'curveMonotoneX',         title: 'MonotoneX'          },
+  { functionName: 'curveMonotoneY',         title: 'MonotoneY'          },
+  { functionName: 'curveNatural',           title: 'Natural'            },
+  { functionName: 'curveStep',              title: 'Step'               },
+  { functionName: 'curveStepAfter',         title: 'Step After'         },
+  { functionName: 'curveStepBefore',        title: 'Step Before'        },
 ];
 /* eslint-enable no-multi-spaces */
 
@@ -64,6 +68,10 @@ function handleDramatizeChange(val, context) {
   context.setIsDramatic(val);
 }
 
+function handleForceCloseChange(val, context) {
+  context.setForceClose(val);
+}
+
 function handleCurveChange(val, context) {
   const curve = curves[val];
   context.setCurveType(curve.functionName);
@@ -89,6 +97,12 @@ function SettingsDatum() {
             onChange={e => handleDramatizeChange(e.target.checked, context)}
           >
             Dramatize
+          </Checkbox>
+          <Checkbox
+            checked={context.state.forceClose}
+            onChange={e => handleForceCloseChange(e.target.checked, context)}
+          >
+            ForceClose
           </Checkbox>
           <Divider>Examples</Divider>
           <Select

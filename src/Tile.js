@@ -63,6 +63,7 @@ class Tile extends Component {
       curveType,
       data,
       dataDomain,
+      forceClose,
       shapeSideCount,
       shapeType,
       throughHoleExists,
@@ -73,16 +74,18 @@ class Tile extends Component {
       yOffset,
     } = this.props;
 
+    const halfSquared = ((cellWidth / 2) ** 2) * 2;
+
     // create a multidimensional array to give each item an x value (the indece)
     const datum = data.map((d, i) => [i, d]);
-
-    const halfSquared = ((cellWidth / 2) ** 2) * 2;
+    if (forceClose) datum.push([data.length, data[0]]);
 
     // scale the x axis around a circle
     // and to the length of the data set
+    const xDomainMax = forceClose ? datum.length - 1 : datum.length;
     const xF = d3.scaleTime()
       .range([0, 2 * Math.PI])
-      .domain([0, data.length - 1]);
+      .domain([0, xDomainMax]);
 
     // constrain the y axis to the passed domain
     const yF = scaleRadial().range([

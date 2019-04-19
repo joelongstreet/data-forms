@@ -62,6 +62,7 @@ class TileGroup extends Component {
             curveType={this.subProps.curveType}
             data={data}
             dataDomain={this.subProps.dataDomain}
+            forceClose={this.subProps.forceClose}
             // eslint-disable-next-line react/no-array-index-key
             key={i}
             node={this.node}

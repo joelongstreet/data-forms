@@ -91,6 +91,9 @@ class SettingsProvider extends Component {
         setIsDramatic: (isDramatic) => {
           this.setState({ isDramatic });
         },
+        setForceClose: (forceClose) => {
+          this.setState({ forceClose });
+        },
         toggleCellConstrainRatio: () => {
           const { state } = this;
           const bool = !state.cellConstrainRatio;
