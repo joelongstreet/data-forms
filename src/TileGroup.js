@@ -20,10 +20,12 @@ class TileGroup extends Component {
     const dataSets = p
       .datum
       .split('\n')
-      // eslint-disable-next-line arrow-body-style
       .map((ds) => {
-        return ds.split(',')
-          .map(d => Number(d));
+        let row = ds.split(',');
+        if (p.isDramatic) {
+          row = row.reduce((r, a) => r.concat(a, 0), []);
+        }
+        return row.map(d => Number(d));
       });
 
     // find the highest and lowest values for the data set

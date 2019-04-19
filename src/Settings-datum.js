@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Checkbox,
   Divider,
   Form,
   Input,
@@ -51,12 +52,16 @@ examplesOptions.push(
 );
 
 
+function getDefaultCurve(context) {
+  return curves.findIndex(c => c.functionName === context.state.curveType);
+}
+
 function handleExampleChange(val) {
   console.log(val);
 }
 
-function getDefaultCurve(context) {
-  return curves.findIndex(c => c.functionName === context.state.curveType);
+function handleDramatizeChange(val, context) {
+  context.setIsDramatic(val);
 }
 
 function handleCurveChange(val, context) {
@@ -79,6 +84,12 @@ function SettingsDatum() {
               {curveOptions}
             </Select>
           </Form.Item>
+          <Checkbox
+            checked={context.state.isDramatic}
+            onChange={e => handleDramatizeChange(e.target.checked, context)}
+          >
+            Dramatize
+          </Checkbox>
           <Divider>Examples</Divider>
           <Select
             defaultValue={1}
