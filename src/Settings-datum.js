@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Checkbox,
   Divider,
-  Form,
   Input,
   Select,
 } from 'antd';
@@ -82,16 +81,14 @@ function SettingsDatum() {
     <SettingsContext.Consumer>
       {context => (
         <React.Fragment>
-          <Divider>Draw</Divider>
-          <Form.Item label="Curve Stye">
-            <Select
-              defaultValue={getDefaultCurve(context)}
-              style={{ width: '100%' }}
-              onChange={val => handleCurveChange(val, context)}
-            >
-              {curveOptions}
-            </Select>
-          </Form.Item>
+          <Divider>Curve</Divider>
+          <Select
+            defaultValue={getDefaultCurve(context)}
+            style={{ width: '100%', marginBottom: 10 }}
+            onChange={val => handleCurveChange(val, context)}
+          >
+            {curveOptions}
+          </Select>
           <Checkbox
             checked={context.state.isDramatic}
             onChange={e => handleDramatizeChange(e.target.checked, context)}

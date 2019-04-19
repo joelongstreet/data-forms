@@ -41,7 +41,7 @@ function App() {
           <Row>
             <Col
               span={24}
-              style={{ marginTop: 20 }}
+              style={{ marginTop: 20, overflowX: 'scroll' }}
             >
               <Preview />
             </Col>
