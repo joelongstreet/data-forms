@@ -33,12 +33,14 @@ class TileGroup extends Component {
       uniq(
         dataSets.flat(),
       ),
-    );
+    ).reverse();
 
     Object.assign(this.subProps, {
       dataSets,
       dataDomain,
       cellSize: convertUnitsToPixels(p.cellSize, p.units),
+      curveOffsetX: convertUnitsToPixels(p.curveOffsetX, p.units),
+      curveOffsetY: convertUnitsToPixels(p.curveOffsetY, p.units),
       throughHoleRadius: convertUnitsToPixels(p.throughHoleRadius, p.units),
       throughHoleX: convertUnitsToPixels(p.throughHoleX, p.units),
       throughHoleY: convertUnitsToPixels(p.throughHoleY, p.units),
@@ -57,6 +59,9 @@ class TileGroup extends Component {
         {this.subProps.dataSets.map((data, i) => (
           <Tile
             cellSize={this.subProps.cellSize}
+            curveOffsetX={this.subProps.curveOffsetX}
+            curveOffsetY={this.subProps.curveOffsetY}
+            curveScale={this.subProps.curveScale}
             curveType={this.subProps.curveType}
             data={data}
             dataDomain={this.subProps.dataDomain}

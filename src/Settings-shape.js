@@ -81,6 +81,30 @@ function SettingsShape() {
             min={0}
             max={context.state.cellSize}
           />
+
+          <Divider style={{ marginTop: 50 }}>Curve</Divider>
+          <UnitSlider
+            label="Scale"
+            hideUnits
+            onChange={context.setCurveScale}
+            value={context.state.curveScale}
+            min={-2}
+            max={2}
+          />
+          <UnitSlider
+            label="X"
+            onChange={context.setCurveOffsetX}
+            value={context.state.curveOffsetX}
+            min={-1 * context.state.cellSize}
+            max={context.state.cellSize}
+          />
+          <UnitSlider
+            label="Y"
+            onChange={context.setCurveOffsetY}
+            value={context.state.curveOffsetY}
+            min={-1 * context.state.cellSize}
+            max={context.state.cellSize}
+          />
         </React.Fragment>
       )}
     </SettingsContext.Consumer>

@@ -11,7 +11,10 @@ class SettingsProvider extends Component {
     cellSize: 4,
     cellSizeMin: 1,
     cellSizeMax: 10,
-    curveType: 'curveBasis',
+    curveScale: 0.5,
+    curveOffsetX: 0,
+    curveOffsetY: 0.2,
+    curveType: 'curveBasisClosed',
     datum: '39,44,58,69,78,86,92,90,82,70,56,43\n22,28,41,57,70,79,84,81,72,58,41,27\n61,65,73,80,86,92,96,96,90,82,71,63\n23,28,31,43,53,59,62,61,55,43,28,25',
     defaultSliderStepSize: 0.01,
     effectType: 'etch',
@@ -24,8 +27,8 @@ class SettingsProvider extends Component {
     shapeSideCount: 4,
     showSurround: true,
     throughHoleExists: true,
-    throughHoleRadius: 0.25,
-    throughHoleX: 3.5,
+    throughHoleRadius: 0.12,
+    throughHoleX: 2,
     throughHoleY: 0.5,
     units: 'in',
   }
@@ -81,6 +84,15 @@ class SettingsProvider extends Component {
         },
         setCurveType: (curveType) => {
           this.setState({ curveType });
+        },
+        setCurveScale: (curveScale) => {
+          this.setState({ curveScale: round(curveScale, 2) });
+        },
+        setCurveOffsetX: (curveOffsetX) => {
+          this.setState({ curveOffsetX: round(curveOffsetX, 2) });
+        },
+        setCurveOffsetY: (curveOffsetY) => {
+          this.setState({ curveOffsetY: round(curveOffsetY, 2) });
         },
         setIsDramatic: (isDramatic) => {
           this.setState({ isDramatic });

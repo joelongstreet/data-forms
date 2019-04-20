@@ -13,7 +13,7 @@ import {
 // rotate each polygon a certain number of degrees
 // dependent on the number of sides
 const rotationMap = {
-  3: -90, 4: 45, 5: -18, 6: 0, 7: 38.5, 8: 0,
+  3: -90, 4: 0, 5: -18, 6: 0, 7: 38.5, 8: 0,
 };
 
 // straight lines to connect the vertices of a polygon
@@ -58,6 +58,9 @@ class Tile extends Component {
   updateSvg() {
     const {
       cellSize,
+      curveOffsetX,
+      curveOffsetY,
+      curveScale,
       curveType,
       data,
       dataDomain,
@@ -89,11 +92,11 @@ class Tile extends Component {
 
     if (lineType === 'linear') {
       xF = d3.scaleLinear()
-        .range([0, cellSize])
+        .range([0, cellSize * curveScale])
         .domain([0, xDomainMax]);
 
       yF = d3.scaleLinear()
-        .range([0, cellSize])
+        .range([0, cellSize * curveScale])
         .domain(dataDomain);
 
       lineF = d3.line()
@@ -105,8 +108,8 @@ class Tile extends Component {
         .domain([0, xDomainMax]);
 
       yF = d3.scaleLinear().range([
-        cellSize / 5,
-        Math.sqrt(halfSquared) * 0.5,
+        (cellSize / 5) * curveScale,
+        (Math.sqrt(halfSquared)) * curveScale,
       ]).domain(dataDomain);
 
       lineF = d3.lineRadial()
@@ -151,6 +154,9 @@ class Tile extends Component {
     }
 
     const translate = lineType === 'radial' ? [cellSize / 2, cellSize / 2] : [0, 0];
+    translate[0] += curveOffsetX;
+    translate[1] += curveOffsetY;
+
     this.group
       .append('path')
       .attr(
