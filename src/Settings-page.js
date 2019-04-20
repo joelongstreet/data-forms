@@ -49,19 +49,15 @@ const presets = [
   },
 ];
 
-const presetOptions = presets.map((p, i) => {
-  return <Option key={p.name} value={i}>{p.name}</Option>;
-});
-presetOptions.push(
-  <Option key="default" value={presets.length}>Custom</Option>,
-);
+const presetOptions = presets.map((p, i) => <Option key={p.name} value={i}>{p.name}</Option>);
+presetOptions.push(<Option key="default" value={presets.length}>Custom</Option>);
 
 function handlePresetChange(val, context) {
   if (context.state.units !== 'in') {
     context.setUnits('in');
   }
 
-  const current = { width: context.state.pageWidth, height: context.state.pageHeight }
+  const current = { width: context.state.pageWidth, height: context.state.pageHeight };
   const dimensions = presets[val] || current;
   context.setPageHeight(dimensions.height);
   context.setPageWidth(dimensions.width);

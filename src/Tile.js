@@ -62,6 +62,7 @@ class Tile extends Component {
       curveType,
       data,
       dataDomain,
+      lineType,
       forceClose,
       shapeSideCount,
       shapeType,
@@ -82,20 +83,39 @@ class Tile extends Component {
     // scale the x axis around a circle
     // and to the length of the data set
     const xDomainMax = forceClose ? datum.length - 1 : datum.length;
-    const xF = d3.scaleTime()
-      .range([0, 2 * Math.PI])
-      .domain([0, xDomainMax]);
 
-    // constrain the y axis to the passed domain
-    const yF = d3.scaleLinear().range([
-      cellWidth / 5,
-      Math.sqrt(halfSquared) * 0.5,
-    ]).domain(dataDomain);
+    let xF;
+    let yF;
+    let lineF;
 
-    const lineF = d3.lineRadial()
-      .angle(d => xF(d[0]))
-      .radius(d => yF(d[1]))
-      .curve(d3[curveType]);
+    if (lineType === 'linear') {
+      xF = d3.scaleLinear()
+        .range([0, cellWidth])
+        .domain([0, xDomainMax]);
+
+      yF = d3.scaleLinear()
+        .range([0, cellHeight])
+        .domain(dataDomain);
+
+      lineF = d3.line()
+        .x(d => xF(d[0]))
+        .y(d => yF(d[1]));
+    } else if (lineType === 'radial') {
+      xF = d3.scaleTime()
+        .range([0, 2 * Math.PI])
+        .domain([0, xDomainMax]);
+
+      yF = d3.scaleLinear().range([
+        cellWidth / 5,
+        Math.sqrt(halfSquared) * 0.5,
+      ]).domain(dataDomain);
+
+      lineF = d3.lineRadial()
+        .angle(d => xF(d[0]))
+        .radius(d => yF(d[1]));
+    }
+
+    lineF.curve(d3[curveType]);
 
     // draw the group for this tile which contains all other shapes
     this.group
@@ -131,11 +151,12 @@ class Tile extends Component {
       }
     }
 
+    const translate = lineType === 'radial' ? [cellWidth / 2, cellHeight / 2] : [0, 0];
     this.group
       .append('path')
       .attr(
         'transform',
-        `translate(${(cellWidth / 2)}, ${(cellWidth / 2)})`,
+        `translate(${translate[0]}, ${translate[1]})`,
       )
       .datum(datum)
       .attr('fill', 'none')

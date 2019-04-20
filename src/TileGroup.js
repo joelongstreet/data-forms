@@ -65,6 +65,7 @@ class TileGroup extends Component {
             forceClose={this.subProps.forceClose}
             // eslint-disable-next-line react/no-array-index-key
             key={i}
+            lineType={this.subProps.lineType}
             node={this.node}
             shapeSideCount={this.subProps.shapeSideCount}
             shapeType={this.subProps.shapeType}

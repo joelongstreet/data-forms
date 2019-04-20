@@ -12,6 +12,7 @@ function Preview() {
           cellWidth={context.state.cellWidth}
           cellHeight={context.state.cellHeight}
           datum={context.state.datum}
+          lineType={context.state.lineType}
           forceClose={context.state.forceClose}
           isDramatic={context.state.isDramatic}
           shapeSideCount={context.state.shapeSideCount}

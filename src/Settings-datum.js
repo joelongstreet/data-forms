@@ -1,8 +1,11 @@
 import React from 'react';
 import {
   Checkbox,
+  Col,
   Divider,
   Input,
+  Radio,
+  Row,
   Select,
 } from 'antd';
 
@@ -63,14 +66,6 @@ function handleExampleChange(val) {
   console.log(val);
 }
 
-function handleDramatizeChange(val, context) {
-  context.setIsDramatic(val);
-}
-
-function handleForceCloseChange(val, context) {
-  context.setForceClose(val);
-}
-
 function handleCurveChange(val, context) {
   const curve = curves[val];
   context.setCurveType(curve.functionName);
@@ -82,6 +77,21 @@ function SettingsDatum() {
       {context => (
         <React.Fragment>
           <Divider>Curve</Divider>
+          <Row>
+            <Col>
+              <Radio.Group
+                style={{
+                  margin: 'auto', marginBottom: 20, display: 'block', textAlign: 'center',
+                }}
+                value={context.state.lineType}
+                buttonStyle="solid"
+                onChange={e => context.setLineType(e.target.value)}
+              >
+                <Radio.Button value="radial">Radial</Radio.Button>
+                <Radio.Button value="linear">Linear</Radio.Button>
+              </Radio.Group>
+            </Col>
+          </Row>
           <Select
             defaultValue={getDefaultCurve(context)}
             style={{ width: '100%', marginBottom: 10 }}
@@ -91,13 +101,14 @@ function SettingsDatum() {
           </Select>
           <Checkbox
             checked={context.state.isDramatic}
-            onChange={e => handleDramatizeChange(e.target.checked, context)}
+            onChange={e => context.setIsDramatic(e.target.checked)}
           >
             Dramatize
           </Checkbox>
           <Checkbox
             checked={context.state.forceClose}
-            onChange={e => handleForceCloseChange(e.target.checked, context)}
+            disabled={context.state.lineType === 'linear'}
+            onChange={e => context.setForceClose(e.target.checked)}
           >
             ForceClose
           </Checkbox>
@@ -113,6 +124,7 @@ function SettingsDatum() {
           <TextArea
             rows={10}
             value={context.state.datum}
+            style={{ fontFamily: 'monospace' }}
             onChange={e => context.setDatum(e.target.value)}
           />
         </React.Fragment>

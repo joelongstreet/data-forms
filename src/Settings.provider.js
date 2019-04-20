@@ -14,10 +14,11 @@ class SettingsProvider extends Component {
     cellSizeMax: 10,
     cellConstrainRatio: true,
     curveType: 'curveBasis',
-    datum: '39,44,58,69,78,86,92,90,82,70,56,43\n22,28,41,57,70,79,84,81,72,58,41,27\n61,65,73,80,86,92,96,96,90,82,71\n23,28,31,43,53,59,62,61,55,43,28,25',
+    datum: '39,44,58,69,78,86,92,90,82,70,56,43\n22,28,41,57,70,79,84,81,72,58,41,27\n61,65,73,80,86,92,96,96,90,82,71,63\n23,28,31,43,53,59,62,61,55,43,28,25',
     defaultSliderStepSize: 0.01,
     effectType: 'etch',
     isDramatic: true,
+    lineType: 'radial',
     pageWidth: 24,
     pageWidthMax: 48,
     pageHeight: 12,
@@ -39,6 +40,8 @@ class SettingsProvider extends Component {
   ]
 
   render() {
+    const { children } = this.props;
+
     return (
       <SettingsContext.Provider value={{
         state: this.state,
@@ -94,6 +97,12 @@ class SettingsProvider extends Component {
         setForceClose: (forceClose) => {
           this.setState({ forceClose });
         },
+        setLineType: (lineType) => {
+          if (lineType === 'linear') {
+            this.setState({ forceClose: false });
+          }
+          this.setState({ lineType });
+        },
         toggleCellConstrainRatio: () => {
           const { state } = this;
           const bool = !state.cellConstrainRatio;
@@ -130,7 +139,7 @@ class SettingsProvider extends Component {
         },
       }}
       >
-        {this.props.children}
+        {children}
       </SettingsContext.Provider>
     );
   }
