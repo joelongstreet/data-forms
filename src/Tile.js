@@ -13,7 +13,7 @@ import {
 // rotate each polygon a certain number of degrees
 // dependent on the number of sides
 const rotationMap = {
-  3: -90, 4: 45, 5: -18, 6: 0, 7: 13, 8: 1,
+  3: -90, 4: 45, 5: -18, 6: 0, 7: 38.5, 8: 0,
 };
 
 // straight lines to connect the vertices of a polygon
