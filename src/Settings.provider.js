@@ -1,10 +1,6 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
-import { zipObject, round } from 'lodash';
-
-import { inchesPerCentimenter, centimetersPerInch } from './util';
 import SettingsContext from './Settings.context';
-
-const precision = 2;
 
 class SettingsProvider extends Component {
   state = {
@@ -21,7 +17,7 @@ class SettingsProvider extends Component {
     etchWidth: 0.01,
     isDramatic: true,
     lineType: 'radial',
-    pageWidth: 24,
+    pageWidth: 16,
     pageWidthMax: 48,
     pageHeight: 12,
     pageHeightMax: 96,
@@ -34,35 +30,35 @@ class SettingsProvider extends Component {
     units: 'in',
   }
 
-  getStateKeysWithUnits = () => [
-    'defaultSliderStepSize',
-    'cellSize', 'cellSizeMin', 'cellSizeMax',
-    'throughHoleRadius', 'throughHoleX', 'throughHoleY',
-    'pageWidth', 'pageWidthMax', 'pageHeight', 'pageHeightMax',
-  ]
-
   render() {
     const { children } = this.props;
 
     return (
       <SettingsContext.Provider value={{
         state: this.state,
-        setUnits: (unit) => {
-          const { state } = this;
-          if (state.units !== unit) {
-            const factor = unit === 'cm' ? centimetersPerInch : inchesPerCentimenter;
-
-            const keys = this.getStateKeysWithUnits();
-            const zipped = zipObject(
-              keys,
-              keys.map(key => round(state[key] * factor, precision)),
-            );
-            this.setState(zipped);
-          }
-
-          this.setState({ units: unit });
-        },
+        setCellSize: cellSize => this.setState({ cellSize }),
+        setCurveType: curveType => this.setState({ curveType }),
+        setCurveScale: curveScale => this.setState({ curveScale }),
+        setCurveOffsetX: curveOffsetX => this.setState({ curveOffsetX }),
+        setCurveOffsetY: curveOffsetY => this.setState({ curveOffsetY }),
         setDatum: datum => this.setState({ datum }),
+        setEffectType: effectType => this.setState({ effectType }),
+        setEtchWidth: etchWidth => this.setState({ etchWidth }),
+        setForceClose: forceClose => this.setState({ forceClose }),
+        setIsDramatic: isDramatic => this.setState({ isDramatic }),
+        setLineType: (lineType) => {
+          if (lineType === 'linear') {
+            this.setState({ forceClose: false });
+          }
+          this.setState({ lineType });
+        },
+        setPageWidth: pageWidth => this.setState({ pageWidth }),
+        setPageHeight: pageHeight => this.setState({ pageHeight }),
+        setShapeSideCount: shapeSideCount => this.setState({ shapeSideCount }),
+        setThroughHoleRadius: throughHoleRadius => this.setState({ throughHoleRadius }),
+        setThroughHoleX: throughHoleX => this.setState({ throughHoleX }),
+        setThroughHoleY: throughHoleY => this.setState({ throughHoleY }),
+        setUnits: units => this.setState({ units }),
         toggleShowSurround: () => {
           const { state } = this;
           const bool = !state.showSurround;
@@ -75,22 +71,6 @@ class SettingsProvider extends Component {
             showSurround: bool,
           });
         },
-        setEffectType: effectType => this.setState({ effectType }),
-        setShapeSideCount: shapeSideCount => this.setState({ shapeSideCount }),
-        setCellSize: cellSize => this.setState({ cellSize }),
-        setCurveType: curveType => this.setState({ curveType }),
-        setCurveScale: curveScale => this.setState({ curveScale }),
-        setCurveOffsetX: curveOffsetX => this.setState({ curveOffsetX }),
-        setCurveOffsetY: curveOffsetY => this.setState({ curveOffsetY }),
-        setEtchWidth: etchWidth => this.setState({ etchWidth }),
-        setIsDramatic: isDramatic => this.setState({ isDramatic }),
-        setForceClose: forceClose => this.setState({ forceClose }),
-        setLineType: (lineType) => {
-          if (lineType === 'linear') {
-            this.setState({ forceClose: false });
-          }
-          this.setState({ lineType });
-        },
         toggleThroughHoleExists: () => {
           const { state } = this;
           const bool = !state.throughHoleExists;
@@ -98,11 +78,6 @@ class SettingsProvider extends Component {
             throughHoleExists: bool,
           });
         },
-        setThroughHoleRadius: throughHoleRadius => this.setState({ throughHoleRadius }),
-        setThroughHoleX: throughHoleX => this.setState({ throughHoleX }),
-        setThroughHoleY: throughHoleY => this.setState({ throughHoleY }),
-        setPageWidth: pageWidth => this.setState({ pageWidth }),
-        setPageHeight: pageHeight => this.setState({ pageHeight }),
       }}
       >
         {children}
