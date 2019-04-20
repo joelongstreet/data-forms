@@ -3,7 +3,6 @@ import {
   Checkbox,
   Col,
   Divider,
-  Radio,
   Row,
 } from 'antd';
 
@@ -16,26 +15,11 @@ function SettingsShape() {
     <SettingsContext.Consumer>
       {context => (
         <React.Fragment>
-          <Divider>Form</Divider>
-
-          <Row>
-            <Col span={10} offset={2}>
-              <Radio.Group
-                value={context.state.effectType}
-                buttonStyle="solid"
-                onChange={e => context.setEffectType(e.target.value)}
-              >
-                <Radio.Button value="etch" disabled={context.state.shapeType === 'isolate'}>Etch</Radio.Button>
-                <Radio.Button value="cut">Cut</Radio.Button>
-              </Radio.Group>
-            </Col>
-          </Row>
-
-          <Divider>Cell</Divider>
+          <Divider>Surround</Divider>
           <Row>
             <Col>
               <Checkbox
-                style={{ float: 'right', marginBottom: 20 }}
+                style={{ float: 'right', marginBottom: 10 }}
                 checked={context.state.showSurround}
                 onChange={context.toggleShowSurround}
               >
@@ -63,11 +47,11 @@ function SettingsShape() {
             hideUnits
           />
 
-          <Divider>Through</Divider>
+          <Divider style={{ marginTop: 50 }}>Through</Divider>
           <Row>
             <Col>
               <Checkbox
-                style={{ float: 'right', marginBottom: 20 }}
+                style={{ float: 'right', marginBottom: 10 }}
                 checked={context.state.throughHoleExists}
                 onChange={context.toggleThroughHoleExists}
               >

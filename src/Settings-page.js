@@ -63,31 +63,24 @@ function handlePresetChange(val, context) {
   context.setPageWidth(dimensions.width);
 }
 
-function SettingsShape() {
+function SettingsPage() {
   return (
     <SettingsContext.Consumer>
       {context => (
         <React.Fragment>
-          <Divider>Units</Divider>
+          <Divider>Setup</Divider>
 
-          <Row>
+          <Row style={{ marginBottom: 10 }}>
             <Col>
               <Radio.Group
-                style={{ margin: 'auto', display: 'block', textAlign: 'center' }}
+                style={{ margin: 'auto', display: 'block', float: 'left' }}
                 value={context.state.units}
                 buttonStyle="solid"
                 onChange={e => context.setUnits(e.target.value)}
               >
-                <Radio.Button value="in">Inches</Radio.Button>
-                <Radio.Button value="cm">Centimeters</Radio.Button>
+                <Radio.Button value="in">in</Radio.Button>
+                <Radio.Button value="cm">cm</Radio.Button>
               </Radio.Group>
-            </Col>
-          </Row>
-
-          <Divider>Dimensions</Divider>
-
-          <Row style={{ marginBottom: 10 }}>
-            <Col>
               <Select defaultValue={6} style={{ width: 200, float: 'right' }} onChange={val => handlePresetChange(val, context)}>
                 {presetOptions}
               </Select>
@@ -114,4 +107,4 @@ function SettingsShape() {
   );
 }
 
-export default SettingsShape;
+export default SettingsPage;

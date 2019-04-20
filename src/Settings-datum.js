@@ -20,7 +20,7 @@ const curves = [
   { functionName: 'curveBasisClosed',       title: 'BasisClosed'        },
   { functionName: 'curveCardinal',          title: 'Cardinal'           },
   { functionName: 'curveCardinalClosed',    title: 'Cardinal Closed'    },
-  { functionName: 'curveCatmullRom',        title: 'CatmullRom'         },
+  { functionName: 'curveCatmullRom',        title: 'Catmull-Rom'        },
   { functionName: 'curveCatmullRomClosed',  title: 'Catmull-Rom Closed' },
   { functionName: 'curveLinear',            title: 'Linear'             },
   { functionName: 'curveLinearClosed',      title: 'Linear Closed'      },
@@ -76,42 +76,6 @@ function SettingsDatum() {
     <SettingsContext.Consumer>
       {context => (
         <React.Fragment>
-          <Divider>Curve</Divider>
-          <Row>
-            <Col>
-              <Radio.Group
-                style={{
-                  margin: 'auto', marginBottom: 20, display: 'block', textAlign: 'center',
-                }}
-                value={context.state.lineType}
-                buttonStyle="solid"
-                onChange={e => context.setLineType(e.target.value)}
-              >
-                <Radio.Button value="radial">Radial</Radio.Button>
-                <Radio.Button value="linear">Linear</Radio.Button>
-              </Radio.Group>
-            </Col>
-          </Row>
-          <Select
-            defaultValue={getDefaultCurve(context)}
-            style={{ width: '100%', marginBottom: 10 }}
-            onChange={val => handleCurveChange(val, context)}
-          >
-            {curveOptions}
-          </Select>
-          <Checkbox
-            checked={context.state.isDramatic}
-            onChange={e => context.setIsDramatic(e.target.checked)}
-          >
-            Dramatize
-          </Checkbox>
-          <Checkbox
-            checked={context.state.forceClose}
-            disabled={context.state.lineType === 'linear'}
-            onChange={e => context.setForceClose(e.target.checked)}
-          >
-            ForceClose
-          </Checkbox>
           <Divider>Examples</Divider>
           <Select
             defaultValue={1}
@@ -120,7 +84,58 @@ function SettingsDatum() {
           >
             {examplesOptions}
           </Select>
-          <Divider>Data Entry</Divider>
+
+          <Divider style={{ marginTop: 50 }}>Curve</Divider>
+          <Row style={{ marginBottom: 10 }}>
+            <Col style={{ float: 'right' }}>
+              <Checkbox
+                checked={context.state.isDramatic}
+                onChange={e => context.setIsDramatic(e.target.checked)}
+              >
+                Dramatize
+              </Checkbox>
+              <Checkbox
+                checked={context.state.forceClose}
+                disabled={context.state.lineType === 'linear'}
+                onChange={e => context.setForceClose(e.target.checked)}
+              >
+                Close Path
+              </Checkbox>
+            </Col>
+          </Row>
+          <Select
+            defaultValue={getDefaultCurve(context)}
+            style={{ width: '100%', marginBottom: 15 }}
+            onChange={val => handleCurveChange(val, context)}
+          >
+            {curveOptions}
+          </Select>
+          <Row style={{ marginBottom: 10 }}>
+            <Col span={12}>
+              <Radio.Group
+                value={context.state.lineType}
+                buttonStyle="solid"
+                onChange={e => context.setLineType(e.target.value)}
+              >
+                <Radio.Button value="radial">Radial</Radio.Button>
+                <Radio.Button value="linear">Linear</Radio.Button>
+              </Radio.Group>
+            </Col>
+
+            <Col span={12}>
+              <Radio.Group
+                value={context.state.effectType}
+                buttonStyle="solid"
+                onChange={e => context.setEffectType(e.target.value)}
+                style={{ float: 'right' }}
+              >
+                <Radio.Button value="etch" disabled={context.state.shapeType === 'isolate'}>Etch</Radio.Button>
+                <Radio.Button value="cut">Cut</Radio.Button>
+              </Radio.Group>
+            </Col>
+          </Row>
+
+          <Divider style={{ marginTop: 50 }}>Data Entry</Divider>
           <TextArea
             rows={10}
             value={context.state.datum}

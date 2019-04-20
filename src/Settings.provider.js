@@ -62,6 +62,11 @@ class SettingsProvider extends Component {
         toggleShowSurround: () => {
           const { state } = this;
           const bool = !state.showSurround;
+          if (!bool) {
+            this.setState({
+              throughHoleExists: false,
+            });
+          }
           this.setState({
             showSurround: bool,
           });

@@ -13,8 +13,8 @@ const { TabPane } = Tabs;
 
 function Settings() {
   return (
-    <Tabs defaultActiveKey="1" tabBarStyle={{ textAlign: 'center' }}>
-      <TabPane tab="Form" key="1">
+    <Tabs defaultActiveKey="2" tabBarStyle={{ textAlign: 'center' }}>
+      <TabPane tab="Shape" key="1">
         <Row>
           <Col span={20} offset={2}>
             <SettingsShape />
