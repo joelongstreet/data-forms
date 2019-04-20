@@ -15,7 +15,7 @@ function Preview() {
           forceClose={context.state.forceClose}
           isDramatic={context.state.isDramatic}
           shapeSideCount={context.state.shapeSideCount}
-          shapeType={context.state.shapeType}
+          showSurround={context.state.showSurround}
           throughHoleExists={context.state.throughHoleExists}
           throughHoleRadius={context.state.throughHoleRadius}
           throughHoleX={context.state.throughHoleX}

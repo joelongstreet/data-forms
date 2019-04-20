@@ -21,8 +21,8 @@ class SettingsProvider extends Component {
     pageWidthMax: 48,
     pageHeight: 12,
     pageHeightMax: 96,
-    shapeType: 'surround',
     shapeSideCount: 4,
+    showSurround: true,
     throughHoleExists: true,
     throughHoleRadius: 0.25,
     throughHoleX: 3.5,
@@ -59,12 +59,12 @@ class SettingsProvider extends Component {
           this.setState({ units: unit });
         },
         setDatum: datum => this.setState({ datum }),
-        setShapeType: (shapeType) => {
-          this.setState({ shapeType });
-          if (shapeType === 'isolate') {
-            this.setState({ throughHoleExists: false });
-            this.setState({ effectType: 'cut' });
-          }
+        toggleShowSurround: () => {
+          const { state } = this;
+          const bool = !state.showSurround;
+          this.setState({
+            showSurround: bool,
+          });
         },
         setEffectType: effectType => this.setState({ effectType }),
         setShapeSideCount: shapeSideCount => this.setState({

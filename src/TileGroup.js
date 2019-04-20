@@ -66,7 +66,7 @@ class TileGroup extends Component {
             lineType={this.subProps.lineType}
             node={this.node}
             shapeSideCount={this.subProps.shapeSideCount}
-            shapeType={this.subProps.shapeType}
+            showSurround={this.subProps.showSurround}
             throughHoleExists={this.subProps.throughHoleExists}
             throughHoleRadius={this.subProps.throughHoleRadius}
             throughHoleX={this.subProps.throughHoleX}

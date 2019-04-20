@@ -19,6 +19,7 @@ function UnitSlider(props) {
           </Col>
           <Col span={14}>
             <Slider
+              disabled={props.disabled}
               value={props.value}
               min={props.min}
               max={props.max}
@@ -28,6 +29,7 @@ function UnitSlider(props) {
           </Col>
           <Col span={6}>
             <InputNumber
+              disabled={props.disabled}
               style={{ float: 'right' }}
               min={props.min}
               max={props.max}

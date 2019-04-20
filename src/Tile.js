@@ -64,7 +64,7 @@ class Tile extends Component {
       lineType,
       forceClose,
       shapeSideCount,
-      shapeType,
+      showSurround,
       throughHoleExists,
       throughHoleRadius,
       throughHoleX,
@@ -126,7 +126,7 @@ class Tile extends Component {
       .attr('height', cellSize);
 
     // optionally draw a surrounding polygon
-    if (shapeType === 'surround') {
+    if (showSurround) {
       const rotation = rotationMap[shapeSideCount] || 0;
       const vertices = getVerticesForSurroundingPolygon(shapeSideCount, cellSize / 2);
 

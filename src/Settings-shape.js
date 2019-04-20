@@ -21,16 +21,6 @@ function SettingsShape() {
           <Row>
             <Col span={10} offset={2}>
               <Radio.Group
-                value={context.state.shapeType}
-                buttonStyle="solid"
-                onChange={e => context.setShapeType(e.target.value)}
-              >
-                <Radio.Button value="surround">Surround</Radio.Button>
-                <Radio.Button value="isolate">Isolate</Radio.Button>
-              </Radio.Group>
-            </Col>
-            <Col span={10} offset={2}>
-              <Radio.Group
                 value={context.state.effectType}
                 buttonStyle="solid"
                 onChange={e => context.setEffectType(e.target.value)}
@@ -42,6 +32,17 @@ function SettingsShape() {
           </Row>
 
           <Divider>Cell</Divider>
+          <Row>
+            <Col>
+              <Checkbox
+                style={{ float: 'right', marginBottom: 20 }}
+                checked={context.state.showSurround}
+                onChange={context.toggleShowSurround}
+              >
+                Show
+              </Checkbox>
+            </Col>
+          </Row>
 
           <UnitSlider
             label="Size"
@@ -51,9 +52,9 @@ function SettingsShape() {
             max={context.state.cellSizeMax}
           />
 
-          { context.state.shapeType === 'surround' && (
           <UnitSlider
             label="Sides"
+            disabled={!context.state.showSurround}
             onChange={context.setShapeSideCount}
             value={context.state.shapeSideCount}
             min={2}
@@ -61,7 +62,6 @@ function SettingsShape() {
             step={1}
             hideUnits
           />
-          )}
 
           <Divider>Through</Divider>
           <Row>
@@ -71,7 +71,7 @@ function SettingsShape() {
                 checked={context.state.throughHoleExists}
                 onChange={context.toggleThroughHoleExists}
               >
-                Through Hole
+                Show
               </Checkbox>
             </Col>
           </Row>
