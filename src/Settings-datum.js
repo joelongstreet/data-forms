@@ -9,6 +9,7 @@ import {
   Select,
 } from 'antd';
 
+import UnitSlider from './UnitSlider';
 import SettingsContext from './Settings.context';
 
 const { Option } = Select;
@@ -134,6 +135,15 @@ function SettingsDatum() {
               </Radio.Group>
             </Col>
           </Row>
+
+          <UnitSlider
+            label="Etch"
+            onChange={context.setEtchWidth}
+            value={context.state.etchWidth}
+            min={0.01}
+            max={0.5}
+            disabled={context.state.effectType !== 'etch'}
+          />
 
           <Divider style={{ marginTop: 50 }}>Data Entry</Divider>
           <TextArea

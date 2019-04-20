@@ -41,6 +41,7 @@ class TileGroup extends Component {
       cellSize: convertUnitsToPixels(p.cellSize, p.units),
       curveOffsetX: convertUnitsToPixels(p.curveOffsetX, p.units),
       curveOffsetY: convertUnitsToPixels(p.curveOffsetY, p.units),
+      etchWidth: convertUnitsToPixels(p.etchWidth, p.units),
       throughHoleRadius: convertUnitsToPixels(p.throughHoleRadius, p.units),
       throughHoleX: convertUnitsToPixels(p.throughHoleX, p.units),
       throughHoleY: convertUnitsToPixels(p.throughHoleY, p.units),
@@ -65,6 +66,8 @@ class TileGroup extends Component {
             curveType={this.subProps.curveType}
             data={data}
             dataDomain={this.subProps.dataDomain}
+            effectType={this.subProps.effectType}
+            etchWidth={this.subProps.etchWidth}
             forceClose={this.subProps.forceClose}
             // eslint-disable-next-line react/no-array-index-key
             key={i}

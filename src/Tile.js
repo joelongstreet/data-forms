@@ -64,6 +64,8 @@ class Tile extends Component {
       curveType,
       data,
       dataDomain,
+      effectType,
+      etchWidth,
       lineType,
       forceClose,
       shapeSideCount,
@@ -157,6 +159,7 @@ class Tile extends Component {
     translate[0] += curveOffsetX;
     translate[1] += curveOffsetY;
 
+    const etchPathWidth = effectType === 'etch' ? etchWidth : 1;
     this.group
       .append('path')
       .attr(
@@ -169,7 +172,7 @@ class Tile extends Component {
       .attr('d', lineF)
       .style('stroke-linecap', 'round')
       .style('stroke-linejoin', 'round')
-      .attr('stroke-width', 3);
+      .attr('stroke-width', etchPathWidth);
 
     if (throughHoleExists) {
       this.group.append('circle')

@@ -14,6 +14,8 @@ function Preview() {
           curveType={context.state.curveType}
           cellSize={context.state.cellSize}
           datum={context.state.datum}
+          effectType={context.state.effectType}
+          etchWidth={context.state.etchWidth}
           lineType={context.state.lineType}
           forceClose={context.state.forceClose}
           isDramatic={context.state.isDramatic}
