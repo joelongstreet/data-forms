@@ -38,13 +38,12 @@ class TileGroup extends Component {
     Object.assign(this.subProps, {
       dataSets,
       dataDomain,
-      cellWidth: convertUnitsToPixels(p.cellWidth, p.units),
-      cellHeight: convertUnitsToPixels(p.cellHeight, p.units),
+      cellSize: convertUnitsToPixels(p.cellSize, p.units),
       throughHoleRadius: convertUnitsToPixels(p.throughHoleRadius, p.units),
       throughHoleX: convertUnitsToPixels(p.throughHoleX, p.units),
       throughHoleY: convertUnitsToPixels(p.throughHoleY, p.units),
     });
-    this.subProps.width = this.subProps.cellWidth * this.subProps.datum.length;
+    this.subProps.width = this.subProps.cellSize * this.subProps.datum.length;
   }
 
   render() {
@@ -53,12 +52,11 @@ class TileGroup extends Component {
       <svg
         ref={(node) => { this.node = node; }}
         width={this.subProps.width}
-        height={this.subProps.cellHeight}
+        height={this.subProps.cellSize}
       >
         {this.subProps.dataSets.map((data, i) => (
           <Tile
-            cellWidth={this.subProps.cellWidth}
-            cellHeight={this.subProps.cellHeight}
+            cellSize={this.subProps.cellSize}
             curveType={this.subProps.curveType}
             data={data}
             dataDomain={this.subProps.dataDomain}
@@ -73,7 +71,7 @@ class TileGroup extends Component {
             throughHoleRadius={this.subProps.throughHoleRadius}
             throughHoleX={this.subProps.throughHoleX}
             throughHoleY={this.subProps.throughHoleY}
-            xOffset={i * this.subProps.cellWidth}
+            xOffset={i * this.subProps.cellSize}
             yOffset={0}
           />
         ))}

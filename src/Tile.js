@@ -57,8 +57,7 @@ class Tile extends Component {
 
   updateSvg() {
     const {
-      cellWidth,
-      cellHeight,
+      cellSize,
       curveType,
       data,
       dataDomain,
@@ -74,7 +73,7 @@ class Tile extends Component {
       yOffset,
     } = this.props;
 
-    const halfSquared = ((cellWidth / 2) ** 2) * 2;
+    const halfSquared = ((cellSize / 2) ** 2) * 2;
 
     // create a multidimensional array to give each item an x value (the indece)
     const datum = data.map((d, i) => [i, d]);
@@ -90,11 +89,11 @@ class Tile extends Component {
 
     if (lineType === 'linear') {
       xF = d3.scaleLinear()
-        .range([0, cellWidth])
+        .range([0, cellSize])
         .domain([0, xDomainMax]);
 
       yF = d3.scaleLinear()
-        .range([0, cellHeight])
+        .range([0, cellSize])
         .domain(dataDomain);
 
       lineF = d3.line()
@@ -106,7 +105,7 @@ class Tile extends Component {
         .domain([0, xDomainMax]);
 
       yF = d3.scaleLinear().range([
-        cellWidth / 5,
+        cellSize / 5,
         Math.sqrt(halfSquared) * 0.5,
       ]).domain(dataDomain);
 
@@ -123,21 +122,21 @@ class Tile extends Component {
         'transform',
         `translate(${xOffset}, ${yOffset})`,
       )
-      .attr('width', cellWidth)
-      .attr('height', cellHeight);
+      .attr('width', cellSize)
+      .attr('height', cellSize);
 
     // optionally draw a surrounding polygon
     if (shapeType === 'surround') {
       const rotation = rotationMap[shapeSideCount] || 0;
-      const vertices = getVerticesForSurroundingPolygon(shapeSideCount, cellWidth / 2);
+      const vertices = getVerticesForSurroundingPolygon(shapeSideCount, cellSize / 2);
 
       if (shapeSideCount === 2) {
         this.group.append('circle')
           .attr('fill', 'none')
           .attr('stroke', Styles.colors[2])
-          .attr('r', cellWidth / 2)
-          .attr('cx', cellWidth / 2)
-          .attr('cy', cellWidth / 2)
+          .attr('r', cellSize / 2)
+          .attr('cx', cellSize / 2)
+          .attr('cy', cellSize / 2)
           .attr('stroke-width', 1);
       } else {
         this.group
@@ -146,12 +145,12 @@ class Tile extends Component {
           .attr('fill', 'none')
           .attr('stroke', Styles.colors[2])
           .attr('stroke-width', 1)
-          .attr('transform', `rotate(${rotation}, ${cellWidth / 2}, ${cellHeight / 2})`)
+          .attr('transform', `rotate(${rotation}, ${cellSize / 2}, ${cellSize / 2})`)
           .attr('d', polygonSurroundLineFunction);
       }
     }
 
-    const translate = lineType === 'radial' ? [cellWidth / 2, cellHeight / 2] : [0, 0];
+    const translate = lineType === 'radial' ? [cellSize / 2, cellSize / 2] : [0, 0];
     this.group
       .append('path')
       .attr(

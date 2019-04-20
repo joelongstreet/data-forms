@@ -5,7 +5,6 @@ import {
   Divider,
   Radio,
   Row,
-  Icon,
 } from 'antd';
 
 import UnitSlider from './UnitSlider';
@@ -44,25 +43,10 @@ function SettingsShape() {
 
           <Divider>Cell</Divider>
 
-          <div style={{ position: 'relative', top: '45px', left: '-30px' }}>
-            { context.state.cellConstrainRatio ? (
-              <Icon type="lock" onClick={context.toggleCellConstrainRatio} />
-            ) : (
-              <Icon type="unlock" onClick={context.toggleCellConstrainRatio} />
-            )}
-          </div>
-
           <UnitSlider
-            label="Width"
-            onChange={context.setCellWidth}
-            value={context.state.cellWidth}
-            min={context.state.cellSizeMin}
-            max={context.state.cellSizeMax}
-          />
-          <UnitSlider
-            label="Height"
-            onChange={context.setCellHeight}
-            value={context.state.cellHeight}
+            label="Size"
+            onChange={context.setCellSize}
+            value={context.state.cellSize}
             min={context.state.cellSizeMin}
             max={context.state.cellSizeMax}
           />
@@ -97,21 +81,21 @@ function SettingsShape() {
             onChange={context.setThroughHoleRadius}
             value={context.state.throughHoleRadius}
             min={0}
-            max={Math.min(context.state.cellHeight, context.state.cellWidth)}
+            max={context.state.cellSize}
           />
           <UnitSlider
             label="X"
             onChange={context.setThroughHoleX}
             value={context.state.throughHoleX}
             min={0}
-            max={context.state.cellWidth}
+            max={context.state.cellSize}
           />
           <UnitSlider
             label="Y"
             onChange={context.setThroughHoleY}
             value={context.state.throughHoleY}
             min={0}
-            max={context.state.cellHeight}
+            max={context.state.cellSize}
           />
         </React.Fragment>
       )}

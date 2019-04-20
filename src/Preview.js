@@ -9,8 +9,7 @@ function Preview() {
       {context => (
         <TileGroup
           curveType={context.state.curveType}
-          cellWidth={context.state.cellWidth}
-          cellHeight={context.state.cellHeight}
+          cellSize={context.state.cellSize}
           datum={context.state.datum}
           lineType={context.state.lineType}
           forceClose={context.state.forceClose}

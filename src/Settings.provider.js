@@ -8,11 +8,9 @@ const precision = 2;
 
 class SettingsProvider extends Component {
   state = {
-    cellWidth: 4,
-    cellHeight: 4,
+    cellSize: 4,
     cellSizeMin: 1,
     cellSizeMax: 10,
-    cellConstrainRatio: true,
     curveType: 'curveBasis',
     datum: '39,44,58,69,78,86,92,90,82,70,56,43\n22,28,41,57,70,79,84,81,72,58,41,27\n61,65,73,80,86,92,96,96,90,82,71,63\n23,28,31,43,53,59,62,61,55,43,28,25',
     defaultSliderStepSize: 0.01,
@@ -34,7 +32,7 @@ class SettingsProvider extends Component {
 
   getStateKeysWithUnits = () => [
     'defaultSliderStepSize',
-    'cellWidth', 'cellHeight', 'cellSizeMin', 'cellSizeMax',
+    'cellSize', 'cellSizeMin', 'cellSizeMax',
     'throughHoleRadius', 'throughHoleX', 'throughHoleY',
     'pageWidth', 'pageWidthMax', 'pageHeight', 'pageHeightMax',
   ]
@@ -72,21 +70,9 @@ class SettingsProvider extends Component {
         setShapeSideCount: shapeSideCount => this.setState({
           shapeSideCount,
         }),
-        setCellWidth: (width) => {
-          const { state } = this;
+        setCellSize: (width) => {
           const s = round(width, 2);
-          this.setState({ cellWidth: s });
-          if (state.cellConstrainRatio) {
-            this.setState({ cellHeight: s });
-          }
-        },
-        setCellHeight: (height) => {
-          const { state } = this;
-          const s = round(height, 2);
-          this.setState({ cellHeight: s });
-          if (state.cellConstrainRatio) {
-            this.setState({ cellWidth: s });
-          }
+          this.setState({ cellSize: s });
         },
         setCurveType: (curveType) => {
           this.setState({ curveType });
@@ -102,13 +88,6 @@ class SettingsProvider extends Component {
             this.setState({ forceClose: false });
           }
           this.setState({ lineType });
-        },
-        toggleCellConstrainRatio: () => {
-          const { state } = this;
-          const bool = !state.cellConstrainRatio;
-          this.setState({
-            cellConstrainRatio: bool,
-          });
         },
         toggleThroughHoleExists: () => {
           const { state } = this;
