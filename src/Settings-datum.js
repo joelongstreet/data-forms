@@ -141,7 +141,8 @@ function SettingsDatum() {
             onChange={context.setEtchWidth}
             value={context.state.etchWidth}
             min={0.01}
-            max={0.5}
+            step={0.001}
+            max={context.state.etchWidthMax}
             disabled={context.state.effectType !== 'etch'}
           />
 

@@ -1,6 +1,11 @@
-/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
+import { zipObject, round } from 'lodash';
 import SettingsContext from './Settings.context';
+
+import { inchesPerCentimenter, centimetersPerInch } from './util';
+
+const unitConversionPrecision = 2;
+
 
 class SettingsProvider extends Component {
   state = {
@@ -15,6 +20,7 @@ class SettingsProvider extends Component {
     defaultSliderStepSize: 0.01,
     effectType: 'etch',
     etchWidth: 0.01,
+    etchWidthMax: 0.25,
     isDramatic: true,
     lineType: 'radial',
     pageWidth: 16,
@@ -29,6 +35,15 @@ class SettingsProvider extends Component {
     throughHoleY: 0.5,
     units: 'in',
   }
+
+  getStateKeysWithUnits = () => [
+    'defaultSliderStepSize',
+    'cellSize', 'cellSizeMin', 'cellSizeMax',
+    'curveOffsetX', 'curveOffsetY',
+    'etchWidth', 'etchWidthMax',
+    'throughHoleRadius', 'throughHoleX', 'throughHoleY',
+    'pageWidth', 'pageWidthMax', 'pageHeight', 'pageHeightMax',
+  ]
 
   render() {
     const { children } = this.props;
@@ -58,7 +73,20 @@ class SettingsProvider extends Component {
         setThroughHoleRadius: throughHoleRadius => this.setState({ throughHoleRadius }),
         setThroughHoleX: throughHoleX => this.setState({ throughHoleX }),
         setThroughHoleY: throughHoleY => this.setState({ throughHoleY }),
-        setUnits: units => this.setState({ units }),
+        setUnits: (unit) => {
+          const { state } = this;
+          if (state.units !== unit) {
+            const factor = unit === 'cm' ? centimetersPerInch : inchesPerCentimenter;
+
+            const keys = this.getStateKeysWithUnits();
+            const zipped = zipObject(
+              keys,
+              keys.map(key => round(state[key] * factor, unitConversionPrecision)),
+            );
+            this.setState(zipped);
+          }
+          this.setState({ units: unit });
+        },
         toggleShowSurround: () => {
           const { state } = this;
           const bool = !state.showSurround;

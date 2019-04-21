@@ -13,7 +13,7 @@ function convertUnitsToPixels(float, unit) {
     return float * pixelsPerInch;
   }
   if (unit === 'cm') {
-    return float * pixelsPerInch * centimetersPerInch;
+    return (float * pixelsPerInch) / centimetersPerInch;
   }
 
   throw new Error(`${unit} unit not supported`);
