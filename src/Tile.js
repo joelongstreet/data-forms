@@ -160,6 +160,7 @@ class Tile extends Component {
     translate[1] += curveOffsetY;
 
     const etchPathWidth = effectType === 'etch' ? etchWidth : 1;
+    const curveColor = effectType === 'etch' ? Styles.colors[3] : Styles.colors[2];
     this.group
       .append('path')
       .attr(
@@ -168,7 +169,7 @@ class Tile extends Component {
       )
       .datum(datum)
       .attr('fill', 'none')
-      .attr('stroke', Styles.colors[2])
+      .attr('stroke', curveColor)
       .attr('d', lineF)
       .style('stroke-linecap', 'round')
       .style('stroke-linejoin', 'round')

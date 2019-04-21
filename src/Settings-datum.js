@@ -11,6 +11,7 @@ import {
 
 import UnitSlider from './UnitSlider';
 import SettingsContext from './Settings.context';
+import * as Styles from './Styles';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -80,7 +81,7 @@ function SettingsDatum() {
           <Divider>Examples</Divider>
           <Select
             defaultValue={1}
-            style={{ width: '100%' }}
+            style={{ width: '100%', backgroundColor: Styles.colors[7] }}
             onChange={val => handleExampleChange(val, context)}
           >
             {examplesOptions}

@@ -19,7 +19,11 @@ const {
 function App() {
   return (
     <SettingsProvider>
-      <Row style={{ backgroundColor: Styles.colors[0] }}>
+      <Row style={{
+        backgroundColor: Styles.colors[0],
+        borderBottom: `1px solid ${Styles.colors[5]}`,
+      }}
+      >
         <Col span={23} offset={1}>
           <h1 style={{
             fontFamily: "'Share Tech Mono', monospace",
@@ -28,7 +32,6 @@ function App() {
             margin: 0,
             letterSpacing: 20,
             fontSize: '40px',
-            fontWeight: 'bold',
           }}
           >
             DATA FORMS
@@ -36,12 +39,12 @@ function App() {
         </Col>
       </Row>
 
-      <Layout style={{ background: 'none' }}>
+      <Layout style={{ backgroundColor: Styles.colors[0], height: '100%' }}>
         <Content>
           <Row>
             <Col
               span={24}
-              style={{ marginTop: 20, overflowX: 'scroll' }}
+              style={{ marginTop: 50, overflowX: 'scroll' }}
             >
               <Preview />
             </Col>
@@ -51,10 +54,10 @@ function App() {
         <Sider
           width={500}
           style={{
-            background: Styles.colors[1],
+            background: Styles.colors[0],
             marginRight: 20,
             marginTop: -35,
-            border: `1px solid ${Styles.colors[0]}`,
+            border: `1px solid ${Styles.colors[5]}`,
             borderBottom: 'none',
             paddingBottom: 50,
           }}

@@ -1,10 +1,14 @@
 const colors = [
-  '#262626', // almost black
-  '#ffffff', // white
-  '#eb2f96', // magenta
-  '#1890ff', // blue
-  '#faad14', // gold
+  'rgb(36, 41, 52)', // black
+  'rgb(203, 204, 198)', // white
+  'rgb(212, 193, 253)', // purple
+  'rgb(187, 229, 131)', // green
+  'rgb(244, 205, 130)', // gold
+  'rgb(90, 101, 112)', // grey (white)
+  'rgb(240, 135, 123)', // red,
+  'rgb(45, 55, 65)', // grey (black)
 ];
 
-// eslint-disable-next-line import/prefer-default-export
-export { colors };
+module.exports = {
+  colors,
+};
