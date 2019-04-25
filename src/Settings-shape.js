@@ -66,6 +66,7 @@ function SettingsShape() {
             value={context.state.throughHoleRadius}
             min={0}
             max={context.state.cellSize}
+            disabled={!context.state.throughHoleExists}
           />
           <UnitSlider
             label="X"
@@ -73,6 +74,7 @@ function SettingsShape() {
             value={context.state.throughHoleX}
             min={0}
             max={context.state.cellSize}
+            disabled={!context.state.throughHoleExists}
           />
           <UnitSlider
             label="Y"
@@ -80,6 +82,7 @@ function SettingsShape() {
             value={context.state.throughHoleY}
             min={0}
             max={context.state.cellSize}
+            disabled={!context.state.throughHoleExists}
           />
 
           <Divider style={{ marginTop: 50 }}>Curve</Divider>
