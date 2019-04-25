@@ -7,6 +7,7 @@ const colors = [
   'rgb(90, 101, 112)', // grey (white)
   'rgb(240, 135, 123)', // red,
   'rgb(45, 55, 65)', // grey (black)
+  'rgb(255, 255, 255)', // white white
 ];
 
 module.exports = {

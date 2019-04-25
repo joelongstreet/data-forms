@@ -9,6 +9,7 @@ import * as Styles from './Styles';
 import Preview from './Preview';
 import Settings from './Settings';
 import SettingsProvider from './Settings.provider';
+import Footer from './Footer';
 import Analytics from './Analytics';
 
 const {
@@ -27,11 +28,12 @@ function App() {
         <Col span={23} offset={1}>
           <h1 style={{
             fontFamily: "'Share Tech Mono', monospace",
-            color: Styles.colors[1],
+            color: Styles.colors[8],
             padding: '10px 0 7px 0',
             margin: 0,
             letterSpacing: 20,
             fontSize: '40px',
+            textShadow: '2px 2px 2px black',
           }}
           >
             DATA FORMS
@@ -56,7 +58,7 @@ function App() {
           style={{
             background: Styles.colors[0],
             marginRight: 20,
-            marginTop: -35,
+            marginTop: -45,
             border: `1px solid ${Styles.colors[5]}`,
             borderBottom: 'none',
             paddingBottom: 50,
@@ -64,8 +66,8 @@ function App() {
         >
           <Settings />
         </Sider>
-
       </Layout>
+      <Footer />
       <Analytics />
     </SettingsProvider>
   );
