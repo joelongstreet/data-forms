@@ -57,7 +57,7 @@ function SettingsShape() {
               <Checkbox
                 style={{ float: 'right', marginBottom: 10 }}
                 checked={context.state.showSurround}
-                onChange={context.toggleShowSurround}
+                onChange={e => context.setShowSurround(e.target.checked)}
               >
                 Show
               </Checkbox>
@@ -89,7 +89,7 @@ function SettingsShape() {
               <Checkbox
                 style={{ float: 'right', marginBottom: 10 }}
                 checked={context.state.throughHoleExists}
-                onChange={context.toggleThroughHoleExists}
+                onChange={e => context.setThroughHoleExists(e.target.checked)}
               >
                 Show
               </Checkbox>

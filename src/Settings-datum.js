@@ -9,6 +9,7 @@ import {
   Select,
 } from 'antd';
 
+import Examples from './Examples';
 import UnitSlider from './UnitSlider';
 import SettingsContext from './Settings.context';
 import * as Styles from './Styles';
@@ -16,31 +17,24 @@ import * as Styles from './Styles';
 const { Option } = Select;
 const { TextArea } = Input;
 
-const examples = [
-  {
-    title: 'Median Antarctic annual temperature (1900 - 2018)', // walnut on a dowel
-    isolate: true,
-  },
-  {
-    title: 'Daily S&P 500 closing price, grouped by financial quarter (2004 - 2012)',
-    shapeSideCount: 1,
-  },
-  {
-    title: 'Annual sum of singles, doubles and triples for the Kansas City Royals (1969-2018)', // blue plastic discs with labels
-    isolate: true,
-  },
-];
-
 /* eslint-disable react/no-array-index-key */
-const examplesOptions = examples.map((e, i) => <Option key={i} value={i}>{e.title}</Option>);
+const examplesOptions = Examples.map((e, i) => <Option key={i} value={i}>{e.title}</Option>);
 /* eslint-enable react/no-array-index-key */
 
 examplesOptions.push(
-  <Option key="custom" value={examples.length}>Custom</Option>,
+  <Option key="custom" value={Examples.length}>Custom</Option>,
 );
 
-function handleExampleChange(val) {
-  console.log(val);
+function capitalize(s) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function handleExampleChange(val, context) {
+  const { settings } = Examples[val];
+  Object.keys(settings).forEach((settingKey) => {
+    const fn = `set${capitalize(settingKey)}`;
+    context[fn](settings[settingKey]);
+  });
 }
 
 function SettingsDatum() {

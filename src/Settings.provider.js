@@ -71,6 +71,7 @@ class SettingsProvider extends Component {
         setPageWidth: pageWidth => this.setState({ pageWidth }),
         setPageHeight: pageHeight => this.setState({ pageHeight }),
         setShapeSideCount: shapeSideCount => this.setState({ shapeSideCount }),
+        setThroughHoleExists: throughHoleExists => this.setState({ throughHoleExists }),
         setThroughHoleRadius: throughHoleRadius => this.setState({ throughHoleRadius }),
         setThroughHoleX: throughHoleX => this.setState({ throughHoleX }),
         setThroughHoleY: throughHoleY => this.setState({ throughHoleY }),
@@ -88,24 +89,13 @@ class SettingsProvider extends Component {
           }
           this.setState({ units: unit });
         },
-        toggleShowSurround: () => {
-          const { state } = this;
-          const bool = !state.showSurround;
-          if (!bool) {
+        setShowSurround: (showSurround) => {
+          if (!showSurround) {
             this.setState({
               throughHoleExists: false,
             });
           }
-          this.setState({
-            showSurround: bool,
-          });
-        },
-        toggleThroughHoleExists: () => {
-          const { state } = this;
-          const bool = !state.throughHoleExists;
-          this.setState({
-            throughHoleExists: bool,
-          });
+          this.setState({ showSurround });
         },
       }}
       >
