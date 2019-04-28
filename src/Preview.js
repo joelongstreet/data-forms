@@ -10,7 +10,9 @@ function Preview() {
         <TileGroup
           curveOffsetX={context.state.curveOffsetX}
           curveOffsetY={context.state.curveOffsetY}
-          curveScale={context.state.curveScale}
+          curveRotation={context.state.curveRotation}
+          curveScaleX={context.state.curveScaleX}
+          curveScaleY={context.state.curveScaleY}
           curveType={context.state.curveType}
           cellSize={context.state.cellSize}
           datum={context.state.datum}

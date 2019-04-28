@@ -60,7 +60,9 @@ class Tile extends Component {
       cellSize,
       curveOffsetX,
       curveOffsetY,
-      curveScale,
+      curveRotation,
+      curveScaleX,
+      curveScaleY,
       curveType,
       data,
       dataDomain,
@@ -94,11 +96,11 @@ class Tile extends Component {
 
     if (lineType === 'linear') {
       xF = d3.scaleLinear()
-        .range([0, cellSize * curveScale])
+        .range([0, cellSize * curveScaleX])
         .domain([0, xDomainMax]);
 
       yF = d3.scaleLinear()
-        .range([0, cellSize * curveScale])
+        .range([0, cellSize * curveScaleY])
         .domain(dataDomain);
 
       lineF = d3.line()
@@ -110,8 +112,8 @@ class Tile extends Component {
         .domain([0, xDomainMax]);
 
       yF = d3.scaleLinear().range([
-        (cellSize / 5) * curveScale,
-        (Math.sqrt(halfSquared)) * curveScale,
+        (cellSize / 5) * curveScaleY,
+        (Math.sqrt(halfSquared)) * curveScaleY,
       ]).domain(dataDomain);
 
       lineF = d3.lineRadial()
@@ -161,11 +163,14 @@ class Tile extends Component {
 
     const etchPathWidth = effectType === 'etch' ? etchWidth : 1;
     const curveColor = effectType === 'etch' ? Styles.colors[3] : Styles.colors[2];
+    const curveTranslationString = `${translate[0]}, ${translate[1]}`;
+    const curveRotationString = lineType === 'radial' ? curveRotation : `${curveRotation}, ${cellSize / 2}, ${cellSize / 2}`;
+
     this.group
       .append('path')
       .attr(
         'transform',
-        `translate(${translate[0]}, ${translate[1]})`,
+        `translate(${curveTranslationString}) rotate(${curveRotationString})`,
       )
       .datum(datum)
       .attr('fill', 'none')

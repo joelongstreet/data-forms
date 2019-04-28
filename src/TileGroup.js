@@ -74,7 +74,9 @@ class TileGroup extends Component {
             cellSize={this.subProps.cellSize}
             curveOffsetX={this.subProps.curveOffsetX}
             curveOffsetY={this.subProps.curveOffsetY}
-            curveScale={this.subProps.curveScale}
+            curveRotation={this.subProps.curveRotation}
+            curveScaleX={this.subProps.curveScaleX}
+            curveScaleY={this.subProps.curveScaleY}
             curveType={this.subProps.curveType}
             data={data}
             dataDomain={this.subProps.dataDomain}

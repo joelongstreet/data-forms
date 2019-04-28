@@ -152,12 +152,29 @@ function SettingsShape() {
           </Select>
 
           <UnitSlider
-            label="Scale"
+            label="Scale X"
             hideUnits
-            onChange={context.setCurveScale}
-            value={context.state.curveScale}
+            disabled={context.state.lineType === 'radial'}
+            onChange={context.setCurveScaleX}
+            value={context.state.curveScaleX}
             min={-2}
             max={2}
+          />
+          <UnitSlider
+            label="Scale Y"
+            hideUnits
+            onChange={context.setCurveScaleY}
+            value={context.state.curveScaleY}
+            min={-2}
+            max={2}
+          />
+          <UnitSlider
+            label="Rotate"
+            hideUnits
+            onChange={context.setCurveRotation}
+            value={context.state.curveRotation}
+            min={-180}
+            max={180}
           />
           <UnitSlider
             label="X"

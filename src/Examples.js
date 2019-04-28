@@ -6,6 +6,8 @@ export default [
       cellSize: 2.25,
       curveOffsetX: 0,
       curveOffsetY: 0,
+      curveRotation: 0,
+      curveScaleY: 0.5,
       curveType: 'curveLinearClosed',
       datum: `78,163,24,48
 66,98,184,27
@@ -45,8 +47,11 @@ export default [
     description: '',
     settings: {
       cellSize: 3,
-      curveOffsetX: 0,
-      curveOffsetY: 0,
+      curveOffsetX: 0.14,
+      curveOffsetY: 0.38,
+      curveRotation: 45,
+      curveScaleX: 0.93,
+      curveScaleY: 0.66,
       curveType: 'curveBasis',
       datum: `0.37,1.29,0.26,1.22,0.37
 0.37,1.29,0.22,1.29,0.31
@@ -57,9 +62,7 @@ export default [
 0.02,1.44,0.03,1.65,-0.02
 -0.02,1.44,0.02,1.68,-0.04
 -0.04,1.41,0.04,1.68,-0.03
--0.03,1.38,0.07,1.66,0.00
-`,
-
+-0.03,1.38,0.07,1.66,0.00`,
       effectType: 'cut',
       isDramatic: false,
       lineType: 'linear',
