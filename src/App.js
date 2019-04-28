@@ -56,7 +56,7 @@ function App() {
           <Preview />
         </Content>
         <Sider
-          width={500}
+          width={450}
           style={{
             marginBottom: Styles.footerHeight,
             marginRight: 20,

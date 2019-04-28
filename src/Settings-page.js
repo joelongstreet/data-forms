@@ -70,21 +70,26 @@ function SettingsPage() {
         <React.Fragment>
           <Divider>Setup</Divider>
 
-          <Row style={{ marginBottom: 10 }}>
+          <Row style={{ marginBottom: 20 }}>
             <Col>
               <Radio.Group
-                style={{ margin: 'auto', display: 'block', float: 'left' }}
+                style={{ textAlign: 'center', width: '100%' }}
                 value={context.state.units}
                 onChange={e => context.setUnits(e.target.value)}
               >
                 <Radio.Button value="in">in</Radio.Button>
                 <Radio.Button value="cm">cm</Radio.Button>
               </Radio.Group>
-              <Select defaultValue={6} style={{ width: 200, float: 'right' }} onChange={val => handlePresetChange(val, context)}>
-                {presetOptions}
-              </Select>
             </Col>
           </Row>
+
+          <Select
+            defaultValue={6}
+            style={{ width: '100%', marginBottom: 15 }}
+            onChange={val => handlePresetChange(val, context)}
+          >
+            {presetOptions}
+          </Select>
 
           <UnitSlider
             label="Width"

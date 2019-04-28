@@ -16,25 +16,6 @@ import * as Styles from './Styles';
 const { Option } = Select;
 const { TextArea } = Input;
 
-/* eslint-disable no-multi-spaces */
-const curves = [
-  { functionName: 'curveBasis',             title: 'Basis'              },
-  { functionName: 'curveBasisClosed',       title: 'BasisClosed'        },
-  { functionName: 'curveCardinal',          title: 'Cardinal'           },
-  { functionName: 'curveCardinalClosed',    title: 'Cardinal Closed'    },
-  { functionName: 'curveCatmullRom',        title: 'Catmull-Rom'        },
-  { functionName: 'curveCatmullRomClosed',  title: 'Catmull-Rom Closed' },
-  { functionName: 'curveLinear',            title: 'Linear'             },
-  { functionName: 'curveLinearClosed',      title: 'Linear Closed'      },
-  { functionName: 'curveMonotoneX',         title: 'MonotoneX'          },
-  { functionName: 'curveMonotoneY',         title: 'MonotoneY'          },
-  { functionName: 'curveNatural',           title: 'Natural'            },
-  { functionName: 'curveStep',              title: 'Step'               },
-  { functionName: 'curveStepAfter',         title: 'Step After'         },
-  { functionName: 'curveStepBefore',        title: 'Step Before'        },
-];
-/* eslint-enable no-multi-spaces */
-
 const examples = [
   {
     title: 'Median Antarctic annual temperature (1900 - 2018)', // walnut on a dowel
@@ -52,25 +33,14 @@ const examples = [
 
 /* eslint-disable react/no-array-index-key */
 const examplesOptions = examples.map((e, i) => <Option key={i} value={i}>{e.title}</Option>);
-const curveOptions = curves.map((e, i) => <Option key={i} value={i}>{e.title}</Option>);
 /* eslint-enable react/no-array-index-key */
 
 examplesOptions.push(
   <Option key="custom" value={examples.length}>Custom</Option>,
 );
 
-
-function getDefaultCurve(context) {
-  return curves.findIndex(c => c.functionName === context.state.curveType);
-}
-
 function handleExampleChange(val) {
   console.log(val);
-}
-
-function handleCurveChange(val, context) {
-  const curve = curves[val];
-  context.setCurveType(curve.functionName);
 }
 
 function SettingsDatum() {
@@ -78,7 +48,7 @@ function SettingsDatum() {
     <SettingsContext.Consumer>
       {context => (
         <React.Fragment>
-          <Divider>Examples</Divider>
+          <Divider>Example</Divider>
           <Select
             defaultValue={1}
             style={{ width: '100%' }}
@@ -87,47 +57,14 @@ function SettingsDatum() {
             {examplesOptions}
           </Select>
 
-          <Divider style={Styles.divider}>Curve</Divider>
-          <Row style={{ marginBottom: 10 }}>
-            <Col style={{ float: 'right' }}>
-              <Checkbox
-                checked={context.state.isDramatic}
-                onChange={e => context.setIsDramatic(e.target.checked)}
-              >
-                Dramatize
-              </Checkbox>
-              <Checkbox
-                checked={context.state.forceClose}
-                disabled={context.state.lineType === 'linear'}
-                onChange={e => context.setForceClose(e.target.checked)}
-              >
-                Close Path
-              </Checkbox>
-            </Col>
-          </Row>
-          <Select
-            defaultValue={getDefaultCurve(context)}
-            style={{ width: '100%', marginBottom: 15 }}
-            onChange={val => handleCurveChange(val, context)}
-          >
-            {curveOptions}
-          </Select>
-          <Row style={{ marginBottom: 10 }}>
-            <Col span={12}>
-              <Radio.Group
-                value={context.state.lineType}
-                onChange={e => context.setLineType(e.target.value)}
-              >
-                <Radio.Button value="radial">Radial</Radio.Button>
-                <Radio.Button value="linear">Linear</Radio.Button>
-              </Radio.Group>
-            </Col>
+          <Divider style={Styles.divider}>Interpret</Divider>
 
-            <Col span={12}>
+          <Row style={{ marginBottom: 20 }}>
+            <Col>
               <Radio.Group
                 value={context.state.effectType}
                 onChange={e => context.setEffectType(e.target.value)}
-                style={{ float: 'right' }}
+                style={{ textAlign: 'center', width: '100%' }}
               >
                 <Radio.Button value="etch" disabled={context.state.shapeType === 'isolate'}>Etch</Radio.Button>
                 <Radio.Button value="cut">Cut</Radio.Button>
@@ -145,7 +82,18 @@ function SettingsDatum() {
             disabled={context.state.effectType !== 'etch'}
           />
 
-          <Divider style={Styles.divider}>Data Entry</Divider>
+          <Divider style={Styles.divider}>Entry</Divider>
+          <Row>
+            <Col>
+              <Checkbox
+                style={{ float: 'right', marginBottom: 10 }}
+                checked={context.state.isDramatic}
+                onChange={e => context.setIsDramatic(e.target.checked)}
+              >
+                Dramatize
+              </Checkbox>
+            </Col>
+          </Row>
           <TextArea
             rows={10}
             value={context.state.datum}

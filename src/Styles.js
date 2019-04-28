@@ -11,7 +11,7 @@ const colors = [
 ];
 
 const divider = {
-  marginTop: 50,
+  marginTop: 75,
 };
 
 const previewVerticalCellPadding = 50;

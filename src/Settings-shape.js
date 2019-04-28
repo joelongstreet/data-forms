@@ -3,12 +3,48 @@ import {
   Checkbox,
   Col,
   Divider,
+  Radio,
   Row,
+  Select,
 } from 'antd';
 
 import UnitSlider from './UnitSlider';
 import SettingsContext from './Settings.context';
 import * as Styles from './Styles';
+
+const { Option } = Select;
+
+/* eslint-disable no-multi-spaces */
+const curves = [
+  { functionName: 'curveBasis',             title: 'Basis'              },
+  { functionName: 'curveBasisClosed',       title: 'BasisClosed'        },
+  { functionName: 'curveCardinal',          title: 'Cardinal'           },
+  { functionName: 'curveCardinalClosed',    title: 'Cardinal Closed'    },
+  { functionName: 'curveCatmullRom',        title: 'Catmull-Rom'        },
+  { functionName: 'curveCatmullRomClosed',  title: 'Catmull-Rom Closed' },
+  { functionName: 'curveLinear',            title: 'Linear'             },
+  { functionName: 'curveLinearClosed',      title: 'Linear Closed'      },
+  { functionName: 'curveMonotoneX',         title: 'MonotoneX'          },
+  { functionName: 'curveMonotoneY',         title: 'MonotoneY'          },
+  { functionName: 'curveNatural',           title: 'Natural'            },
+  { functionName: 'curveStep',              title: 'Step'               },
+  { functionName: 'curveStepAfter',         title: 'Step After'         },
+  { functionName: 'curveStepBefore',        title: 'Step Before'        },
+];
+/* eslint-enable no-multi-spaces */
+
+/* eslint-disable react/no-array-index-key */
+const curveOptions = curves.map((e, i) => <Option key={i} value={i}>{e.title}</Option>);
+/* eslint-enable react/no-array-index-key */
+
+function getDefaultCurve(context) {
+  return curves.findIndex(c => c.functionName === context.state.curveType);
+}
+
+function handleCurveChange(val, context) {
+  const curve = curves[val];
+  context.setCurveType(curve.functionName);
+}
 
 function SettingsShape() {
   return (
@@ -86,6 +122,35 @@ function SettingsShape() {
           />
 
           <Divider style={Styles.divider}>Curve</Divider>
+          <Row style={{ marginBottom: 20 }}>
+            <Col span={12}>
+              <Radio.Group
+                value={context.state.lineType}
+                onChange={e => context.setLineType(e.target.value)}
+              >
+                <Radio.Button value="radial">Radial</Radio.Button>
+                <Radio.Button value="linear">Linear</Radio.Button>
+              </Radio.Group>
+            </Col>
+            <Col span={12}>
+              <Checkbox
+                style={{ float: 'right' }}
+                checked={context.state.forceClose}
+                disabled={context.state.lineType === 'linear'}
+                onChange={e => context.setForceClose(e.target.checked)}
+              >
+                Close Path
+              </Checkbox>
+            </Col>
+          </Row>
+          <Select
+            defaultValue={getDefaultCurve(context)}
+            style={{ width: '100%', marginBottom: 15 }}
+            onChange={val => handleCurveChange(val, context)}
+          >
+            {curveOptions}
+          </Select>
+
           <UnitSlider
             label="Scale"
             hideUnits
