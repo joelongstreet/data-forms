@@ -8,7 +8,7 @@ import {
 
 import UnitSlider from './UnitSlider';
 import SettingsContext from './Settings.context';
-
+import * as Styles from './Styles';
 
 function SettingsShape() {
   return (
@@ -47,7 +47,7 @@ function SettingsShape() {
             hideUnits
           />
 
-          <Divider style={{ marginTop: 50 }}>Through</Divider>
+          <Divider style={Styles.divider}>Through</Divider>
           <Row>
             <Col>
               <Checkbox
@@ -65,7 +65,7 @@ function SettingsShape() {
             onChange={context.setThroughHoleRadius}
             value={context.state.throughHoleRadius}
             min={0}
-            max={context.state.cellSize}
+            max={context.state.cellSize / 2}
             disabled={!context.state.throughHoleExists}
           />
           <UnitSlider
@@ -85,7 +85,7 @@ function SettingsShape() {
             disabled={!context.state.throughHoleExists}
           />
 
-          <Divider style={{ marginTop: 50 }}>Curve</Divider>
+          <Divider style={Styles.divider}>Curve</Divider>
           <UnitSlider
             label="Scale"
             hideUnits

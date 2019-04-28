@@ -20,13 +20,11 @@ const {
 function App() {
   return (
     <SettingsProvider>
-      <Row style={{
-        backgroundColor: Styles.colors[0],
-        borderBottom: `1px solid ${Styles.colors[5]}`,
-      }}
-      >
+      {/* Page Header */}
+      <Row style={{ borderBottom: `1px solid ${Styles.colors[5]}` }}>
         <Col span={23} offset={1}>
           <h1 style={{
+            height: Styles.headerHeight,
             fontFamily: "'Share Tech Mono', monospace",
             color: Styles.colors[8],
             padding: '10px 0 7px 0',
@@ -41,32 +39,38 @@ function App() {
         </Col>
       </Row>
 
-      <Layout style={{ backgroundColor: Styles.colors[0], height: '100%' }}>
-        <Content>
-          <Row>
-            <Col
-              span={24}
-              style={{ marginTop: 50, overflowX: 'scroll' }}
-            >
-              <Preview />
-            </Col>
-          </Row>
+      { /* Sidebar and preview */ }
+      <Layout
+        style={{
+          width: '100%', height: '100%', position: 'absolute', top: 0, background: 'none', overflow: 'hidden',
+        }}
+      >
+        <Content
+          style={{
+            position: 'relative',
+            top: Styles.headerHeight,
+            marginBottom: Styles.headerHeight + Styles.footerHeight,
+            paddingBottom: 200,
+          }}
+        >
+          <Preview />
         </Content>
-
         <Sider
           width={500}
           style={{
-            background: Styles.colors[0],
+            marginBottom: Styles.footerHeight,
             marginRight: 20,
-            marginTop: -45,
+            marginTop: 33,
+            background: Styles.colors[0],
             border: `1px solid ${Styles.colors[5]}`,
             borderBottom: 'none',
-            paddingBottom: 50,
+            overflowY: 'scroll',
           }}
         >
           <Settings />
         </Sider>
       </Layout>
+
       <Footer />
       <Analytics />
     </SettingsProvider>

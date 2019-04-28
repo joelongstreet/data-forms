@@ -20,8 +20,11 @@ class Footer extends Component {
     return (
       <React.Fragment>
         <Row style={{
-          backgroundColor: Styles.colors[0],
+          height: Styles.footerHeight,
           borderTop: `1px solid ${Styles.colors[5]}`,
+          position: 'absolute',
+          bottom: 0,
+          width: '100%',
         }}
         >
           <Col
@@ -32,14 +35,15 @@ class Footer extends Component {
             }}
           >
             <a
+              style={{ padding: 20 }}
               href="#contact-modal"
               onClick={this.showContactModal}
             >
               Contact
             </a>
-            <span style={{ padding: '0 30px' }}> | </span>
+            <span> | </span>
             <a
-              style={{ paddingRight: 20 }}
+              style={{ padding: 20 }}
               href="https://github.com/joelongstreet/data-forms"
               target="blank"
             >

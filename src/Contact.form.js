@@ -35,11 +35,11 @@ class NestedForm extends React.Component {
 
     return (
       <React.Fragment>
-        <p style={{ marginRight: 35 }}>
+        <h3 style={{ marginRight: 35 }}>
           { /* eslint-disable-next-line max-len */ }
           { /* eslint-disable-next-line react/no-unescaped-entities, react/jsx-one-expression-per-line */ }
           Say hi 👋. Tell me what you've made with DataForms. Send me feature requests. Contribute at <a href="https://github.com/joelongstreet/data-forms" rel="noopener noreferrer" target="_blank">Github</a>.
-        </p>
+        </h3>
         <Form onSubmit={this.handleSubmit}>
           <Form.Item label="E-mail">
             {getFieldDecorator('email', {

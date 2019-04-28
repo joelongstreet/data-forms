@@ -81,13 +81,13 @@ function SettingsDatum() {
           <Divider>Examples</Divider>
           <Select
             defaultValue={1}
-            style={{ width: '100%', backgroundColor: Styles.colors[7] }}
+            style={{ width: '100%' }}
             onChange={val => handleExampleChange(val, context)}
           >
             {examplesOptions}
           </Select>
 
-          <Divider style={{ marginTop: 50 }}>Curve</Divider>
+          <Divider style={Styles.divider}>Curve</Divider>
           <Row style={{ marginBottom: 10 }}>
             <Col style={{ float: 'right' }}>
               <Checkbox
@@ -116,7 +116,6 @@ function SettingsDatum() {
             <Col span={12}>
               <Radio.Group
                 value={context.state.lineType}
-                buttonStyle="solid"
                 onChange={e => context.setLineType(e.target.value)}
               >
                 <Radio.Button value="radial">Radial</Radio.Button>
@@ -127,7 +126,6 @@ function SettingsDatum() {
             <Col span={12}>
               <Radio.Group
                 value={context.state.effectType}
-                buttonStyle="solid"
                 onChange={e => context.setEffectType(e.target.value)}
                 style={{ float: 'right' }}
               >
@@ -141,13 +139,13 @@ function SettingsDatum() {
             label="Etch"
             onChange={context.setEtchWidth}
             value={context.state.etchWidth}
-            min={0.01}
+            min={context.state.etchWidthMin}
             step={0.001}
             max={context.state.etchWidthMax}
             disabled={context.state.effectType !== 'etch'}
           />
 
-          <Divider style={{ marginTop: 50 }}>Data Entry</Divider>
+          <Divider style={Styles.divider}>Data Entry</Divider>
           <TextArea
             rows={10}
             value={context.state.datum}

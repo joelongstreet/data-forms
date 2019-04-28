@@ -8,6 +8,8 @@ document.body.appendChild(testElement);
 
 const pixelsPerInch = testElement.offsetWidth + testElement.offsetWidth / window.devicePixelRatio;
 
+document.body.removeChild(testElement);
+
 function convertUnitsToPixels(float, unit) {
   if (unit === 'in') {
     return float * pixelsPerInch;

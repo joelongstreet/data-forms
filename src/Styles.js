@@ -10,6 +10,19 @@ const colors = [
   'rgb(255, 255, 255)', // white white
 ];
 
+const divider = {
+  marginTop: 50,
+};
+
+const previewVerticalCellPadding = 50;
+
+const headerHeight = 77;
+const footerHeight = 75;
+
 module.exports = {
   colors,
+  headerHeight,
+  footerHeight,
+  divider,
+  previewVerticalCellPadding,
 };

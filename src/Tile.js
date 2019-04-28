@@ -171,8 +171,6 @@ class Tile extends Component {
       .attr('fill', 'none')
       .attr('stroke', curveColor)
       .attr('d', lineF)
-      .style('stroke-linecap', 'round')
-      .style('stroke-linejoin', 'round')
       .attr('stroke-width', etchPathWidth);
 
     if (throughHoleExists) {

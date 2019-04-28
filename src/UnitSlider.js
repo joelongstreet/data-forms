@@ -15,7 +15,7 @@ function UnitSlider(props) {
       {context => (
         <Row>
           <Col span={4}>
-            <div style={{ marginTop: '7px' }}>{props.label}</div>
+            <div style={{ marginTop: 7 }}>{props.label}</div>
           </Col>
           <Col span={14}>
             <Slider

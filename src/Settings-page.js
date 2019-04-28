@@ -75,7 +75,6 @@ function SettingsPage() {
               <Radio.Group
                 style={{ margin: 'auto', display: 'block', float: 'left' }}
                 value={context.state.units}
-                buttonStyle="solid"
                 onChange={e => context.setUnits(e.target.value)}
               >
                 <Radio.Button value="in">in</Radio.Button>

@@ -11,6 +11,8 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>DataForms</title>
     <style type='text/css'>
+      html { overflow: hidden; }
+
       /* TODO: I Couldn't figure out how to override these ant design elements with modifyVars */
       .ant-select-dropdown{
         background-color: rgb(36, 41, 52) !important;
@@ -20,11 +22,19 @@
       }
       .ant-select-dropdown-menu-item-selected, .ant-select-dropdown-menu-item-active{
         background-color: rgb(90, 101, 112) !important;
-        /* color: rgb(36, 41, 52) !important; */
+      }
+      .ant-checkbox {
+        border: 1px solid rgb(90, 101, 112);
+      }
+      .ant-checkbox-inner {
+        background-color: rgb(45, 55, 65) !important;
+      }
+      .ant-modal-content {
+        background-color: rgb(36, 41, 52) !important;
       }
     </style>
   </head>
-  <body style="background-color: rgb(45, 55, 65);">
+  <body style="background-color: rgb(36, 41, 52); height: 100%;">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root" style="height: 100%;"></div>
   </body>

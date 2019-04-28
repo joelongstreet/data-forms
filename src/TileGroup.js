@@ -4,6 +4,7 @@ import { uniq } from 'lodash';
 
 import Tile from './Tile';
 import { convertUnitsToPixels } from './util';
+import * as Styles from './Styles';
 
 
 class TileGroup extends Component {
@@ -46,7 +47,11 @@ class TileGroup extends Component {
       throughHoleX: convertUnitsToPixels(p.throughHoleX, p.units),
       throughHoleY: convertUnitsToPixels(p.throughHoleY, p.units),
     });
-    this.subProps.width = this.subProps.cellSize * this.subProps.datum.length;
+    this.subProps.height = (
+      (this.subProps.cellSize * this.subProps.dataSets.length)
+      + (Styles.previewVerticalCellPadding * this.subProps.dataSets.length)
+    );
+    this.subProps.width = this.subProps.cellSize;
   }
 
   render() {
@@ -55,7 +60,8 @@ class TileGroup extends Component {
       <svg
         ref={(node) => { this.node = node; }}
         width={this.subProps.width}
-        height={this.subProps.cellSize}
+        height={this.subProps.height}
+        style={{ display: 'block', margin: 'auto' }}
       >
         {this.subProps.dataSets.map((data, i) => (
           <Tile
@@ -79,8 +85,8 @@ class TileGroup extends Component {
             throughHoleRadius={this.subProps.throughHoleRadius}
             throughHoleX={this.subProps.throughHoleX}
             throughHoleY={this.subProps.throughHoleY}
-            xOffset={i * this.subProps.cellSize}
-            yOffset={0}
+            xOffset={0}
+            yOffset={i * this.subProps.cellSize + Styles.previewVerticalCellPadding * (i + 1)}
           />
         ))}
       </svg>
