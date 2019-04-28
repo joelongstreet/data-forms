@@ -34,7 +34,13 @@ class TileGroup extends Component {
       uniq(
         dataSets.flat(),
       ),
-    ).reverse();
+    );
+
+    // reverse the data domain when displaying linearly to
+    // make the data feel right side up
+    if (this.subProps.lineType === 'linear') {
+      dataDomain.reverse();
+    }
 
     Object.assign(this.subProps, {
       dataSets,
