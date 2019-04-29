@@ -10,7 +10,7 @@ const unitConversionPrecision = 2;
 class SettingsProvider extends Component {
   state = {
     cellSize: 4,
-    cellSizeMin: 1,
+    cellSizeMin: 0.1,
     cellSizeMax: 10,
     curveOffsetX: 0,
     curveOffsetY: 0.2,

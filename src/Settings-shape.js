@@ -154,7 +154,6 @@ function SettingsShape() {
           <UnitSlider
             label="Scale X"
             hideUnits
-            disabled={context.state.lineType === 'radial'}
             onChange={context.setCurveScaleX}
             value={context.state.curveScaleX}
             min={-2}

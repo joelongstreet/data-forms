@@ -112,8 +112,8 @@ class Tile extends Component {
         .domain([0, xDomainMax]);
 
       yF = d3.scaleLinear().range([
-        (cellSize / 5) * curveScaleY,
-        (Math.sqrt(halfSquared)) * curveScaleY,
+        (cellSize / (curveScaleY * 7)) * curveScaleX,
+        (Math.sqrt(halfSquared)) * curveScaleX,
       ]).domain(dataDomain);
 
       lineF = d3.lineRadial()
