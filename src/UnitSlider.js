@@ -35,6 +35,7 @@ function UnitSlider(props) {
           </Col>
           <Col span={13}>
             <Slider
+              tabIndex="-1"
               disabled={props.disabled}
               value={props.value}
               min={props.min}
