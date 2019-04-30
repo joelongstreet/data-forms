@@ -10,6 +10,7 @@ import Preview from './Preview';
 import Settings from './Settings';
 import SettingsProvider from './Settings.provider';
 import Footer from './Footer';
+import Legend from './Legend';
 import Analytics from './Analytics';
 
 const {
@@ -20,6 +21,8 @@ const {
 function App() {
   return (
     <SettingsProvider>
+      <Legend />
+
       {/* Page Header */}
       <Row style={{ borderBottom: `1px solid ${Styles.colors[5]}` }}>
         <Col span={23} offset={1}>

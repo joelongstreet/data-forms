@@ -19,10 +19,21 @@ const previewVerticalCellPadding = 50;
 const headerHeight = 77;
 const footerHeight = 75;
 
+function getLegendLineStyle(styleColorIndex) {
+  return {
+    borderTop: `1px solid ${colors[styleColorIndex]}`,
+    width: 10,
+    float: 'left',
+    marginTop: 10,
+    marginRight: 10,
+  };
+}
+
 module.exports = {
   colors,
   headerHeight,
   footerHeight,
   divider,
   previewVerticalCellPadding,
+  getLegendLineStyle,
 };
