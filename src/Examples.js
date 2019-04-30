@@ -7,6 +7,7 @@ export default [
       curveOffsetX: 0,
       curveOffsetY: 0,
       curveRotation: 0,
+      curveScaleX: 0.5,
       curveScaleY: 0.5,
       curveType: 'curveLinearClosed',
       datum: `78,163,24,48
@@ -43,7 +44,7 @@ export default [
     },
   },
   {
-    title: 'Ocean Tide - New York, New York',
+    title: 'Ocean Tide - New York, New York USA',
     description: '',
     settings: {
       cellSize: 3,
@@ -71,6 +72,35 @@ export default [
       shapeSideCount: 4,
       showSurround: true,
       throughHoleExists: false,
+      units: 'in',
+    },
+  },
+  {
+    title: 'Monthly Weather - Kansas City, Missouri USA',
+    description: '',
+    settings: {
+      cellSize: 0.75,
+      curveOffsetX: 0,
+      curveOffsetY: 0.02,
+      curveRotation: 0,
+      curveScaleX: 0.2,
+      curveScaleY: 0.3,
+      curveType: 'curveLinearClosed',
+      datum: `76,71,72,60,61,74,60,62,61,50,38,62,62,34,35,40
+51,55,60,59,62,34,41,35,73,87,61,80,57,53,56,53,50
+91,82,86,88,91,95,83,95,95,83,70,83,84,90,97,96
+55,41,46,30,75,53,42,52,66,46,48,63,72,70,84,82,80`,
+      effectType: 'cut',
+      isDramatic: true,
+      lineType: 'radial',
+      pageWidth: 16,
+      pageHeight: 12,
+      shapeSideCount: 3,
+      showSurround: true,
+      throughHoleExists: true,
+      throughHoleRadius: 0.08,
+      throughHoleX: 0.38,
+      throughHoleY: 0.18,
       units: 'in',
     },
   },
