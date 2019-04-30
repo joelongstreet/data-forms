@@ -184,7 +184,7 @@ class Tile extends Component {
         .attr('cy', throughHoleY)
         .attr('fill', 'none')
         .attr('stroke', Styles.colors[2])
-        .attr('r', throughHoleRadius)
+        .attr('r', throughHoleRadius / 2) // why?
         .attr('stroke-width', 1);
     }
   }
