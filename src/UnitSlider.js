@@ -9,6 +9,22 @@ import {
 
 import SettingsContext from './Settings.context';
 
+function handleSelect(e) {
+  const { target } = e;
+  target.type = 'text';
+  target.setSelectionRange(0, target.value.length);
+  target.type = 'number';
+}
+
+function handleChange(val, stateSetter) {
+  if (!val) return;
+
+  const num = Number(val);
+  if (Number.isNaN(num)) return;
+
+  stateSetter(num);
+}
+
 function UnitSlider(props) {
   return (
     <SettingsContext.Consumer>
@@ -17,7 +33,7 @@ function UnitSlider(props) {
           <Col span={4}>
             <div style={{ marginTop: 7 }}>{props.label}</div>
           </Col>
-          <Col span={14}>
+          <Col span={13}>
             <Slider
               disabled={props.disabled}
               value={props.value}
@@ -34,16 +50,15 @@ function UnitSlider(props) {
               min={props.min}
               max={props.max}
               value={props.value}
-              onChange={props.onChange}
+              onChange={val => handleChange(val, props.onChange)}
+              onClick={handleSelect}
               step={props.step || context.state.defaultSliderStepSize}
-              formatter={(value) => {
-                if (!props.hideUnits) {
-                  return `${value} ${context.state.units}`;
-                }
-                return value;
-              }}
-              parser={value => value.replace(context.state.units, '')}
             />
+          </Col>
+          <Col span={1}>
+            <span style={{ float: 'right', paddingTop: 8, fontSize: '85%' }}>
+              {props.hideUnits ? '' : context.state.units}
+            </span>
           </Col>
         </Row>
       )}
