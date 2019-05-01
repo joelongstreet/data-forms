@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Col, Row } from 'antd';
+import { Col, Modal, Row } from 'antd';
 
-import ContactModal from './Contact.modal';
+import ContactForm from './Contact.form';
 import * as Styles from './Styles';
 
 
@@ -13,6 +13,10 @@ class Footer extends Component {
   showContactModal = (e) => {
     e.preventDefault();
     this.setState({ contactModalVisible: true });
+  }
+
+  closeContactModal = () => {
+    this.setState({ contactModalVisible: false });
   }
 
   render() {
@@ -51,9 +55,14 @@ class Footer extends Component {
             </a>
           </Col>
         </Row>
-        <ContactModal
+        <Modal
+          onCancel={this.closeContactModal}
           visible={contactModalVisible}
-        />
+          footer={[]}
+          wrapClassName="ant-modal-wrap-contact"
+        >
+          <ContactForm onSubmit={this.closeContactModal} />
+        </Modal>
       </React.Fragment>
     );
   }
