@@ -7,7 +7,7 @@ export default [
       curveOffsetX: 0,
       curveOffsetY: 0,
       curveRotation: 0,
-      curveScaleX: 0.5,
+      curveScaleX: 0.35,
       curveScaleY: 0.5,
       curveType: 'curveLinearClosed',
       datum: `78,163,24,48
@@ -83,7 +83,7 @@ export default [
       curveOffsetX: 0,
       curveOffsetY: 0.02,
       curveRotation: 0,
-      curveScaleX: 0.2,
+      curveScaleX: 0.15,
       curveScaleY: 0.3,
       curveType: 'curveLinearClosed',
       datum: `76,71,72,60,61,74,60,62,61,50,38,62,62,34,35,40
@@ -112,7 +112,7 @@ export default [
       curveOffsetX: 0,
       curveOffsetY: 0,
       curveRotation: 0,
-      curveScaleX: 0.7,
+      curveScaleX: 0.5,
       curveScaleY: 2,
       curveType: 'curveCatmullRomClosed',
       datum: `17.09,16.65,16.940001,16.9,17.35,17.209999,17.23,17.26,17.33,17.139999,17.49,17.610001,17.34,17.82,17.860001,17.950001,18.07,18.33,18.200001,18.709999,18.65,18.790001,19.26,18.969999,19.139999,17.690001,17.67,16.870001,17.59,17.690001,18.139999,18.280001,18.68,18.540001,18.549999,18.75,19.290001,19.440001,19.450001,20.16,19.709999,20.01,19.790001,19.780001,19.940001,19.950001,20.280001,19.540001,19.5,19.639999,20.07,20.41

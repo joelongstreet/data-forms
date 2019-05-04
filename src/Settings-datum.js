@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { random } from 'lodash';
 import {
   Checkbox,
   Col,
@@ -37,67 +38,76 @@ function handleExampleChange(val, context) {
   });
 }
 
-function SettingsDatum() {
-  return (
-    <SettingsContext.Consumer>
-      {context => (
-        <React.Fragment>
-          <Divider>Example</Divider>
-          <Select
-            defaultValue={1}
-            style={{ width: '100%' }}
-            onChange={val => handleExampleChange(val, context)}
-          >
-            {examplesOptions}
-          </Select>
+const defaultSelectValue = random(0, Examples.length - 1);
 
-          <Divider style={Styles.divider}>Interpret</Divider>
+class SettingsDatum extends Component {
+  componentDidMount() {
+    handleExampleChange(defaultSelectValue, this.context);
+  }
 
-          <Row style={{ marginBottom: 20 }}>
-            <Col>
-              <Radio.Group
-                value={context.state.effectType}
-                onChange={e => context.setEffectType(e.target.value)}
-                style={{ textAlign: 'center', width: '100%' }}
-              >
-                <Radio.Button value="etch" disabled={context.state.shapeType === 'isolate'}>Etch</Radio.Button>
-                <Radio.Button value="cut">Cut</Radio.Button>
-              </Radio.Group>
-            </Col>
-          </Row>
+  render() {
+    return (
+      <SettingsContext.Consumer>
+        {context => (
+          <React.Fragment>
+            <Divider>Example</Divider>
+            <Select
+              defaultValue={defaultSelectValue}
+              style={{ width: '100%' }}
+              onChange={val => handleExampleChange(val, context)}
+            >
+              {examplesOptions}
+            </Select>
 
-          <UnitSlider
-            label="Etch"
-            onChange={context.setEtchWidth}
-            value={context.state.etchWidth}
-            min={context.state.etchWidthMin}
-            step={0.001}
-            max={context.state.etchWidthMax}
-            disabled={context.state.effectType !== 'etch'}
-          />
+            <Divider style={Styles.divider}>Interpret</Divider>
 
-          <Divider style={Styles.divider}>Entry</Divider>
-          <Row>
-            <Col>
-              <Checkbox
-                style={{ float: 'right', marginBottom: 10 }}
-                checked={context.state.isDramatic}
-                onChange={e => context.setIsDramatic(e.target.checked)}
-              >
-                Dramatize
-              </Checkbox>
-            </Col>
-          </Row>
-          <TextArea
-            rows={10}
-            value={context.state.datum}
-            style={{ fontFamily: 'monospace' }}
-            onChange={e => context.setDatum(e.target.value)}
-          />
-        </React.Fragment>
-      )}
-    </SettingsContext.Consumer>
-  );
+            <Row style={{ marginBottom: 20 }}>
+              <Col>
+                <Radio.Group
+                  value={context.state.effectType}
+                  onChange={e => context.setEffectType(e.target.value)}
+                  style={{ textAlign: 'center', width: '100%' }}
+                >
+                  <Radio.Button value="etch" disabled={context.state.shapeType === 'isolate'}>Etch</Radio.Button>
+                  <Radio.Button value="cut">Cut</Radio.Button>
+                </Radio.Group>
+              </Col>
+            </Row>
+
+            <UnitSlider
+              label="Etch"
+              onChange={context.setEtchWidth}
+              value={context.state.etchWidth}
+              min={context.state.etchWidthMin}
+              step={0.001}
+              max={context.state.etchWidthMax}
+              disabled={context.state.effectType !== 'etch'}
+            />
+
+            <Divider style={Styles.divider}>Entry</Divider>
+            <Row>
+              <Col>
+                <Checkbox
+                  style={{ float: 'right', marginBottom: 10 }}
+                  checked={context.state.isDramatic}
+                  onChange={e => context.setIsDramatic(e.target.checked)}
+                >
+                  Dramatize
+                </Checkbox>
+              </Col>
+            </Row>
+            <TextArea
+              rows={10}
+              value={context.state.datum}
+              style={{ fontFamily: 'monospace' }}
+              onChange={e => context.setDatum(e.target.value)}
+            />
+          </React.Fragment>
+        )}
+      </SettingsContext.Consumer>
+    );
+  }
 }
 
+SettingsDatum.contextType = SettingsContext;
 export default SettingsDatum;

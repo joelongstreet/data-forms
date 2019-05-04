@@ -18,7 +18,7 @@ class SettingsProvider extends Component {
     curveScaleX: 0.5,
     curveScaleY: 0.5,
     curveType: 'curveBasisClosed',
-    datum: '39,44,58,69,78,86,92,90,82,70,56,43\n22,28,41,57,70,79,84,81,72,58,41,27\n61,65,73,80,86,92,96,96,90,82,71,63\n23,28,31,43,53,59,62,61,55,43,28,25',
+    datum: '',
     defaultSliderStepSize: 0.01,
     effectType: 'etch',
     etchWidth: 0.01,

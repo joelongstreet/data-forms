@@ -61,13 +61,11 @@ function Tile(props) {
     yOffset,
   } = props;
 
-  const halfSquared = ((cellSize / 2) ** 2) * 2;
-
   // create a multidimensional array to give each item an x value (the indece)
   const datum = data.map((d, i) => [i, d]);
   if (forceClose) datum.push([data.length, data[0]]);
 
-  // scale x axis around to the length of the data set
+  // scale x axis to the length of the data set
   const xDomainMax = forceClose ? datum.length - 1 : datum.length;
   const xDomain = [0, xDomainMax];
 
@@ -94,7 +92,7 @@ function Tile(props) {
 
     yF = d3.scaleLinear().range([
       (cellSize / (curveScaleY * 7)) * curveScaleX,
-      (Math.sqrt(halfSquared)) * curveScaleX,
+      cellSize * curveScaleX,
     ]).domain(yDomain);
 
     lineF = d3.lineRadial()
