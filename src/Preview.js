@@ -1,13 +1,13 @@
 import React from 'react';
 
-import TileGroup from './TileGroup';
+import TilePreview from './TilePreview';
 import SettingsContext from './Settings.context';
 
 function Preview() {
   return (
     <SettingsContext.Consumer>
       {context => (
-        <TileGroup
+        <TilePreview
           curveOffsetX={context.state.curveOffsetX}
           curveOffsetY={context.state.curveOffsetY}
           curveRotation={context.state.curveRotation}

@@ -1,7 +1,4 @@
-import { Component } from 'react';
-import { select } from 'd3-selection';
 import * as d3 from 'd3';
-
 import * as Styles from './Styles';
 import {
   convertDegreesToRadians,
@@ -38,158 +35,141 @@ function getVerticesForSurroundingPolygon(shapeSideCount, radius) {
 }
 
 
-class Tile extends Component {
-  constructor(props) {
-    super(props);
-    this.updateSvg = this.updateSvg.bind(this);
+function Tile(props) {
+  const {
+    cellSize,
+    curveOffsetX,
+    curveOffsetY,
+    curveRotation,
+    curveScaleX,
+    curveScaleY,
+    curveType,
+    data,
+    effectType,
+    etchWidth,
+    group,
+    lineType,
+    forceClose,
+    shapeSideCount,
+    showSurround,
+    throughHoleExists,
+    throughHoleRadius,
+    throughHoleX,
+    throughHoleY,
+    xOffset,
+    yDomain,
+    yOffset,
+  } = props;
+
+  const halfSquared = ((cellSize / 2) ** 2) * 2;
+
+  // create a multidimensional array to give each item an x value (the indece)
+  const datum = data.map((d, i) => [i, d]);
+  if (forceClose) datum.push([data.length, data[0]]);
+
+  // scale x axis around to the length of the data set
+  const xDomainMax = forceClose ? datum.length - 1 : datum.length;
+  const xDomain = [0, xDomainMax];
+
+  let xF;
+  let yF;
+  let lineF;
+
+  if (lineType === 'linear') {
+    xF = d3.scaleLinear()
+      .range([0, cellSize * curveScaleX])
+      .domain(xDomain);
+
+    yF = d3.scaleLinear()
+      .range([0, cellSize * curveScaleY])
+      .domain(yDomain);
+
+    lineF = d3.line()
+      .x(d => xF(d[0]))
+      .y(d => yF(d[1]));
+  } else if (lineType === 'radial') {
+    xF = d3.scaleTime()
+      .range([0, 2 * Math.PI])
+      .domain(xDomain);
+
+    yF = d3.scaleLinear().range([
+      (cellSize / (curveScaleY * 7)) * curveScaleX,
+      (Math.sqrt(halfSquared)) * curveScaleX,
+    ]).domain(yDomain);
+
+    lineF = d3.lineRadial()
+      .angle(d => xF(d[0]))
+      .radius(d => yF(d[1]));
   }
 
-  componentDidUpdate() {
-    // I don't know why I can't put this in the component did mount...
-    const { node } = this.props;
-    if (!this.group) {
-      this.group = select(node).append('g');
-    }
+  lineF.curve(d3[curveType]);
 
-    this.group.selectAll('*').remove();
-    this.updateSvg();
-  }
+  // draw the group for this tile which contains all other shapes
+  group
+    .attr(
+      'transform',
+      `translate(${xOffset}, ${yOffset})`,
+    )
+    .attr('width', cellSize)
+    .attr('height', cellSize);
 
-  updateSvg() {
-    const {
-      cellSize,
-      curveOffsetX,
-      curveOffsetY,
-      curveRotation,
-      curveScaleX,
-      curveScaleY,
-      curveType,
-      data,
-      dataDomain,
-      effectType,
-      etchWidth,
-      lineType,
-      forceClose,
-      shapeSideCount,
-      showSurround,
-      throughHoleExists,
-      throughHoleRadius,
-      throughHoleX,
-      throughHoleY,
-      xOffset,
-      yOffset,
-    } = this.props;
+  // optionally draw a surrounding polygon
+  if (showSurround) {
+    const rotation = rotationMap[shapeSideCount] || 0;
+    const vertices = getVerticesForSurroundingPolygon(shapeSideCount, cellSize / 2);
 
-    const halfSquared = ((cellSize / 2) ** 2) * 2;
-
-    // create a multidimensional array to give each item an x value (the indece)
-    const datum = data.map((d, i) => [i, d]);
-    if (forceClose) datum.push([data.length, data[0]]);
-
-    // scale the x axis around a circle
-    // and to the length of the data set
-    const xDomainMax = forceClose ? datum.length - 1 : datum.length;
-
-    let xF;
-    let yF;
-    let lineF;
-
-    if (lineType === 'linear') {
-      xF = d3.scaleLinear()
-        .range([0, cellSize * curveScaleX])
-        .domain([0, xDomainMax]);
-
-      yF = d3.scaleLinear()
-        .range([0, cellSize * curveScaleY])
-        .domain(dataDomain);
-
-      lineF = d3.line()
-        .x(d => xF(d[0]))
-        .y(d => yF(d[1]));
-    } else if (lineType === 'radial') {
-      xF = d3.scaleTime()
-        .range([0, 2 * Math.PI])
-        .domain([0, xDomainMax]);
-
-      yF = d3.scaleLinear().range([
-        (cellSize / (curveScaleY * 7)) * curveScaleX,
-        (Math.sqrt(halfSquared)) * curveScaleX,
-      ]).domain(dataDomain);
-
-      lineF = d3.lineRadial()
-        .angle(d => xF(d[0]))
-        .radius(d => yF(d[1]));
-    }
-
-    lineF.curve(d3[curveType]);
-
-    // draw the group for this tile which contains all other shapes
-    this.group
-      .attr(
-        'transform',
-        `translate(${xOffset}, ${yOffset})`,
-      )
-      .attr('width', cellSize)
-      .attr('height', cellSize);
-
-    // optionally draw a surrounding polygon
-    if (showSurround) {
-      const rotation = rotationMap[shapeSideCount] || 0;
-      const vertices = getVerticesForSurroundingPolygon(shapeSideCount, cellSize / 2);
-
-      if (shapeSideCount === 2) {
-        this.group.append('circle')
-          .attr('fill', 'none')
-          .attr('stroke', Styles.colors[2])
-          .attr('r', cellSize / 2)
-          .attr('cx', cellSize / 2)
-          .attr('cy', cellSize / 2)
-          .attr('stroke-width', 1);
-      } else {
-        this.group
-          .append('path')
-          .datum(vertices)
-          .attr('fill', 'none')
-          .attr('stroke', Styles.colors[2])
-          .attr('stroke-width', 1)
-          .attr('transform', `rotate(${rotation}, ${cellSize / 2}, ${cellSize / 2})`)
-          .attr('d', polygonSurroundLineFunction);
-      }
-    }
-
-    const translate = lineType === 'radial' ? [cellSize / 2, cellSize / 2] : [0, 0];
-    translate[0] += curveOffsetX;
-    translate[1] += curveOffsetY;
-
-    const etchPathWidth = effectType === 'etch' ? etchWidth : 1;
-    const curveColor = effectType === 'etch' ? Styles.colors[3] : Styles.colors[2];
-    const curveTranslationString = `${translate[0]}, ${translate[1]}`;
-    const curveRotationString = lineType === 'radial' ? curveRotation : `${curveRotation}, ${cellSize / 2}, ${cellSize / 2}`;
-
-    this.group
-      .append('path')
-      .attr(
-        'transform',
-        `translate(${curveTranslationString}) rotate(${curveRotationString})`,
-      )
-      .datum(datum)
-      .attr('fill', 'none')
-      .attr('stroke', curveColor)
-      .attr('d', lineF)
-      .attr('stroke-width', etchPathWidth);
-
-    if (throughHoleExists) {
-      this.group.append('circle')
-        .attr('cx', throughHoleX)
-        .attr('cy', throughHoleY)
+    if (shapeSideCount === 2) {
+      group.append('circle')
         .attr('fill', 'none')
         .attr('stroke', Styles.colors[2])
-        .attr('r', throughHoleRadius / 2) // why?
+        .attr('r', cellSize / 2)
+        .attr('cx', cellSize / 2)
+        .attr('cy', cellSize / 2)
         .attr('stroke-width', 1);
+    } else {
+      group
+        .append('path')
+        .datum(vertices)
+        .attr('fill', 'none')
+        .attr('stroke', Styles.colors[2])
+        .attr('stroke-width', 1)
+        .attr('transform', `rotate(${rotation}, ${cellSize / 2}, ${cellSize / 2})`)
+        .attr('d', polygonSurroundLineFunction);
     }
   }
 
-  render() { return ''; }
+  const translate = lineType === 'radial' ? [cellSize / 2, cellSize / 2] : [0, 0];
+  translate[0] += curveOffsetX;
+  translate[1] += curveOffsetY;
+
+  const etchPathWidth = effectType === 'etch' ? etchWidth : 1;
+  const curveColor = effectType === 'etch' ? Styles.colors[3] : Styles.colors[2];
+  const curveTranslationString = `${translate[0]}, ${translate[1]}`;
+  const curveRotationString = lineType === 'radial' ? curveRotation : `${curveRotation}, ${cellSize / 2}, ${cellSize / 2}`;
+
+  group
+    .append('path')
+    .attr(
+      'transform',
+      `translate(${curveTranslationString}) rotate(${curveRotationString})`,
+    )
+    .datum(datum)
+    .attr('fill', 'none')
+    .attr('stroke', curveColor)
+    .attr('d', lineF)
+    .attr('stroke-width', etchPathWidth);
+
+  if (throughHoleExists) {
+    group.append('circle')
+      .attr('cx', throughHoleX)
+      .attr('cy', throughHoleY)
+      .attr('fill', 'none')
+      .attr('stroke', Styles.colors[2])
+      .attr('r', throughHoleRadius / 2) // why?
+      .attr('stroke-width', 1);
+  }
+
+  return group;
 }
 
 export default Tile;
