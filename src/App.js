@@ -9,6 +9,7 @@ import * as Styles from './Styles';
 import Preview from './Preview';
 import Settings from './Settings';
 import SettingsProvider from './Settings.provider';
+import SettingsContext from './Settings.context';
 import Footer from './Footer';
 import Legend from './Legend';
 import Analytics from './Analytics';
@@ -48,15 +49,16 @@ function App() {
           width: '100%', height: '100%', position: 'absolute', top: 0, background: 'none', overflow: 'hidden',
         }}
       >
-        <Content
-          style={{
-            position: 'relative',
-            top: Styles.headerHeight,
-            marginBottom: Styles.headerHeight + Styles.footerHeight,
-            paddingBottom: 200,
-          }}
-        >
-          <Preview />
+        <Content style={{ marginTop: Styles.headerHeight, marginBottom: Styles.footerHeight }}>
+          <SettingsContext.Consumer>
+            {context => (
+              <Preview
+                textAreaHighlightIndex={context.state.textAreaHighlightIndex}
+                cellSize={context.state.cellSize}
+                units={context.state.units}
+              />
+            )}
+          </SettingsContext.Consumer>
         </Content>
         <Sider
           width={450}

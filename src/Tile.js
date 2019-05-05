@@ -103,13 +103,10 @@ function Tile(props) {
   lineF.curve(d3[curveType]);
 
   // draw the group for this tile which contains all other shapes
-  group
-    .attr(
-      'transform',
-      `translate(${xOffset}, ${yOffset})`,
-    )
-    .attr('width', cellSize)
-    .attr('height', cellSize);
+  group.attr(
+    'transform',
+    `translate(${xOffset}, ${yOffset})`,
+  );
 
   // optionally draw a surrounding polygon
   if (showSurround) {

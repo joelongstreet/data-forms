@@ -22,10 +22,6 @@ const { TextArea } = Input;
 const examplesOptions = Examples.map((e, i) => <Option key={i} value={i}>{e.title}</Option>);
 /* eslint-enable react/no-array-index-key */
 
-examplesOptions.push(
-  <Option key="custom" value={Examples.length}>Custom</Option>,
-);
-
 function capitalize(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
@@ -36,6 +32,12 @@ function handleExampleChange(val, context) {
     const fn = `set${capitalize(settingKey)}`;
     context[fn](settings[settingKey]);
   });
+}
+
+function calculateTilePreviewPosition(e, context) {
+  const { target } = e;
+  const line = target.value.substr(0, target.selectionStart).split('\n').length;
+  context.setTextAreaHighlightIndex(line);
 }
 
 const defaultSelectValue = random(0, Examples.length - 1);
@@ -98,6 +100,8 @@ class SettingsDatum extends Component {
             </Row>
             <TextArea
               rows={10}
+              onClick={e => calculateTilePreviewPosition(e, context)}
+              onKeyUp={e => calculateTilePreviewPosition(e, context)}
               value={context.state.datum}
               style={{ fontFamily: 'monospace' }}
               onChange={e => context.setDatum(e.target.value)}

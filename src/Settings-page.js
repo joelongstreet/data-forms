@@ -50,7 +50,6 @@ const presets = [
 ];
 
 const presetOptions = presets.map((p, i) => <Option key={p.name} value={i}>{p.name}</Option>);
-presetOptions.push(<Option key="default" value={presets.length}>Custom</Option>);
 
 function handlePresetChange(val, context) {
   if (context.state.units !== 'in') {

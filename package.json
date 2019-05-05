@@ -17,7 +17,8 @@
     "react-faux-dom": "^4.5.0",
     "react-fullstory": "^1.0.3",
     "react-ga": "^2.5.7",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "react-scroll-to": "^2.0.5"
   },
   "scripts": {
     "start": "react-app-rewired start",

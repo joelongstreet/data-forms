@@ -32,6 +32,7 @@ class SettingsProvider extends Component {
     pageHeightMax: 96,
     shapeSideCount: 4,
     showSurround: true,
+    textAreaHighlightIndex: 0,
     throughHoleExists: true,
     throughHoleRadius: 0.12,
     throughHoleX: 2,
@@ -75,6 +76,9 @@ class SettingsProvider extends Component {
         setPageWidth: pageWidth => this.setState({ pageWidth }),
         setPageHeight: pageHeight => this.setState({ pageHeight }),
         setShapeSideCount: shapeSideCount => this.setState({ shapeSideCount }),
+        setTextAreaHighlightIndex: textAreaHighlightIndex => this.setState({
+          textAreaHighlightIndex,
+        }),
         setThroughHoleExists: throughHoleExists => this.setState({ throughHoleExists }),
         setThroughHoleRadius: throughHoleRadius => this.setState({ throughHoleRadius }),
         setThroughHoleX: throughHoleX => this.setState({ throughHoleX }),
