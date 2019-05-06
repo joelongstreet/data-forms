@@ -64,15 +64,23 @@ class SettingsDatum extends Component {
             <Divider style={Styles.divider}>Interpret</Divider>
 
             <Row style={{ marginBottom: 20 }}>
-              <Col>
+              <Col span={12}>
                 <Radio.Group
                   value={context.state.effectType}
                   onChange={e => context.setEffectType(e.target.value)}
-                  style={{ textAlign: 'center', width: '100%' }}
                 >
                   <Radio.Button value="etch" disabled={context.state.shapeType === 'isolate'}>Etch</Radio.Button>
                   <Radio.Button value="cut">Cut</Radio.Button>
                 </Radio.Group>
+              </Col>
+              <Col span={12}>
+                <Checkbox
+                  style={{ float: 'right' }}
+                  checked={context.state.isSingleton}
+                  onChange={e => context.setIsSingleton(e.target.checked)}
+                >
+                  Singleton
+                </Checkbox>
               </Col>
             </Row>
 

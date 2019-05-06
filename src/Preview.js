@@ -51,6 +51,7 @@ class Preview extends Component {
               etchWidth={context.state.etchWidth}
               forceClose={context.state.forceClose}
               isDramatic={context.state.isDramatic}
+              isSingleton={context.state.isSingleton}
               lineType={context.state.lineType}
               pageHeight={context.state.pageHeight}
               pageWidth={context.state.pageWidth}

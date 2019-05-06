@@ -25,6 +25,7 @@ class SettingsProvider extends Component {
     etchWidthMin: 0.001,
     etchWidthMax: 0.2,
     isDramatic: true,
+    isSingleton: false,
     lineType: 'radial',
     pageWidth: 16,
     pageWidthMax: 48,
@@ -67,6 +68,16 @@ class SettingsProvider extends Component {
         setEtchWidth: etchWidth => this.setState({ etchWidth }),
         setForceClose: forceClose => this.setState({ forceClose }),
         setIsDramatic: isDramatic => this.setState({ isDramatic }),
+        setIsSingleton: (isSingleton) => {
+          if (!isSingleton) {
+            this.setState({
+              throughHoleExists: false,
+              showSurround: false,
+            });
+          }
+
+          this.setState({ isSingleton });
+        },
         setLineType: (lineType) => {
           if (lineType === 'linear') {
             this.setState({ forceClose: false });

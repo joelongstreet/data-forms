@@ -63,6 +63,7 @@ class Tiles extends Component {
     // create a static id so we can reference the inner html of this
     // element for other parts of the application
     d3.select(fauxDoc).attr('id', svgDownloadContainerId);
+    d3.select(fauxDocPreview).attr('style', { height: '100%' });
 
     const {
       curveRotation,
@@ -72,6 +73,7 @@ class Tiles extends Component {
       datum,
       effectType,
       isDramatic,
+      isSingleton,
       lineType,
       forceClose,
       shapeSideCount,
@@ -126,10 +128,11 @@ class Tiles extends Component {
     if (lineType === 'linear') yDomain.reverse();
 
     // determine the total height of the svgPreview
-    const svgPreviewHeight = (
+    let svgPreviewHeight = (
       (cellSize * dataSets.length)
       + (Styles.previewVerticalCellPadding * dataSets.length)
     );
+    if (isSingleton) svgPreviewHeight = '100%';
 
     svgPreview.attrs({
       style: { display: 'block', margin: 'auto' },
@@ -173,7 +176,9 @@ class Tiles extends Component {
     // Draw the preview tiles
     dataSets.map((data, i) => {
       const xOffset = 0;
-      const yOffset = i * cellSize + Styles.previewVerticalCellPadding * (i + 1);
+      let yOffset = i * cellSize + Styles.previewVerticalCellPadding * (i + 1);
+      if (isSingleton) yOffset = 0;
+
       const group = svgPreview.append('g');
       const opts = Object.assign({}, tileOptions, {
         xOffset, yOffset, data, group, isPreview: true,
@@ -185,8 +190,14 @@ class Tiles extends Component {
     const cellsPerRow = Math.floor(pageWidth / cellSize);
     dataSets.map((data, i) => {
       const offsetPlusOne = cellSize * (i + 1);
-      const yOffset = Math.floor(offsetPlusOne / pageWidth) * cellSize;
-      const xOffset = (i % cellsPerRow) * cellSize;
+      let yOffset = Math.floor(offsetPlusOne / pageWidth) * cellSize;
+      let xOffset = (i % cellsPerRow) * cellSize;
+
+      if (isSingleton) {
+        xOffset = 0;
+        yOffset = 0;
+      }
+
       const group = svg.append('g');
       const opts = Object.assign({}, tileOptions, {
         xOffset, yOffset, data, group, isPreview: false,

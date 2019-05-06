@@ -56,6 +56,7 @@ function SettingsShape() {
             <Col>
               <Checkbox
                 style={{ float: 'right', marginBottom: 10 }}
+                disabled={context.state.isSingleton}
                 checked={context.state.showSurround}
                 onChange={e => context.setShowSurround(e.target.checked)}
               >
@@ -88,6 +89,7 @@ function SettingsShape() {
             <Col>
               <Checkbox
                 style={{ float: 'right', marginBottom: 10 }}
+                disabled={context.state.isSingleton}
                 checked={context.state.throughHoleExists}
                 onChange={e => context.setThroughHoleExists(e.target.checked)}
               >
@@ -156,16 +158,16 @@ function SettingsShape() {
             hideUnits
             onChange={context.setCurveScaleX}
             value={context.state.curveScaleX}
-            min={-2}
-            max={2}
+            min={-3}
+            max={3}
           />
           <UnitSlider
             label="Scale Y"
             hideUnits
             onChange={context.setCurveScaleY}
             value={context.state.curveScaleY}
-            min={-2}
-            max={2}
+            min={-3}
+            max={3}
           />
           <UnitSlider
             label="Rotate"
