@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+
 import * as Styles from './Styles';
 import {
   convertDegreesToRadians,
@@ -48,6 +49,7 @@ function Tile(props) {
     effectType,
     etchWidth,
     group,
+    isPreview,
     lineType,
     forceClose,
     shapeSideCount,
@@ -60,6 +62,10 @@ function Tile(props) {
     yDomain,
     yOffset,
   } = props;
+
+  const etchColor = isPreview ? Styles.colors[3] : 'black';
+  const cutColor = isPreview ? Styles.colors[2] : 'black';
+  const cutPathWidth = isPreview ? 1 : 0.1;
 
   // create a multidimensional array to give each item an x value (the indece)
   const datum = data.map((d, i) => [i, d]);
@@ -116,18 +122,18 @@ function Tile(props) {
     if (shapeSideCount === 2) {
       group.append('circle')
         .attr('fill', 'none')
-        .attr('stroke', Styles.colors[2])
+        .attr('stroke', cutColor)
         .attr('r', cellSize / 2)
         .attr('cx', cellSize / 2)
         .attr('cy', cellSize / 2)
-        .attr('stroke-width', 1);
+        .attr('stroke-width', cutPathWidth);
     } else {
       group
         .append('path')
         .datum(vertices)
         .attr('fill', 'none')
-        .attr('stroke', Styles.colors[2])
-        .attr('stroke-width', 1)
+        .attr('stroke', cutColor)
+        .attr('stroke-width', cutPathWidth)
         .attr('transform', `rotate(${rotation}, ${cellSize / 2}, ${cellSize / 2})`)
         .attr('d', polygonSurroundLineFunction);
     }
@@ -137,8 +143,8 @@ function Tile(props) {
   translate[0] += curveOffsetX;
   translate[1] += curveOffsetY;
 
-  const etchPathWidth = effectType === 'etch' ? etchWidth : 1;
-  const curveColor = effectType === 'etch' ? Styles.colors[3] : Styles.colors[2];
+  const curvePathWidth = effectType === 'etch' ? etchWidth : cutPathWidth;
+  const curveColor = effectType === 'etch' ? etchColor : cutColor;
   const curveTranslationString = `${translate[0]}, ${translate[1]}`;
   const curveRotationString = lineType === 'radial' ? curveRotation : `${curveRotation}, ${cellSize / 2}, ${cellSize / 2}`;
 
@@ -152,7 +158,7 @@ function Tile(props) {
     .attr('fill', 'none')
     .attr('stroke', curveColor)
     .attr('d', lineF)
-    .attr('stroke-width', etchPathWidth);
+    .attr('stroke-width', curvePathWidth);
 
   if (throughHoleExists) {
     group.append('circle')
@@ -161,7 +167,7 @@ function Tile(props) {
       .attr('fill', 'none')
       .attr('stroke', Styles.colors[2])
       .attr('r', throughHoleRadius / 2) // why?
-      .attr('stroke-width', 1);
+      .attr('stroke-width', cutPathWidth);
   }
 
   return group;

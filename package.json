@@ -8,6 +8,8 @@
     "customize-cra": "^0.2.12",
     "d3": "^5.9.2",
     "d3-selection": "^1.4.0",
+    "d3-selection-multi": "^1.0.1",
+    "dayjs": "^1.8.13",
     "gh-pages": "^2.0.1",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",

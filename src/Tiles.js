@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
+import 'd3-selection-multi';
 import { withFauxDOM } from 'react-faux-dom';
 import { uniq } from 'lodash';
 
-import { convertUnitsToPixels } from './util';
+import {
+  convertUnitsToPixels,
+  svgDocumentMeta,
+  svgDownloadContainerId,
+} from './util';
 import * as Styles from './Styles';
 import Tile from './Tile';
 
@@ -11,16 +16,18 @@ import Tile from './Tile';
 const dontRenderOnUpdate = [
   'animateFauxDOM',
   'connectFauxDOM',
+  'document',
+  'documentPreview',
   'drawFauxDOM',
   'isAnimagiontFauxDOM',
-  'shapePreview',
   'stopAnimatingFauxDOM',
 ];
 
-class TilePreview extends Component {
+class Tiles extends Component {
   constructor(props) {
     super(props);
     this.renderD3 = this.renderD3.bind(this);
+    this.svg = React.createRef();
   }
 
   componentDidMount() {
@@ -45,12 +52,17 @@ class TilePreview extends Component {
   renderD3() {
     const { props } = this;
 
-    // setup the faux dom and draw the svg if one doesn't already exist
-    const faux = props.connectFauxDOM('div', 'shapePreview');
-    let svg = d3.select(faux).select('svg');
-    if (svg.empty()) {
-      svg = d3.select(faux).append('svg');
-    }
+    // setup the faux doms and draw the svgs if they don't already exist
+    const fauxDoc = props.connectFauxDOM('div', 'document');
+    const fauxDocPreview = props.connectFauxDOM('div', 'documentPreview');
+    let svg = d3.select(fauxDoc).select('svg');
+    let svgPreview = d3.select(fauxDocPreview).select('svg');
+    if (svg.empty()) svg = d3.select(fauxDoc).append('svg');
+    if (svgPreview.empty()) svgPreview = d3.select(fauxDocPreview).append('svg');
+
+    // create a static id so we can reference the inner html of this
+    // element for other parts of the application
+    d3.select(fauxDoc).attr('id', svgDownloadContainerId);
 
     const {
       curveRotation,
@@ -68,12 +80,14 @@ class TilePreview extends Component {
       units,
     } = props;
 
-    // the props will be converted to pixel units
+    // these props will be converted to pixel units
     let {
       cellSize,
       curveOffsetX,
       curveOffsetY,
       etchWidth,
+      pageHeight,
+      pageWidth,
       throughHoleRadius,
       throughHoleX,
       throughHoleY,
@@ -83,6 +97,8 @@ class TilePreview extends Component {
     curveOffsetX = convertUnitsToPixels(curveOffsetX, units);
     curveOffsetY = convertUnitsToPixels(curveOffsetY, units);
     etchWidth = convertUnitsToPixels(etchWidth, units);
+    pageHeight = convertUnitsToPixels(pageHeight, units);
+    pageWidth = convertUnitsToPixels(pageWidth, units);
     throughHoleRadius = convertUnitsToPixels(throughHoleRadius, units);
     throughHoleX = convertUnitsToPixels(throughHoleX, units);
     throughHoleY = convertUnitsToPixels(throughHoleY, units);
@@ -109,60 +125,89 @@ class TilePreview extends Component {
     // make the data feel right side up
     if (lineType === 'linear') yDomain.reverse();
 
-    // determine the total height of the SVG
-    const height = (
+    // determine the total height of the svgPreview
+    const svgPreviewHeight = (
       (cellSize * dataSets.length)
       + (Styles.previewVerticalCellPadding * dataSets.length)
     );
 
-    svg
-      .attr('style', { display: 'block', margin: 'auto' })
-      .attr('width', cellSize)
-      .attr('height', height);
+    svgPreview.attrs({
+      style: { display: 'block', margin: 'auto' },
+      width: cellSize,
+      height: svgPreviewHeight,
+    });
 
+    svg.attrs(
+      Object.assign({
+        width: '100%',
+        height: '100%',
+        viewBox: `0 0 ${pageWidth} ${pageHeight}`,
+      }, svgDocumentMeta),
+    );
+
+    // dump all the svg children whenever we redraw
     svg.selectAll('*').remove();
+    svgPreview.selectAll('*').remove();
 
+    const tileOptions = {
+      cellSize,
+      curveOffsetX,
+      curveOffsetY,
+      curveRotation,
+      curveScaleX,
+      curveScaleY,
+      curveType,
+      effectType,
+      etchWidth,
+      lineType,
+      forceClose,
+      shapeSideCount,
+      showSurround,
+      throughHoleExists,
+      throughHoleRadius,
+      throughHoleX,
+      throughHoleY,
+      yDomain,
+    };
+
+    // Draw the preview tiles
     dataSets.map((data, i) => {
       const xOffset = 0;
       const yOffset = i * cellSize + Styles.previewVerticalCellPadding * (i + 1);
-      const group = svg.append('g');
-      return new Tile({
-        cellSize,
-        curveOffsetX,
-        curveOffsetY,
-        curveRotation,
-        curveScaleX,
-        curveScaleY,
-        curveType,
-        data,
-        group,
-        effectType,
-        etchWidth,
-        lineType,
-        forceClose,
-        shapeSideCount,
-        showSurround,
-        throughHoleExists,
-        throughHoleRadius,
-        throughHoleX,
-        throughHoleY,
-        xOffset,
-        yDomain,
-        yOffset,
+      const group = svgPreview.append('g');
+      const opts = Object.assign({}, tileOptions, {
+        xOffset, yOffset, data, group, isPreview: true,
       });
+      return new Tile(opts);
+    });
+
+    // Draw the hidden tile download document
+    const cellsPerRow = Math.floor(pageWidth / cellSize);
+    dataSets.map((data, i) => {
+      const offsetPlusOne = cellSize * (i + 1);
+      const yOffset = Math.floor(offsetPlusOne / pageWidth) * cellSize;
+      const xOffset = (i % cellsPerRow) * cellSize;
+      const group = svg.append('g');
+      const opts = Object.assign({}, tileOptions, {
+        xOffset, yOffset, data, group, isPreview: false,
+      });
+      return new Tile(opts);
     });
 
     props.drawFauxDOM();
   }
 
   render() {
-    const { shapePreview } = this.props;
+    const { document, documentPreview } = this.props;
     return (
-      <div>{shapePreview}</div>
+      <React.Fragment>
+        {document}
+        {documentPreview}
+      </React.Fragment>
     );
   }
 }
 
-const FauxDom = withFauxDOM(TilePreview);
+const FauxDom = withFauxDOM(Tiles);
 
 export default FauxDom;

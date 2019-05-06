@@ -1,5 +1,7 @@
 import React from 'react';
+import dayjs from 'dayjs';
 import {
+  Button,
   Col,
   Divider,
   Radio,
@@ -7,6 +9,8 @@ import {
   Select,
 } from 'antd';
 
+import * as Styles from './Styles';
+import { svgDownloadContainerId } from './util';
 import UnitSlider from './UnitSlider';
 import SettingsContext from './Settings.context';
 
@@ -62,6 +66,19 @@ function handlePresetChange(val, context) {
   context.setPageWidth(dimensions.width);
 }
 
+function downloadSvgDocument() {
+  const documentContainer = document.getElementById(svgDownloadContainerId);
+  const svgDocument = documentContainer.innerHTML;
+  const file = `data:application/octet-stream;base64,${window.btoa(svgDocument)}`;
+
+  const timestamp = dayjs().format('YYYY-MM-DDTHH:mm');
+
+  const aLink = document.createElement('a');
+  aLink.download = `DataForms ${timestamp}.svg`;
+  aLink.href = file;
+  aLink.dispatchEvent(new window.MouseEvent('click'));
+}
+
 function SettingsPage() {
   return (
     <SettingsContext.Consumer>
@@ -104,6 +121,15 @@ function SettingsPage() {
             min={0}
             max={context.state.pageHeightMax}
           />
+
+          <Divider style={Styles.divider} />
+          <Button
+            type="primary"
+            onClick={downloadSvgDocument}
+            style={{ display: 'block', margin: 'auto' }}
+          >
+            Download Cut File
+          </Button>
         </React.Fragment>
       )}
     </SettingsContext.Consumer>

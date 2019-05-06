@@ -3,7 +3,7 @@ import { ScrollToHOC } from 'react-scroll-to';
 
 import * as Styles from './Styles';
 import { convertUnitsToPixels } from './util';
-import TilePreview from './TilePreview';
+import Tiles from './Tiles';
 import SettingsContext from './Settings.context';
 
 class Preview extends Component {
@@ -38,7 +38,7 @@ class Preview extends Component {
       >
         <SettingsContext.Consumer>
           {context => (
-            <TilePreview
+            <Tiles
               curveOffsetX={context.state.curveOffsetX}
               curveOffsetY={context.state.curveOffsetY}
               curveRotation={context.state.curveRotation}
@@ -49,9 +49,11 @@ class Preview extends Component {
               datum={context.state.datum}
               effectType={context.state.effectType}
               etchWidth={context.state.etchWidth}
-              lineType={context.state.lineType}
               forceClose={context.state.forceClose}
               isDramatic={context.state.isDramatic}
+              lineType={context.state.lineType}
+              pageHeight={context.state.pageHeight}
+              pageWidth={context.state.pageWidth}
               shapeSideCount={context.state.shapeSideCount}
               showSurround={context.state.showSurround}
               throughHoleExists={context.state.throughHoleExists}

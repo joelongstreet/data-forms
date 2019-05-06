@@ -1,14 +1,7 @@
 const centimetersPerInch = 2.54;
 const inchesPerCentimenter = 0.393701;
-
-const testElement = document.createElement('div');
-testElement.setAttribute('id', 'test-element');
-testElement.setAttribute('style', 'width: 1in; height: 1in');
-document.body.appendChild(testElement);
-
-const pixelsPerInch = testElement.offsetWidth + testElement.offsetWidth / window.devicePixelRatio;
-
-document.body.removeChild(testElement);
+const pixelsPerInch = 96;
+const svgDownloadContainerId = 'svg-download-container';
 
 function convertUnitsToPixels(float, unit) {
   if (unit === 'in') {
@@ -34,10 +27,21 @@ function getCoordsFromRadiansAndRadius(radian, radius) {
   ];
 }
 
+const svgDocumentMeta = {
+  version: '1.1',
+  xmlns: 'http://www.w3.org/2000/svg',
+  'xmlns:xlink': 'http://www.w3.org/1999/xlink',
+  'xml:space': 'preserve',
+  'xmlns:dataforms': 'http://joelongstreet.com',
+};
+
 module.exports = {
-  convertUnitsToPixels,
   centimetersPerInch,
-  inchesPerCentimenter,
   convertDegreesToRadians,
+  convertUnitsToPixels,
   getCoordsFromRadiansAndRadius,
+  inchesPerCentimenter,
+  pixelsPerInch,
+  svgDocumentMeta,
+  svgDownloadContainerId,
 };

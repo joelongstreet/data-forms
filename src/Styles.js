@@ -8,14 +8,11 @@ const colors = [
   'rgb(240, 135, 123)', // red,
   'rgb(45, 55, 65)', // grey (black)
   'rgb(255, 255, 255)', // white white
+  'rgb(95,202,224)', // blue
 ];
 
-const divider = {
-  marginTop: 75,
-};
-
+const divider = { marginTop: 75 };
 const previewVerticalCellPadding = 50;
-
 const headerHeight = 77;
 const footerHeight = 75;
 
