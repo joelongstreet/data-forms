@@ -36,12 +36,12 @@ function PagePreview(props) {
         <div
           key={i}
           style={{
-            width: s,
-            height: s,
+            width: s - 1,
+            height: s - 1,
             border: `1px solid ${Styles.colors[6]}`,
             boxSizing: 'border-box',
             float: 'left',
-            margin: 1,
+            margin: '1px 0 0 1px',
           }}
         />
       ))}
