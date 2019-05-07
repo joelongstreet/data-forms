@@ -32,8 +32,9 @@ function PagePreview(props) {
         height: h,
       }}
     >
-      {times(dataRowCount, () => (
+      {times(dataRowCount, i => (
         <div
+          key={i}
           style={{
             width: s,
             height: s,

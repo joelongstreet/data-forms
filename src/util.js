@@ -29,10 +29,10 @@ function getCoordsFromRadiansAndRadius(radian, radius) {
 
 const svgDocumentMeta = {
   version: '1.1',
+  xlinkTitle: 'DataForms',
   xmlns: 'http://www.w3.org/2000/svg',
-  'xmlns:xlink': 'http://www.w3.org/1999/xlink',
-  'xml:space': 'preserve',
-  'xmlns:dataforms': 'http://joelongstreet.com',
+  xmlnsXlink: 'http://www.w3.org/1999/xlink',
+  xmlSpace: 'preserve',
 };
 
 module.exports = {

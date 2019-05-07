@@ -62,7 +62,9 @@ class Tiles extends Component {
 
     // create a static id so we can reference the inner html of this
     // element for other parts of the application
-    d3.select(fauxDoc).attr('id', svgDownloadContainerId);
+    d3.select(fauxDoc)
+      .attr('id', svgDownloadContainerId)
+      .attr('key', svgDownloadContainerId);
     d3.select(fauxDocPreview).attr('style', { height: '100%' });
 
     const {
