@@ -3,8 +3,8 @@ import { ScrollToHOC } from 'react-scroll-to';
 
 import * as Styles from './Styles';
 import { convertUnitsToPixels } from './util';
-import Tiles from './Tiles';
 import SettingsContext from './Settings.context';
+import Tiles from './Tiles';
 
 class Preview extends Component {
   constructor(props) {
@@ -31,7 +31,6 @@ class Preview extends Component {
         ref={this.scrollArea}
         style={{
           position: 'relative',
-          paddingBottom: 100,
           height: '100%',
           overflow: 'scroll',
         }}

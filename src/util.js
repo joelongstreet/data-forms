@@ -1,6 +1,6 @@
 const centimetersPerInch = 2.54;
 const inchesPerCentimenter = 0.393701;
-const pixelsPerInch = 96;
+const pixelsPerInch = 72;
 const svgDownloadContainerId = 'svg-download-container';
 
 function convertUnitsToPixels(float, unit) {

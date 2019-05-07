@@ -6,13 +6,14 @@ import {
 } from 'antd';
 
 import * as Styles from './Styles';
+import Analytics from './Analytics';
+import Footer from './Footer';
+import Legend from './Legend';
+import PagePreview from './PagePreview';
 import Preview from './Preview';
 import Settings from './Settings';
 import SettingsProvider from './Settings.provider';
 import SettingsContext from './Settings.context';
-import Footer from './Footer';
-import Legend from './Legend';
-import Analytics from './Analytics';
 
 const {
   Content,
@@ -49,14 +50,24 @@ function App() {
           width: '100%', height: '100%', position: 'absolute', top: 0, background: 'none', overflow: 'hidden',
         }}
       >
-        <Content style={{ marginTop: Styles.headerHeight, marginBottom: Styles.footerHeight }}>
+        <Content style={{ marginTop: Styles.headerHeight, marginBottom: Styles.footerHeight, position: 'relative' }}>
           <SettingsContext.Consumer>
             {context => (
-              <Preview
-                textAreaHighlightIndex={context.state.textAreaHighlightIndex}
-                cellSize={context.state.cellSize}
-                units={context.state.units}
-              />
+              <React.Fragment>
+                <PagePreview
+                  cellSize={context.state.cellSize}
+                  datum={context.state.datum}
+                  isSingleton={context.state.isSingleton}
+                  pageHeight={context.state.pageHeight}
+                  pageWidth={context.state.pageWidth}
+                  units={context.state.units}
+                />
+                <Preview
+                  cellSize={context.state.cellSize}
+                  textAreaHighlightIndex={context.state.textAreaHighlightIndex}
+                  units={context.state.units}
+                />
+              </React.Fragment>
             )}
           </SettingsContext.Consumer>
         </Content>
