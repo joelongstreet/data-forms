@@ -189,11 +189,11 @@ class Tiles extends Component {
     });
 
     // Draw the hidden tile download document
-    const cellsPerRow = Math.floor(pageWidth / cellSize);
+    const margin = 1;
+    const cellsPerRow = Math.floor(pageWidth / (cellSize + margin));
     dataSets.map((data, i) => {
-      const offsetPlusOne = cellSize * (i + 1);
-      let yOffset = Math.floor(offsetPlusOne / pageWidth) * cellSize;
-      let xOffset = (i % cellsPerRow) * cellSize;
+      let yOffset = Math.floor(i / cellsPerRow) * (cellSize + margin);
+      let xOffset = (i % cellsPerRow) * (cellSize + margin);
 
       if (isSingleton) {
         xOffset = 0;
