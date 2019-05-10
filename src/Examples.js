@@ -3,7 +3,7 @@ export default [
     title: 'Slugging Percentage - American Baseball',
     description: '162 game average slugging percentage (Singles * 1, Doubles * 2, Triples * 3, HR * 4). Players include Ty Cobb, Babe Ruth, Shoeless Joe Jackson, Honus Wagner, Ted Williams, Lou Gehrig, Joe DiMaggio, Jackie Robinson, Stan Musial, Mickey Mantle, Yogi Berra, Roberto Clemente, Willie Mays, Hank Aaron, Pete Rose, George Brett, Derek Jeter, Ken Griffey Jr, Mark McGwire, Cal Ripken Jr, and Sammy Sosa.',
     settings: {
-      cellSize: 2.25,
+      cellSize: 2.5,
       curveOffsetX: 0,
       curveOffsetY: 0,
       curveRotation: 0,
@@ -32,7 +32,7 @@ export default [
 66,114,92,6
 52,95,168,9`,
       effectType: 'etch',
-      etchWidth: 0.01,
+      etchWidth: 0.030,
       isDramatic: false,
       isSingleton: false,
       lineType: 'radial',
@@ -48,28 +48,28 @@ export default [
     title: 'Ocean Tide - New York, New York USA',
     description: 'Alternating low and high tide height for New York City USA. Dates include April 30 2019 to May 8 2019',
     settings: {
-      cellSize: 3,
-      curveOffsetX: 0.14,
-      curveOffsetY: 0.38,
+      cellSize: 2.12,
+      curveOffsetX: 0.01,
+      curveOffsetY: 0.42,
       curveRotation: 45,
-      curveScaleX: 0.93,
-      curveScaleY: 0.66,
+      curveScaleX: 0.83,
+      curveScaleY: 0.60,
       curveType: 'curveBasis',
-      datum: `0.37,1.29,0.26,1.22,0.37
-0.37,1.29,0.22,1.29,0.31
-0.31,1.32,0.17,1.37,0.23
-0.23,1.37,0.12,1.45,0.15
-0.15,1.41,0.08,1.54,0.08
-0.08,1.44,0.05,1.60,0.02
-0.02,1.44,0.03,1.65,-0.02
--0.02,1.44,0.02,1.68,-0.04
--0.04,1.41,0.04,1.68,-0.03
--0.03,1.38,0.07,1.66,0.00`,
+      datum: `0,0.37,1.29,0.26,1.22,0.37,0
+0,0.37,1.29,0.22,1.29,0.31,0
+0,0.31,1.32,0.17,1.37,0.23,0
+0,0.23,1.37,0.12,1.45,0.15,0
+0,0.15,1.41,0.08,1.54,0.08,0
+0,0.08,1.44,0.05,1.60,0.02,0
+0,0.02,1.44,0.03,1.65,-0.02,0
+0,-0.02,1.44,0.02,1.68,-0.04,0
+0,-0.04,1.41,0.04,1.68,-0.03,0
+0,-0.03,1.38,0.07,1.66,0.00,0`,
       effectType: 'cut',
       isDramatic: false,
       isSingleton: false,
       lineType: 'linear',
-      pageWidth: 16,
+      pageWidth: 12,
       pageHeight: 12,
       shapeSideCount: 4,
       showSurround: true,
@@ -83,11 +83,11 @@ export default [
     settings: {
       cellSize: 0.75,
       curveOffsetX: 0,
-      curveOffsetY: 0.02,
+      curveOffsetY: 0.08,
       curveRotation: 0,
-      curveScaleX: 0.15,
-      curveScaleY: 0.3,
-      curveType: 'curveLinearClosed',
+      curveScaleX: 0.25,
+      curveScaleY: 0.21,
+      curveType: 'curveCatmullRomClosed',
       datum: `76,71,72,60,61,74,60,62,61,50,38,62,62,34,35,40
 51,55,60,59,62,34,41,35,73,87,61,80,57,53,56,53,50
 91,82,86,88,91,95,83,95,95,83,70,83,84,90,97,96
@@ -98,12 +98,12 @@ export default [
       lineType: 'radial',
       pageWidth: 16,
       pageHeight: 12,
-      shapeSideCount: 3,
+      shapeSideCount: 2,
       showSurround: true,
       throughHoleExists: true,
-      throughHoleRadius: 0.08,
+      throughHoleRadius: 0.1,
       throughHoleX: 0.38,
-      throughHoleY: 0.18,
+      throughHoleY: 0.15,
       units: 'in',
     },
   },
@@ -154,6 +154,7 @@ export default [
 1922.030029,1880.329956,1906.900024,1940.23999,1880.050049,1864.780029,1917.780029,1948.050049,1999.98999,2022.189941,2049.580078,2035.939941,2072.780029,2047.599976,2080.72998,2091.580078,2065.300049,2057.139893,2046.609985,2052.320068,2099.060059,2099.129883,2096.070068,2071.219971,2037.410034,2102.949951,2129.899902,2161.73999,2175.030029,2173.600098,2182.870117,2184.050049,2183.870117,2169.040039,2179.97998,2127.810059,2139.159912,2164.689941,2168.27002,2153.73999,2132.97998,2141.159912,2126.409912,2085.179932,2164.449951,2181.899902,2213.350098,2191.949951,2259.530029,2258.070068,2263.790039,2238.830078
 2743.149902,2786.23999,2810.300049,2872.870117,2762.129883,2619.550049,2732.219971,2747.300049,2691.25,2786.570068,2752.01001,2588.26001,2640.870117,2604.469971,2656.300049,2670.139893,2669.909912,2663.419922,2727.719971,2712.969971,2721.330078,2734.620117,2779.030029,2779.659912,2754.879883,2718.370117,2759.820068,2801.310059,2801.830078,2818.820068,2840.350098,2833.280029,2850.129883,2874.689941,2901.52002,2871.679932,2904.97998,2929.669922,2913.97998,2885.570068,2767.129883,2767.780029,2658.689941,2723.060059,2781.01001,2736.27002,2632.560059,2760.169922,2633.080078,2599.949951,2416.620117,2485.73999,2506.850098`,
       effectType: 'etch',
+      etchWidth: 0.030,
       isDramatic: false,
       isSingleton: true,
       lineType: 'radial',
