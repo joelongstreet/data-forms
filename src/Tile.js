@@ -11,7 +11,7 @@ import {
 // rotate each polygon a certain number of degrees
 // dependent on the number of sides
 const rotationMap = {
-  3: -90, 4: 0, 5: -18, 6: 0, 7: 38.5, 8: 0,
+  3: -89, 4: 0, 5: -18, 6: 0, 7: 38.5, 8: 0,
 };
 
 // straight lines to connect the vertices of a polygon
@@ -165,7 +165,7 @@ function Tile(props) {
       .attr('cx', throughHoleX)
       .attr('cy', throughHoleY)
       .attr('fill', 'none')
-      .attr('stroke', Styles.colors[2])
+      .attr('stroke', cutColor)
       .attr('r', throughHoleRadius / 2) // why?
       .attr('stroke-width', cutPathWidth);
   }
