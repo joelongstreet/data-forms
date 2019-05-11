@@ -8,6 +8,7 @@ import {
   Radio,
   Row,
   Select,
+  Tooltip,
 } from 'antd';
 
 import Examples from './Examples';
@@ -52,7 +53,9 @@ class SettingsDatum extends Component {
       <SettingsContext.Consumer>
         {context => (
           <React.Fragment>
-            <Divider>Example</Divider>
+            <Tooltip title="Load an example">
+              <Divider>Example</Divider>
+            </Tooltip>
             <Select
               defaultValue={defaultSelectValue}
               style={{ width: '100%' }}
@@ -61,7 +64,9 @@ class SettingsDatum extends Component {
               {examplesOptions}
             </Select>
 
-            <Divider style={Styles.divider}>Interpret</Divider>
+            <Tooltip title="Control the interpretation of the data">
+              <Divider style={Styles.divider}>Interpret</Divider>
+            </Tooltip>
 
             <Row style={{ marginBottom: 20 }}>
               <Col span={12}>
@@ -69,18 +74,24 @@ class SettingsDatum extends Component {
                   value={context.state.effectType}
                   onChange={e => context.setEffectType(e.target.value)}
                 >
-                  <Radio.Button value="etch" disabled={context.state.shapeType === 'isolate'}>Etch</Radio.Button>
-                  <Radio.Button value="cut">Cut</Radio.Button>
+                  <Tooltip title="Draw the data as an etch">
+                    <Radio.Button value="etch">Etch</Radio.Button>
+                  </Tooltip>
+                  <Tooltip title="Draw the data as a cut">
+                    <Radio.Button value="cut">Cut</Radio.Button>
+                  </Tooltip>
                 </Radio.Group>
               </Col>
               <Col span={12}>
-                <Checkbox
-                  style={{ float: 'right' }}
-                  checked={context.state.isSingleton}
-                  onChange={e => context.setIsSingleton(e.target.checked)}
-                >
-                  Singleton
-                </Checkbox>
+                <Tooltip title="Draw all data rows from the same origin">
+                  <Checkbox
+                    style={{ float: 'right' }}
+                    checked={context.state.isSingleton}
+                    onChange={e => context.setIsSingleton(e.target.checked)}
+                  >
+                    Overlap
+                  </Checkbox>
+                </Tooltip>
               </Col>
             </Row>
 
@@ -94,16 +105,20 @@ class SettingsDatum extends Component {
               disabled={context.state.effectType !== 'etch'}
             />
 
-            <Divider style={Styles.divider}>Entry</Divider>
+            <Tooltip title="Enter data">
+              <Divider style={Styles.divider}>Entry</Divider>
+            </Tooltip>
             <Row>
               <Col>
-                <Checkbox
-                  style={{ float: 'right', marginBottom: 10 }}
-                  checked={context.state.isDramatic}
-                  onChange={e => context.setIsDramatic(e.target.checked)}
-                >
-                  Dramatize
-                </Checkbox>
+                <Tooltip title="Add zeros between each data point">
+                  <Checkbox
+                    style={{ float: 'right', marginBottom: 10 }}
+                    checked={context.state.isDramatic}
+                    onChange={e => context.setIsDramatic(e.target.checked)}
+                  >
+                    Dramatize
+                  </Checkbox>
+                </Tooltip>
               </Col>
             </Row>
             <TextArea
@@ -111,7 +126,7 @@ class SettingsDatum extends Component {
               onClick={e => calculateTilePreviewPosition(e, context)}
               onKeyUp={e => calculateTilePreviewPosition(e, context)}
               value={context.state.datum}
-              style={{ fontFamily: 'monospace' }}
+              style={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}
               onChange={e => context.setDatum(e.target.value)}
             />
           </React.Fragment>

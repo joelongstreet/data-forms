@@ -7,6 +7,7 @@ import {
   Radio,
   Row,
   Select,
+  Tooltip,
 } from 'antd';
 
 import * as Styles from './Styles';
@@ -93,19 +94,25 @@ function SettingsPage() {
                 value={context.state.units}
                 onChange={e => context.setUnits(e.target.value)}
               >
-                <Radio.Button value="in">in</Radio.Button>
-                <Radio.Button value="cm">cm</Radio.Button>
+                <Tooltip title="Set the document to standard units">
+                  <Radio.Button value="in">in</Radio.Button>
+                </Tooltip>
+                <Tooltip title="Set the document to metric units">
+                  <Radio.Button value="cm">cm</Radio.Button>
+                </Tooltip>
               </Radio.Group>
             </Col>
           </Row>
 
-          <Select
-            defaultValue={6}
-            style={{ width: '100%', marginBottom: 15 }}
-            onChange={val => handlePresetChange(val, context)}
-          >
-            {presetOptions}
-          </Select>
+          <Tooltip title="Load a document preset">
+            <Select
+              defaultValue={6}
+              style={{ width: '100%', marginBottom: 15 }}
+              onChange={val => handlePresetChange(val, context)}
+            >
+              {presetOptions}
+            </Select>
+          </Tooltip>
 
           <UnitSlider
             label="Width"

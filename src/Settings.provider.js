@@ -70,7 +70,13 @@ class SettingsProvider extends Component {
 
           this.setState({ cellSize });
         },
-        setCurveType: curveType => this.setState({ curveType }),
+        setCurveType: (curveType) => {
+          const { lineType } = this.state;
+          if (lineType === 'radial' && curveType.includes('Closed')) {
+            this.setState({ forceClose: false });
+          }
+          this.setState({ curveType });
+        },
         setCurveOffsetX: curveOffsetX => this.setState({ curveOffsetX }),
         setCurveOffsetY: curveOffsetY => this.setState({ curveOffsetY }),
         setCurveRotation: curveRotation => this.setState({ curveRotation }),
@@ -82,7 +88,7 @@ class SettingsProvider extends Component {
         setForceClose: forceClose => this.setState({ forceClose }),
         setIsDramatic: isDramatic => this.setState({ isDramatic }),
         setIsSingleton: (isSingleton) => {
-          if (!isSingleton) {
+          if (isSingleton) {
             this.setState({
               throughHoleExists: false,
               showSurround: false,
@@ -91,10 +97,26 @@ class SettingsProvider extends Component {
 
           this.setState({ isSingleton });
         },
-        setLineType: (lineType) => {
-          if (lineType === 'linear') {
+        setLineType: (lineType, suggestCurveType) => {
+          const { curveType } = this.state;
+
+          let newCurveType;
+          if (lineType === 'linear' && suggestCurveType) {
+            if (curveType === 'curveBasisClosed') newCurveType = 'curveBasis';
+            if (curveType === 'curveCardinalClosed') newCurveType = 'curveCardinal';
+            if (curveType === 'curveCatmullRomClosed') newCurveType = 'curveCatmullRom';
+            if (curveType === 'curveLinearClosed') newCurveType = 'curveLinear';
             this.setState({ forceClose: false });
           }
+          if (lineType === 'radial' && suggestCurveType) {
+            if (curveType === 'curveBasis') newCurveType = 'curveBasisClosed';
+            else if (curveType === 'curveCardinal') newCurveType = 'curveCardinalClosed';
+            else if (curveType === 'curveCatmullRom') newCurveType = 'curveCatmullRomClosed';
+            else if (curveType === 'curveLinear') newCurveType = 'curveLinearClosed';
+            else this.setState({ forceClose: true });
+          }
+          if (newCurveType) this.setState({ curveType: newCurveType });
+
           this.setState({ lineType });
         },
         setPageWidth: pageWidth => this.setState({ pageWidth }),

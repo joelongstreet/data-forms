@@ -50,7 +50,14 @@ function App() {
           width: '100%', height: '100%', position: 'absolute', top: 0, background: 'none', overflow: 'hidden',
         }}
       >
-        <Content style={{ marginTop: Styles.headerHeight, marginBottom: Styles.footerHeight, position: 'relative' }}>
+        <Content
+          style={{
+            marginTop: Styles.headerHeight,
+            marginBottom: Styles.footerHeight,
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
           <SettingsContext.Consumer>
             {context => (
               <React.Fragment>

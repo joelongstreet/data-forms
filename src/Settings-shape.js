@@ -6,6 +6,7 @@ import {
   Radio,
   Row,
   Select,
+  Tooltip,
 } from 'antd';
 
 import UnitSlider from './UnitSlider';
@@ -37,8 +38,27 @@ const curves = [
 const curveOptions = curves.map((e, i) => <Option key={i} value={i}>{e.title}</Option>);
 /* eslint-enable react/no-array-index-key */
 
-function getDefaultCurve(context) {
-  return curves.findIndex(c => c.functionName === context.state.curveType);
+function getDefaultCurve(curveType) {
+  return curves.findIndex(c => c.functionName === curveType);
+}
+
+function getCurrentCurve(curveType) {
+  const curve = curves.find(c => c.functionName === curveType);
+  return curve.title;
+}
+
+function getSurroundTooltipTitle(isSingleton) {
+  if (isSingleton) {
+    return 'Surround disabled in singleton mode. Uncheck "Singleton" in the data tab to enable surrounds';
+  }
+  return 'Toggle the surrounding cut shape';
+}
+
+function getThroughTooltipTitle(isSingleton) {
+  if (isSingleton) {
+    return 'Through disabled in singleton mode. Uncheck "Singleton" in the data tab to enable throughs';
+  }
+  return 'Toggle the through hole';
 }
 
 function handleCurveChange(val, context) {
@@ -51,17 +71,21 @@ function SettingsShape() {
     <SettingsContext.Consumer>
       {context => (
         <React.Fragment>
-          <Divider>Surround</Divider>
+          <Tooltip title="Encapsulate the data in a shape">
+            <Divider>Surround</Divider>
+          </Tooltip>
           <Row>
             <Col>
-              <Checkbox
-                style={{ float: 'right', marginBottom: 10 }}
-                disabled={context.state.isSingleton}
-                checked={context.state.showSurround}
-                onChange={e => context.setShowSurround(e.target.checked)}
-              >
-                Show
-              </Checkbox>
+              <Tooltip title={getSurroundTooltipTitle(context.state.isSingleton)}>
+                <Checkbox
+                  style={{ float: 'right', marginBottom: 10 }}
+                  disabled={context.state.isSingleton}
+                  checked={context.state.showSurround}
+                  onChange={e => context.setShowSurround(e.target.checked)}
+                >
+                  Show
+                </Checkbox>
+              </Tooltip>
             </Col>
           </Row>
 
@@ -85,17 +109,21 @@ function SettingsShape() {
             hideUnits
           />
 
-          <Divider style={Styles.divider}>Through</Divider>
+          <Tooltip title="Add a cut hole. Used to tie components together or mount data on a string">
+            <Divider style={Styles.divider}>Through</Divider>
+          </Tooltip>
           <Row>
             <Col>
-              <Checkbox
-                style={{ float: 'right', marginBottom: 10 }}
-                disabled={context.state.isSingleton}
-                checked={context.state.throughHoleExists}
-                onChange={e => context.setThroughHoleExists(e.target.checked)}
-              >
-                Show
-              </Checkbox>
+              <Tooltip title={getThroughTooltipTitle(context.state.isSingleton)}>
+                <Checkbox
+                  style={{ float: 'right', marginBottom: 10 }}
+                  disabled={context.state.isSingleton}
+                  checked={context.state.throughHoleExists}
+                  onChange={e => context.setThroughHoleExists(e.target.checked)}
+                >
+                  Show
+                </Checkbox>
+              </Tooltip>
             </Col>
           </Row>
 
@@ -123,37 +151,71 @@ function SettingsShape() {
             max={context.state.cellSize}
             disabled={!context.state.throughHoleExists}
           />
-
-          <Divider style={Styles.divider}>Curve</Divider>
+          <Tooltip title="Control the shape of the data">
+            <Divider style={Styles.divider}>Curve</Divider>
+          </Tooltip>
           <Row style={{ marginBottom: 20 }}>
             <Col span={12}>
               <Radio.Group
                 value={context.state.lineType}
-                onChange={e => context.setLineType(e.target.value)}
+                onChange={e => context.setLineType(e.target.value, true)}
               >
-                <Radio.Button value="radial">Radial</Radio.Button>
-                <Radio.Button value="linear">Linear</Radio.Button>
+                <Tooltip title="Wrap the data around a circle">
+                  <Radio.Button value="radial">Radial</Radio.Button>
+                </Tooltip>
+                <Tooltip title="Draw the data linearly">
+                  <Radio.Button value="linear">Linear</Radio.Button>
+                </Tooltip>
               </Radio.Group>
             </Col>
             <Col span={12}>
-              <Checkbox
-                style={{ float: 'right' }}
-                checked={context.state.forceClose}
-                disabled={context.state.lineType === 'linear'}
-                onChange={e => context.setForceClose(e.target.checked)}
-              >
-                Close Path
-              </Checkbox>
+              <Tooltip title="Force the path to close. Used for non closing curve types (Natural, Step, etc.)">
+                <Checkbox
+                  style={{ float: 'right' }}
+                  checked={context.state.forceClose}
+                  disabled={context.state.lineType === 'linear'}
+                  onChange={e => context.setForceClose(e.target.checked)}
+                >
+                  Close Path
+                </Checkbox>
+              </Tooltip>
             </Col>
           </Row>
-          <Select
-            defaultValue={getDefaultCurve(context)}
-            style={{ width: '100%', marginBottom: 15 }}
-            onChange={val => handleCurveChange(val, context)}
-          >
-            {curveOptions}
-          </Select>
+          <Tooltip title="Curve type">
+            <Select
+              defaultValue={getDefaultCurve(context.state.curveType)}
+              style={{ width: '100%', marginBottom: 15 }}
+              onChange={val => handleCurveChange(val, context)}
+              value={getCurrentCurve(context.state.curveType)}
+            >
+              {curveOptions}
+            </Select>
+          </Tooltip>
 
+          <UnitSlider
+            label="X"
+            onChange={context.setCurveOffsetX}
+            value={context.state.curveOffsetX}
+            min={-1 * context.state.cellSize}
+            max={context.state.cellSize}
+          />
+          <UnitSlider
+            label="Y"
+            onChange={context.setCurveOffsetY}
+            value={context.state.curveOffsetY}
+            min={-1 * context.state.cellSize}
+            max={context.state.cellSize}
+          />
+          <UnitSlider
+            label="Rotate"
+            hideUnits
+            onChange={context.setCurveRotation}
+            value={context.state.curveRotation}
+            inputPrecision={1}
+            step={0.1}
+            min={-180}
+            max={180}
+          />
           <UnitSlider
             label="Scale X"
             hideUnits
@@ -169,30 +231,6 @@ function SettingsShape() {
             value={context.state.curveScaleY}
             min={-3}
             max={3}
-          />
-          <UnitSlider
-            label="Rotate"
-            hideUnits
-            onChange={context.setCurveRotation}
-            value={context.state.curveRotation}
-            inputPrecision={1}
-            step={0.1}
-            min={-180}
-            max={180}
-          />
-          <UnitSlider
-            label="X"
-            onChange={context.setCurveOffsetX}
-            value={context.state.curveOffsetX}
-            min={-1 * context.state.cellSize}
-            max={context.state.cellSize}
-          />
-          <UnitSlider
-            label="Y"
-            onChange={context.setCurveOffsetY}
-            value={context.state.curveOffsetY}
-            min={-1 * context.state.cellSize}
-            max={context.state.cellSize}
           />
         </React.Fragment>
       )}
