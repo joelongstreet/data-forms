@@ -9,6 +9,9 @@ import {
 
 import SettingsContext from './Settings.context';
 
+const defaultSliderStepSize = 0.01;
+const defaultInputPrevision = 2;
+
 function handleSelect(e) {
   const { target } = e;
   target.type = 'text';
@@ -25,7 +28,16 @@ function handleChange(val, stateSetter) {
   stateSetter(num);
 }
 
+function getInputPrecision(propsPrecision) {
+  if (propsPrecision === 0) return 0;
+  if (!propsPrecision) return defaultInputPrevision;
+  return propsPrecision;
+}
+
 function UnitSlider(props) {
+  const { inputPrecision } = props;
+  const precision = getInputPrecision(inputPrecision);
+
   return (
     <SettingsContext.Consumer>
       {context => (
@@ -39,7 +51,7 @@ function UnitSlider(props) {
               value={props.value}
               min={props.min}
               max={props.max}
-              step={props.step || context.state.defaultSliderStepSize}
+              step={props.step || defaultSliderStepSize}
               onChange={props.onChange}
             />
           </Col>
@@ -50,9 +62,10 @@ function UnitSlider(props) {
               min={props.min}
               max={props.max}
               value={props.value}
+              precision={precision}
               onChange={val => handleChange(val, props.onChange)}
               onClick={handleSelect}
-              step={props.step || context.state.defaultSliderStepSize}
+              step={props.step || defaultSliderStepSize}
             />
           </Col>
           <Col span={1}>

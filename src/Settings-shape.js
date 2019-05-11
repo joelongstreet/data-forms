@@ -78,6 +78,7 @@ function SettingsShape() {
             disabled={!context.state.showSurround}
             onChange={context.setShapeSideCount}
             value={context.state.shapeSideCount}
+            inputPrecision={0}
             min={2}
             max={8}
             step={1}
@@ -174,6 +175,8 @@ function SettingsShape() {
             hideUnits
             onChange={context.setCurveRotation}
             value={context.state.curveRotation}
+            inputPrecision={1}
+            step={0.1}
             min={-180}
             max={180}
           />

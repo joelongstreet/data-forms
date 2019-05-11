@@ -19,7 +19,6 @@ class SettingsProvider extends Component {
     curveScaleY: 0.5,
     curveType: 'curveBasisClosed',
     datum: '',
-    defaultSliderStepSize: 0.01,
     effectType: 'etch',
     etchWidth: 0.01,
     etchWidthMin: 0.001,
@@ -56,7 +55,21 @@ class SettingsProvider extends Component {
     return (
       <SettingsContext.Provider value={{
         state: this.state,
-        setCellSize: cellSize => this.setState({ cellSize }),
+        setCellSize: (cellSize) => {
+          const { state } = this;
+
+          if (state.throughHoleExists) {
+            const xRatio = state.throughHoleX / state.cellSize;
+            const yRatio = state.throughHoleY / state.cellSize;
+
+            this.setState({
+              throughHoleX: xRatio * cellSize,
+              throughHoleY: yRatio * cellSize,
+            });
+          }
+
+          this.setState({ cellSize });
+        },
         setCurveType: curveType => this.setState({ curveType }),
         setCurveOffsetX: curveOffsetX => this.setState({ curveOffsetX }),
         setCurveOffsetY: curveOffsetY => this.setState({ curveOffsetY }),
