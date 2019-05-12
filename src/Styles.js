@@ -9,6 +9,7 @@ const colors = [
   'rgb(45, 55, 65)', // grey (black)
   'rgb(255, 255, 255)', // white white
   'rgb(95,202,224)', // blue
+  'rgb(26, 31, 42)', // dark black
 ];
 
 const divider = { marginTop: 75 };
