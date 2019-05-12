@@ -80,7 +80,7 @@ function downloadSvgDocument() {
     description: 'DataForms outputs cut files as SVG. Before sending to laser cutter, change the document settings to standard or metric units with 72 DPI. If the document is setup properly, the document dimensions in the vector graphics editor will match the dimensions listed on the page tab from DataForms. Cut line strokes will be set to 0.001 inches if using standard units, etch lines set to the specified etch width in DataForms.',
     duration: 0,
     style: {
-      backgroundColor: 'rgb(26, 31, 42)',
+      backgroundColor: Styles.colors[10],
     },
   });
 
