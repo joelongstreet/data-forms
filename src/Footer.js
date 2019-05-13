@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Col, Modal, Row } from 'antd';
+import {
+  Col, Modal, Row, Button,
+} from 'antd';
 
 import ContactForm from './Contact.form';
 import * as Styles from './Styles';
@@ -38,6 +40,16 @@ class Footer extends Component {
               marginRight: 20, marginTop: 10, padding: '15px 0 30px',
             }}
           >
+            <Button
+              type="default"
+              style={{
+                backgroundColor: Styles.colors[10],
+                marginRight: '20px',
+              }}
+            >
+                Download SVG
+            </Button>
+            <span> | </span>
             <a
               style={{ padding: 20 }}
               href="#contact-modal"
