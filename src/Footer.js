@@ -5,6 +5,7 @@ import {
 
 import ContactForm from './Contact.form';
 import * as Styles from './Styles';
+import downloadSvgDocument from './Download';
 
 
 class Footer extends Component {
@@ -42,6 +43,7 @@ class Footer extends Component {
           >
             <Button
               type="default"
+              onClick={downloadSvgDocument}
               style={{
                 backgroundColor: Styles.colors[10],
                 marginRight: '20px',
