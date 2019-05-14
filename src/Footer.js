@@ -47,11 +47,11 @@ class Footer extends Component {
               style={{
                 backgroundColor: Styles.colors[10],
                 marginRight: '20px',
+                float: 'right',
               }}
             >
                 Download SVG
             </Button>
-            <span> | </span>
             <a
               style={{ padding: 20 }}
               href="#contact-modal"
