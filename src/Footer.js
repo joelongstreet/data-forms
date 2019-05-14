@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Col, Modal, Row } from 'antd';
+import {
+  Col, Modal, Row, Button,
+} from 'antd';
 
 import ContactForm from './Contact.form';
 import * as Styles from './Styles';
+import downloadSvgDocument from './Download';
 
 
 class Footer extends Component {
@@ -38,6 +41,17 @@ class Footer extends Component {
               marginRight: 20, marginTop: 10, padding: '15px 0 30px',
             }}
           >
+            <Button
+              type="default"
+              onClick={downloadSvgDocument}
+              style={{
+                backgroundColor: Styles.colors[10],
+                marginRight: '20px',
+                float: 'right',
+              }}
+            >
+                Download SVG
+            </Button>
             <a
               style={{ padding: 20 }}
               href="#contact-modal"
