@@ -117,11 +117,12 @@ function SettingsPage() {
 
           <Divider style={Styles.divider} />
           <Button
-            type="primary"
+            type="default"
+            block
             onClick={downloadSvgDocument}
-            style={{ display: 'block', margin: 'auto' }}
+            style={{ display: 'block', margin: 'auto', backgroundColor: Styles.colors[10] }}
           >
-            Download Cut File
+            Download SVG
           </Button>
         </React.Fragment>
       )}
