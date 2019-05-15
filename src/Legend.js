@@ -19,7 +19,7 @@ function Legend() {
             border: `1px solid ${Styles.colors[5]}`,
             borderLeft: 'none',
             position: 'absolute',
-            zIndex: 999,
+            zIndex: 2,
             top: Styles.headerHeight + 30,
           }}
         >

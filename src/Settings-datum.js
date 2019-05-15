@@ -11,7 +11,7 @@ import {
   Tooltip,
 } from 'antd';
 
-import Examples from './Examples';
+import ExampleData from './Examples.data';
 import UnitSlider from './UnitSlider';
 import SettingsContext from './Settings.context';
 import * as Styles from './Styles';
@@ -20,7 +20,7 @@ const { Option } = Select;
 const { TextArea } = Input;
 
 /* eslint-disable react/no-array-index-key */
-const examplesOptions = Examples.map((e, i) => <Option key={i} value={i}>{e.title}</Option>);
+const examplesOptions = ExampleData.map((e, i) => <Option key={i} value={i}>{e.title}</Option>);
 /* eslint-enable react/no-array-index-key */
 
 function capitalize(s) {
@@ -28,7 +28,7 @@ function capitalize(s) {
 }
 
 function handleExampleChange(val, context) {
-  const { settings } = Examples[val];
+  const { settings } = ExampleData[val];
   Object.keys(settings).forEach((settingKey) => {
     const fn = `set${capitalize(settingKey)}`;
     context[fn](settings[settingKey]);
@@ -41,7 +41,7 @@ function calculateTilePreviewPosition(e, context) {
   context.setTextAreaHighlightIndex(line);
 }
 
-const defaultSelectValue = random(0, Examples.length - 1);
+const defaultSelectValue = random(0, ExampleData.length - 1);
 
 class SettingsDatum extends Component {
   componentDidMount() {
