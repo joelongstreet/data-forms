@@ -4,6 +4,7 @@ import {
 } from 'antd';
 
 import ContactForm from './Contact.form';
+import Examples from './Examples';
 import * as Styles from './Styles';
 import downloadSvgDocument from './Download';
 
@@ -11,6 +12,7 @@ import downloadSvgDocument from './Download';
 class Footer extends Component {
   state = {
     contactModalVisible: false,
+    examplesVisible: false,
   }
 
   showContactModal = (e) => {
@@ -18,12 +20,21 @@ class Footer extends Component {
     this.setState({ contactModalVisible: true });
   }
 
+  showExamples = (e) => {
+    e.preventDefault();
+    this.setState({ examplesVisible: true });
+  }
+
   closeContactModal = () => {
     this.setState({ contactModalVisible: false });
   }
 
+  closeExamples = () => {
+    this.setState({ examplesVisible: false });
+  }
+
   render() {
-    const { contactModalVisible } = this.state;
+    const { contactModalVisible, examplesVisible } = this.state;
     return (
       <React.Fragment>
         <Row style={{
@@ -67,6 +78,14 @@ class Footer extends Component {
             >
               Github
             </a>
+            <span> | </span>
+            <a
+              style={{ padding: 20 }}
+              href="#show-examples"
+              onClick={this.showExamples}
+            >
+              Examples
+            </a>
           </Col>
         </Row>
         <Modal
@@ -77,6 +96,10 @@ class Footer extends Component {
         >
           <ContactForm onSubmit={this.closeContactModal} />
         </Modal>
+        <Examples
+          onClose={this.closeExamples}
+          visible={examplesVisible}
+        />
       </React.Fragment>
     );
   }
