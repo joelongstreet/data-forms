@@ -7,6 +7,7 @@ import {
 
 import * as Styles from './Styles';
 import Analytics from './Analytics';
+import Examples from './Examples';
 import Footer from './Footer';
 import Legend from './Legend';
 import PagePreview from './PagePreview';
@@ -94,6 +95,7 @@ function App() {
         </Sider>
       </Layout>
 
+      <Examples />
       <Footer />
       <Analytics />
     </SettingsProvider>
