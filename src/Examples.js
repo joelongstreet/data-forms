@@ -7,7 +7,7 @@ import Example from './Example';
 function Examples(props) {
   const { visible, onClose } = props;
 
-  const topPosition = visible ? 0 : '100%';
+  const translateY = visible ? '-100%' : '0%';
   const examples = ExampleData.map(d => (
     <Example
       title={d.title}
@@ -23,16 +23,19 @@ function Examples(props) {
       height: '100%',
       overflow: 'scroll',
       position: 'absolute',
-      top: topPosition,
+      top: '100%',
+      transition: 'transform .3s ease-in-out',
+      transform: `translateY(${translateY})`,
       zIndex: 3,
     }}
     >
       <a
+        id="close-examples-button"
         href="#close-example"
         onClick={onClose}
         style={{
           cursor: 'pointer',
-          color: 'black',
+          color: Styles.colors[0],
           position: 'absolute',
           fontSize: 50,
           right: 20,
