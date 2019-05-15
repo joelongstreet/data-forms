@@ -4,7 +4,10 @@ import ExampleData from './Examples.data';
 import Example from './Example';
 
 
-function Examples() {
+function Examples(props) {
+  const { visible, onClose } = props;
+
+  const topPosition = visible ? 0 : '100%';
   const examples = ExampleData.map(d => (
     <Example
       title={d.title}
@@ -20,10 +23,24 @@ function Examples() {
       height: '100%',
       overflow: 'scroll',
       position: 'absolute',
-      top: 0,
+      top: topPosition,
       zIndex: 3,
     }}
     >
+      <a
+        href="#close-example"
+        onClick={onClose}
+        style={{
+          cursor: 'pointer',
+          color: 'black',
+          position: 'absolute',
+          fontSize: 50,
+          right: 20,
+          top: 0,
+        }}
+      >
+        &times;
+      </a>
       {examples}
     </div>
   );
