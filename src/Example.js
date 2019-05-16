@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Popover } from 'antd';
+
+import * as Styles from './Styles';
 
 class Example extends Component {
   state = {
@@ -17,34 +20,37 @@ class Example extends Component {
     this.setState({ imageIndex: nextIndex });
   }
 
-  showDescription = () => {
-    const { onHover } = this.props;
-    onHover();
-  }
-
   render() {
     const { imageIndex } = this.state;
-    const { images } = this.props;
+    const { title, description, images } = this.props;
 
     return (
-      <div
-        tabIndex="0"
-        role="button"
-        onKeyPress={this.nextImage}
-        onClick={this.nextImage}
-        onMouseEnter={this.showDescription}
-        style={{
-          backgroundImage: `url(${images[imageIndex]})`,
-          backgroundSize: 'cover',
-          cursor: 'pointer',
-          width: '33.3%',
-          paddingBottom: '33.3%',
-          float: 'left',
-          position: 'relative',
-          display: 'inline-block',
-          overflow: 'hidden',
+      <Popover
+        content={description}
+        title={title}
+        overlayStyle={{
+          maxWidth: '50%',
+          color: Styles.colors[0],
         }}
-      />
+      >
+        <div
+          tabIndex="0"
+          role="button"
+          onKeyPress={this.nextImage}
+          onClick={this.nextImage}
+          style={{
+            backgroundImage: `url(${images[imageIndex]})`,
+            backgroundSize: 'cover',
+            cursor: 'pointer',
+            width: '33.3%',
+            paddingBottom: '33.3%',
+            float: 'left',
+            position: 'relative',
+            display: 'inline-block',
+            overflow: 'hidden',
+          }}
+        />
+      </Popover>
     );
   }
 }
