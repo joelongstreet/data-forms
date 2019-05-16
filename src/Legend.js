@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import * as Styles from './Styles';
 
@@ -7,6 +5,10 @@ import SettingsContext from './Settings.context';
 
 
 function Legend() {
+  function setEffectType(context, effectType) {
+    context.setEffectType(effectType);
+  }
+
   return (
     <SettingsContext.Consumer>
       {context => (
@@ -23,11 +25,21 @@ function Legend() {
             top: Styles.headerHeight + 30,
           }}
         >
-          <div onClick={() => context.setEffectType('cut')}>
+          <div
+            role="button"
+            tabIndex="0"
+            onKeyPress={() => setEffectType(context, 'cut')}
+            onClick={() => setEffectType(context, 'cut')}
+          >
             <div style={Styles.getLegendLineStyle(2)} />
             Cut
           </div>
-          <div onClick={() => context.setEffectType('etch')}>
+          <div
+            role="button"
+            tabIndex="0"
+            onKeyPress={() => setEffectType(context, 'etch')}
+            onClick={() => setEffectType(context, 'etch')}
+          >
             <div style={Styles.getLegendLineStyle(3)} />
             Etch
           </div>
