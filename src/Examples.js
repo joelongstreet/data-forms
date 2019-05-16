@@ -37,15 +37,14 @@ function Examples(props) {
         onClick={onClose}
         style={{
           cursor: 'pointer',
-          color: Styles.colors[8],
-          backgroundColor: Styles.colors[0],
+          color: Styles.colors[0],
+          backgroundColor: Styles.colors[8],
           position: 'absolute',
           fontSize: 50,
           right: 0,
           top: 20,
           zIndex: 1,
           padding: '0px 20px',
-          border: `5px solid ${Styles.colors[8]}`,
           borderRight: 'none',
         }}
       >

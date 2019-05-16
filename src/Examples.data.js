@@ -2,7 +2,7 @@ export default [
   {
     title: 'Slugging Percentage - American Baseball',
     description: '162 game average slugging percentage (Singles * 1, Doubles * 2, Triples * 3, HR * 4). Players include Ty Cobb, Babe Ruth, Shoeless Joe Jackson, Honus Wagner, Ted Williams, Lou Gehrig, Joe DiMaggio, Jackie Robinson, Stan Musial, Mickey Mantle, Yogi Berra, Roberto Clemente, Willie Mays, Hank Aaron, Pete Rose, George Brett, Derek Jeter, Ken Griffey Jr, Mark McGwire, Cal Ripken Jr, and Sammy Sosa.',
-    images: ['examples/c2fo-accepted-invoice-amount/5.jpg', 'examples/c2fo-accepted-invoice-amount/1.jpg', 'examples/c2fo-accepted-invoice-amount/2.jpg'],
+    images: ['examples/slugging-percentage/1.jpg'],
     settings: {
       cellSize: 2.5,
       curveOffsetX: 0,
@@ -49,7 +49,7 @@ export default [
   {
     title: 'Ocean Tide - New York, New York USA',
     description: 'Alternating low and high tide height for New York City USA. Dates include April 30 2019 to May 8 2019',
-    images: ['examples/c2fo-accepted-invoice-amount/1.jpg', 'examples/c2fo-accepted-invoice-amount/2.jpg', 'examples/c2fo-accepted-invoice-amount/3.jpg'],
+    images: ['examples/nyc-ocean-tide/1.jpg'],
     settings: {
       cellSize: 2.12,
       curveOffsetX: 0.01,
@@ -84,7 +84,7 @@ export default [
   {
     title: 'Monthly Weather - Kansas City, Missouri USA',
     description: 'Every other day\'s high temperature in Kansas City, Missouri USA for 4 notable months. Jane, Ruby, Lucy (my 3 children) and Megan (wife) birth month year. November 2015, March 2017, June 2018, and March 1986 respectively.',
-    images: ['examples/c2fo-accepted-invoice-amount/2.jpg', 'examples/c2fo-accepted-invoice-amount/3.jpg', 'examples/c2fo-accepted-invoice-amount/4.jpg'],
+    images: ['examples/kc-weather/1.jpg'],
     settings: {
       cellSize: 0.75,
       curveOffsetX: 0,
@@ -116,7 +116,7 @@ export default [
   {
     title: 'Weekly S&P 500 closing price - 1950 to 2018',
     description: 'The weekly closing price of the S&P 500, grouped by year. Range includes every week for even years between Jan 03 1950 and Dec 31 2018.',
-    images: ['examples/c2fo-accepted-invoice-amount/3.jpg', 'examples/c2fo-accepted-invoice-amount/4.jpg', 'examples/c2fo-accepted-invoice-amount/5.jpg'],
+    images: ['examples/s-p-500/1.jpg'],
     settings: {
       cellSize: 9,
       curveOffsetX: 0,
@@ -171,6 +171,14 @@ export default [
       showSurround: false,
       throughHoleExists: false,
       units: 'in',
+    },
+  },
+  {
+    title: 'Weekly S&P 500 closing price - 1950 to 2018',
+    description: 'The weekly closing price of the S&P 500, grouped by year. Range includes every week for even years between Jan 03 1950 and Dec 31 2018.',
+    images: ['examples/c2fo-accepted-invoice-amount/1.jpg', 'examples/c2fo-accepted-invoice-amount/2.jpg', 'examples/c2fo-accepted-invoice-amount/3.jpg', 'examples/c2fo-accepted-invoice-amount/4.jpg', 'examples/c2fo-accepted-invoice-amount/5.jpg', 'examples/c2fo-accepted-invoice-amount/6.jpg'],
+    settings: {
+
     },
   },
 ];
