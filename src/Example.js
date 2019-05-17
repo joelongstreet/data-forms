@@ -28,9 +28,10 @@ class Example extends Component {
       <Popover
         content={description}
         title={title}
+        overlayClassName="example-popover"
         overlayStyle={{
-          maxWidth: '50%',
-          color: Styles.colors[0],
+          maxWidth: '22%',
+          arrowPointAtCenter: true,
         }}
       >
         <div
@@ -38,9 +39,11 @@ class Example extends Component {
           role="button"
           onKeyPress={this.nextImage}
           onClick={this.nextImage}
+          lazyload="on"
           style={{
             backgroundImage: `url(${images[imageIndex]})`,
-            backgroundSize: 'cover',
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
             cursor: 'pointer',
             width: '25%',
             paddingBottom: '25%',
