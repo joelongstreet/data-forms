@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Popover } from 'antd';
 
-import * as Styles from './Styles';
-
 class Example extends Component {
   state = {
     imageIndex: 0,
@@ -39,7 +37,6 @@ class Example extends Component {
           role="button"
           onKeyPress={this.nextImage}
           onClick={this.nextImage}
-          lazyload="on"
           style={{
             backgroundImage: `url(${images[imageIndex]})`,
             backgroundSize: 'contain',
