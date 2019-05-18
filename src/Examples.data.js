@@ -227,9 +227,8 @@ export default [
       curveOffsetX: 0,
       curveOffsetY: 0,
       curveRotation: 0,
-      curveScaleX: 0.25,
-      curveScaleY: 0.25,
-      curveType: 'curveCatmullRomClosed',
+      curveScaleX: 1.00,
+      curveScaleY: 0.00,
       datum: `0.7914
 0.5988
 0.8075
@@ -287,8 +286,8 @@ export default [
       pageHeight: 12,
       shapeSideCount: 2,
       showSurround: false,
-      throughHoleExists: false,
-      throughHoleRadius: 0.1,
+      throughHoleExists: true,
+      throughHoleRadius: 0.25,
       throughHoleX: 2,
       throughHoleY: 2,
       units: 'in',
