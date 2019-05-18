@@ -148,18 +148,26 @@ function Tile(props) {
   const curveTranslationString = `${translate[0]}, ${translate[1]}`;
   const curveRotationString = lineType === 'radial' ? curveRotation : `${curveRotation}, ${cellSize / 2}, ${cellSize / 2}`;
 
-  group
-    .append('path')
-    .attr(
-      'transform',
-      `translate(${curveTranslationString}) rotate(${curveRotationString})`,
-    )
-    .datum(datum)
+  // draw the data curve
+  let curve;
+  if (data.length === 1 && lineType === 'radial') {
+    const ratio = cellSize / yDomain[1];
+    const radius = (data[0] * ratio) / 2;
+    curve = group.append('circle');
+    curve.attr('r', radius * curveScaleX);
+  } else {
+    curve = group.append('path');
+    curve.datum(datum).attr('d', lineF);
+  }
+  curve.attr(
+    'transform',
+    `translate(${curveTranslationString}) rotate(${curveRotationString})`,
+  )
     .attr('fill', 'none')
     .attr('stroke', curveColor)
-    .attr('d', lineF)
     .attr('stroke-width', curvePathWidth);
 
+  // draw the through hole
   if (throughHoleExists) {
     group.append('circle')
       .attr('cx', throughHoleX)
