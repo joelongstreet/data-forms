@@ -100,7 +100,7 @@ class SettingsDatum extends Component {
               onChange={context.setEtchWidth}
               value={context.state.etchWidth}
               min={context.state.etchWidthMin}
-              step={0.001}
+              step={0.01}
               max={context.state.etchWidthMax}
               disabled={context.state.effectType !== 'etch'}
             />
