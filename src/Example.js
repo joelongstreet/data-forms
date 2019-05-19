@@ -21,6 +21,21 @@ class Example extends Component {
     this.setState({ imageIndex: nextIndex });
   }
 
+  loadDefaultImage = () => {
+    this.setState({ imageIndex: 0 });
+  }
+
+  loadImage = (e) => {
+    const bounds = e.target.getBoundingClientRect();
+    const x = e.clientX - bounds.left;
+    const w = bounds.right - bounds.left;
+    const { images } = this.props;
+
+    let index = Math.floor((x / w) * images.length);
+    if (index <= 0 || index >= images.length) index = 0;
+    this.setState({ imageIndex: index });
+  }
+
   loadExample = () => {
     const { closeParent, exampleIndex } = this.props;
     const { setActiveExampleIndex } = this.context;
@@ -40,7 +55,7 @@ class Example extends Component {
           onKeyPress={() => { this.loadExample(); }}
           onClick={() => { this.loadExample(); }}
           style={{
-            border: `1px solid ${Styles.colors[0]}`,
+            border: `1px solid ${Styles.colors[1]}`,
             fontWeight: 'bold',
             textAlign: 'center',
             margin: 'auto',
@@ -63,11 +78,14 @@ class Example extends Component {
           arrowPointAtCenter: true,
         }}
       >
+        { /* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */ }
         <div
           tabIndex="0"
           role="button"
           onKeyPress={this.nextImage}
           onClick={this.nextImage}
+          onMouseMove={this.loadImage}
+          onMouseOut={this.loadDefaultImage}
           style={{
             backgroundImage: `url(${images[imageIndex]})`,
             backgroundSize: 'contain',
