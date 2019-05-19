@@ -12,7 +12,7 @@ import downloadSvgDocument from './Download';
 class Footer extends Component {
   state = {
     contactModalVisible: false,
-    examplesVisible: false,
+    examplesVisible: true,
   }
 
   showContactModal = (e) => {

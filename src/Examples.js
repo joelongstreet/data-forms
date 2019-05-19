@@ -1,58 +1,126 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Button } from 'antd';
 import * as Styles from './Styles';
 import ExampleData from './Examples.data';
 import Example from './Example';
 
 
-function Examples(props) {
-  const { visible, onClose } = props;
+class Examples extends Component {
+  state = {
+    showOnboarding: true,
+  }
 
-  const translateY = visible ? '-100%' : '0%';
-  const examples = ExampleData.map((d, i) => (
-    <Example
-      // eslint-disable-next-line react/no-array-index-key
-      key={i}
-      images={d.images}
-      title={d.title}
-      description={d.description}
-    />
-  ));
+  hideOnboarding() {
+    this.setState({ showOnboarding: false });
+  }
 
-  return (
-    <div style={{
-      backgroundColor: Styles.colors[8],
-      width: '100%',
-      height: '100%',
-      overflow: 'scroll',
-      position: 'absolute',
-      top: '100%',
-      transition: 'transform .3s ease-in-out',
-      transform: `translateY(${translateY})`,
-      zIndex: 3,
-    }}
-    >
-      <a
-        id="close-examples-button"
-        href="#close-example"
-        onClick={onClose}
-        style={{
-          cursor: 'pointer',
-          color: Styles.colors[0],
-          backgroundColor: Styles.colors[8],
-          position: 'absolute',
-          fontSize: 50,
-          right: 0,
-          top: 20,
-          zIndex: 1,
-          padding: '0px 20px',
-          borderRight: 'none',
-        }}
+  close() {
+    const { onClose } = this.props;
+    this.setState({ showOnboarding: false });
+    onClose();
+  }
+
+  render() {
+    const { visible } = this.props;
+    const { showOnboarding } = this.state;
+
+    const translateY = visible ? '-100%' : '0%';
+    const examples = ExampleData.map((d, i) => (
+      <Example
+        // eslint-disable-next-line react/no-array-index-key
+        key={i}
+        images={d.images}
+        title={d.title}
+        description={d.description}
+      />
+    ));
+
+    let onboarding = '';
+    if (showOnboarding) {
+      onboarding = (
+        <div
+          style={{
+            position: 'absolute',
+            padding: 20,
+            zIndex: 2,
+            left: '33%',
+            width: '33%',
+            top: 200,
+            color: Styles.colors[0],
+            background: Styles.colors[8],
+          }}
+        >
+          <h2
+            style={{
+              letterSpacing: 1,
+              fontSize: 20,
+              fontWeight: 'bold',
+              color: Styles.colors[0],
+              textAlign: 'center',
+            }}
+          >
+            DataForms
+          </h2>
+          <p>DataForms allows you to create physical manifestations of data. Data sets are drawn on a 2D plane and downloadable as a single SVG. Modify the downloaded file or send it straight to a laser cutter for processing.</p>
+          <p>Fork the examples to get started.</p>
+          <div
+            tabIndex="0"
+            role="button"
+            onKeyPress={() => { this.hideOnboarding(); }}
+            onClick={() => { this.hideOnboarding(); }}
+            style={{
+              border: `1px solid ${Styles.colors[0]}`,
+              fontWeight: 'bold',
+              width: '25%',
+              textAlign: 'center',
+              margin: '30px auto 0',
+              padding: 10,
+              cursor: 'pointer',
+            }}
+          >
+            Got it
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div style={{
+        backgroundColor: Styles.colors[8],
+        width: '100%',
+        height: '100%',
+        overflow: 'scroll',
+        position: 'absolute',
+        top: '100%',
+        transition: 'transform .3s ease-in-out',
+        transform: `translateY(${translateY})`,
+        zIndex: 3,
+      }}
       >
-        &times;
-      </a>
-      {examples}
-    </div>
-  );
+        <a
+          id="close-examples-button"
+          href="#close-example"
+          onClick={() => { this.close(); }}
+          style={{
+            cursor: 'pointer',
+            color: Styles.colors[0],
+            backgroundColor: Styles.colors[8],
+            position: 'absolute',
+            fontSize: 50,
+            right: 0,
+            top: 20,
+            zIndex: 1,
+            padding: '0px 20px',
+            borderRight: 'none',
+          }}
+        >
+          &times;
+        </a>
+        {onboarding}
+        {examples}
+      </div>
+    );
+  }
 }
 
 export default Examples;
