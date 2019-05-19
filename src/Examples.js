@@ -48,8 +48,8 @@ class Examples extends Component {
             left: '33%',
             width: '33%',
             top: 200,
-            color: Styles.colors[0],
-            background: Styles.colors[8],
+            color: Styles.colors[8],
+            background: Styles.colors[0],
           }}
         >
           <h2
@@ -57,7 +57,7 @@ class Examples extends Component {
               letterSpacing: 1,
               fontSize: 20,
               fontWeight: 'bold',
-              color: Styles.colors[0],
+              color: Styles.colors[8],
               textAlign: 'center',
             }}
           >
@@ -71,7 +71,7 @@ class Examples extends Component {
             onKeyPress={() => { this.hideOnboarding(); }}
             onClick={() => { this.hideOnboarding(); }}
             style={{
-              border: `1px solid ${Styles.colors[0]}`,
+              border: `1px solid ${Styles.colors[1]}`,
               fontWeight: 'bold',
               textAlign: 'center',
               margin: '30px auto 0',
@@ -79,7 +79,7 @@ class Examples extends Component {
               cursor: 'pointer',
             }}
           >
-            Got it
+            OK
           </div>
         </div>
       );
@@ -87,7 +87,7 @@ class Examples extends Component {
 
     return (
       <div style={{
-        backgroundColor: Styles.colors[8],
+        background: Styles.colors[0],
         width: '100%',
         height: '100%',
         overflow: 'scroll',
@@ -104,8 +104,8 @@ class Examples extends Component {
           onClick={() => { this.close(); }}
           style={{
             cursor: 'pointer',
-            color: Styles.colors[0],
-            backgroundColor: Styles.colors[8],
+            color: Styles.colors[8],
+            backgroundColor: Styles.colors[0],
             position: 'absolute',
             fontSize: 50,
             right: 0,
