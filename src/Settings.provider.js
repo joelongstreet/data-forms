@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { zipObject, round } from 'lodash';
 import SettingsContext from './Settings.context';
+import ExampleData from './Examples.data';
 
 import { inchesPerCentimenter, centimetersPerInch } from './util';
 
 const unitConversionPrecision = 2;
 
-
 class SettingsProvider extends Component {
   state = {
+    activeExampleIndex: 0,
     cellSize: 4,
     cellSizeMin: 0.1,
     cellSizeMax: 10,
@@ -55,6 +56,12 @@ class SettingsProvider extends Component {
     return (
       <SettingsContext.Provider value={{
         state: this.state,
+        setActiveExampleIndex: (activeExampleIndex) => {
+          this.setState({ activeExampleIndex });
+
+          const { settings } = ExampleData[activeExampleIndex];
+          this.setState(settings);
+        },
         setCellSize: (cellSize) => {
           const { state } = this;
 

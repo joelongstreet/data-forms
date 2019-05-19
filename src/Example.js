@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Popover } from 'antd';
 
 import SettingsContext from './Settings.context';
-import loadExample from './ExampleLoader';
 import * as Styles from './Styles';
 
 class Example extends Component {
@@ -23,8 +22,9 @@ class Example extends Component {
   }
 
   loadExample = () => {
-    const { closeParent, settings } = this.props;
-    loadExample(settings, this.context);
+    const { closeParent, exampleIndex } = this.props;
+    const { setActiveExampleIndex } = this.context;
+    setActiveExampleIndex(exampleIndex);
     closeParent();
   }
 
