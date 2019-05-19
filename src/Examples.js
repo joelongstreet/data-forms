@@ -28,6 +28,7 @@ class Examples extends Component {
       <Example
         // eslint-disable-next-line react/no-array-index-key
         key={i}
+        exampleIndex={i}
         images={d.images}
         title={d.title}
         settings={d.settings}

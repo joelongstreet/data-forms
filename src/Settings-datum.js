@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { random } from 'lodash';
+import React from 'react';
 import {
   Checkbox,
   Col,
@@ -14,7 +13,6 @@ import {
 import ExampleData from './Examples.data';
 import UnitSlider from './UnitSlider';
 import SettingsContext from './Settings.context';
-import loadExample from './ExampleLoader';
 import * as Styles from './Styles';
 
 const { Option } = Select;
@@ -23,11 +21,6 @@ const { TextArea } = Input;
 /* eslint-disable react/no-array-index-key */
 const examplesOptions = ExampleData.map((e, i) => <Option key={i} value={i}>{e.title}</Option>);
 /* eslint-enable react/no-array-index-key */
-
-function handleExampleChange(val, context) {
-  const { settings } = ExampleData[val];
-  loadExample(settings, context);
-}
 
 function calculateTilePreviewPosition(e, context) {
   const { target } = e;
@@ -45,8 +38,9 @@ function SettingsDatum() {
           </Tooltip>
           <Select
             placeholder="Change Example"
+            value={context.state.activeExampleIndex}
             style={{ width: '100%' }}
-            onChange={val => handleExampleChange(val, context)}
+            onChange={context.setActiveExampleIndex}
           >
             {examplesOptions}
           </Select>
