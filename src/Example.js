@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Popover } from 'antd';
 
+import SettingsContext from './Settings.context';
+import loadExample from './ExampleLoader';
+import * as Styles from './Styles';
+
 class Example extends Component {
   state = {
     imageIndex: 0,
@@ -18,13 +22,40 @@ class Example extends Component {
     this.setState({ imageIndex: nextIndex });
   }
 
+  loadExample = () => {
+    const { closeParent, settings } = this.props;
+    loadExample(settings, this.context);
+    closeParent();
+  }
+
   render() {
     const { imageIndex } = this.state;
     const { title, description, images } = this.props;
+    const content = (
+      <div>
+        <p>{description}</p>
+        <div
+          tabIndex="0"
+          role="button"
+          onKeyPress={() => { this.loadExample(); }}
+          onClick={() => { this.loadExample(); }}
+          style={{
+            border: `1px solid ${Styles.colors[0]}`,
+            fontWeight: 'bold',
+            textAlign: 'center',
+            margin: 'auto',
+            padding: 5,
+            cursor: 'pointer',
+          }}
+        >
+          Fork
+        </div>
+      </div>
+    );
 
     return (
       <Popover
-        content={description}
+        content={content}
         title={title}
         overlayClassName="example-popover"
         overlayStyle={{
@@ -55,4 +86,5 @@ class Example extends Component {
   }
 }
 
+Example.contextType = SettingsContext;
 export default Example;

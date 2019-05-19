@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button } from 'antd';
 import * as Styles from './Styles';
 import ExampleData from './Examples.data';
 import Example from './Example';
@@ -31,7 +30,9 @@ class Examples extends Component {
         key={i}
         images={d.images}
         title={d.title}
+        settings={d.settings}
         description={d.description}
+        closeParent={() => { this.close(); }}
       />
     ));
 
@@ -71,7 +72,6 @@ class Examples extends Component {
             style={{
               border: `1px solid ${Styles.colors[0]}`,
               fontWeight: 'bold',
-              width: '25%',
               textAlign: 'center',
               margin: '30px auto 0',
               padding: 10,

@@ -14,6 +14,7 @@ import {
 import ExampleData from './Examples.data';
 import UnitSlider from './UnitSlider';
 import SettingsContext from './Settings.context';
+import loadExample from './ExampleLoader';
 import * as Styles from './Styles';
 
 const { Option } = Select;
@@ -23,16 +24,9 @@ const { TextArea } = Input;
 const examplesOptions = ExampleData.map((e, i) => <Option key={i} value={i}>{e.title}</Option>);
 /* eslint-enable react/no-array-index-key */
 
-function capitalize(s) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
 function handleExampleChange(val, context) {
   const { settings } = ExampleData[val];
-  Object.keys(settings).forEach((settingKey) => {
-    const fn = `set${capitalize(settingKey)}`;
-    context[fn](settings[settingKey]);
-  });
+  loadExample(settings, context);
 }
 
 function calculateTilePreviewPosition(e, context) {
