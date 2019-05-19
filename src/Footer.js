@@ -8,11 +8,14 @@ import Examples from './Examples';
 import * as Styles from './Styles';
 import downloadSvgDocument from './Download';
 
+const env = process.env.NODE_ENV;
+const isProduction = env === 'production';
+
 
 class Footer extends Component {
   state = {
     contactModalVisible: false,
-    examplesVisible: true,
+    examplesVisible: isProduction,
   }
 
   showContactModal = (e) => {
