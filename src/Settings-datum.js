@@ -3,6 +3,7 @@ import {
   Checkbox,
   Col,
   Divider,
+  Icon,
   Input,
   Radio,
   Row,
@@ -86,7 +87,7 @@ function SettingsDatum() {
             disabled={context.state.effectType !== 'etch'}
           />
 
-          <Tooltip title="Enter data">
+          <Tooltip title="Row's control shape count, columns control shape form">
             <Divider style={Styles.divider}>Entry</Divider>
           </Tooltip>
           <Row>
@@ -110,6 +111,9 @@ function SettingsDatum() {
             style={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}
             onChange={e => context.setDatum(e.target.value)}
           />
+          <Tooltip title="Use any data you choose. Row's control shape count, columns control shape form. Many free sources of data are available: Data.gov, Baseball-Reference.com, and Google.com/finance are all good starting points.">
+            <p style={{ float: 'right', marginTop: 10 }}>Help</p>
+          </Tooltip>
         </React.Fragment>
       )}
     </SettingsContext.Consumer>

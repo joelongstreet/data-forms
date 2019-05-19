@@ -24,7 +24,7 @@ class SettingsProvider extends Component {
     etchWidth: 0.01,
     etchWidthMin: 0.001,
     etchWidthMax: 0.2,
-    isDramatic: true,
+    isDramatic: false,
     isSingleton: false,
     lineType: 'radial',
     pageWidth: 16,
