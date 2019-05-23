@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import GA from 'react-ga';
 
 import {
@@ -6,7 +6,7 @@ import {
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 
-class NestedForm extends React.Component {
+class NestedForm extends Component {
   handleSubmit = (e) => {
     const { form, onSubmit } = this.props;
     e.preventDefault();

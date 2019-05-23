@@ -1,3 +1,20 @@
+const breaks = {
+  default: {
+    headerHeight: 77,
+    footerHeight: 75,
+  },
+  medium: { // tablets
+    width: 769,
+    headerHeight: 50,
+    footerHeight: 50,
+  },
+  small: { // phones
+    width: 450,
+    headerHeight: 50,
+    footerHeight: 50,
+  },
+};
+
 const colors = [
   'rgb(36, 41, 52)', // black
   'rgb(203, 204, 198)', // white
@@ -14,24 +31,12 @@ const colors = [
 
 const divider = { marginTop: 75 };
 const previewVerticalCellPadding = 50;
-const headerHeight = 77;
-const footerHeight = 75;
-
-function getLegendLineStyle(styleColorIndex) {
-  return {
-    borderTop: `1px solid ${colors[styleColorIndex]}`,
-    width: 10,
-    float: 'left',
-    marginTop: 10,
-    marginRight: 10,
-  };
-}
+const displayFont = "'Share Tech Mono', monospace";
 
 module.exports = {
+  breaks,
   colors,
-  headerHeight,
-  footerHeight,
+  displayFont,
   divider,
   previewVerticalCellPadding,
-  getLegendLineStyle,
 };

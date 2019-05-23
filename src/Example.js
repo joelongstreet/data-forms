@@ -1,8 +1,50 @@
 import React, { Component } from 'react';
 import { Popover } from 'antd';
+import { StyleSheet, css } from 'aphrodite';
 
 import SettingsContext from './Settings.context';
 import * as Styles from './Styles';
+
+const ruleSets = StyleSheet.create({
+  example: {
+    backgroundSize: 'contain',
+    backgroundPosition: 'center',
+    cursor: 'pointer',
+    width: '25%',
+    paddingBottom: '25%',
+    float: 'left',
+    position: 'relative',
+    display: 'inline-block',
+    overflow: 'hidden',
+    [`@media (max-width: ${Styles.breaks.medium.width}px)`]: {
+      width: '33.3%',
+      paddingBottom: '33.3%',
+    },
+    [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
+      width: '50%',
+      paddingBottom: '50%',
+    },
+  },
+  popover: {
+    width: '23%',
+    arrowPointAtCenter: true,
+    [`@media (max-width: ${Styles.breaks.medium.width}px)`]: {
+      width: '50%',
+    },
+    [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
+      width: '90%',
+    },
+  },
+  popoverButton: {
+    border: `1px solid ${Styles.colors[1]}`,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    margin: 'auto',
+    padding: 5,
+    cursor: 'pointer',
+  },
+});
+
 
 class Example extends Component {
   state = {
@@ -54,14 +96,7 @@ class Example extends Component {
           role="button"
           onKeyPress={() => { this.loadExample(); }}
           onClick={() => { this.loadExample(); }}
-          style={{
-            border: `1px solid ${Styles.colors[1]}`,
-            fontWeight: 'bold',
-            textAlign: 'center',
-            margin: 'auto',
-            padding: 5,
-            cursor: 'pointer',
-          }}
+          className={css(ruleSets.popoverButton)}
         >
           Fork
         </div>
@@ -72,13 +107,8 @@ class Example extends Component {
       <Popover
         content={content}
         title={title}
-        overlayClassName="example-popover"
-        overlayStyle={{
-          maxWidth: '22%',
-          arrowPointAtCenter: true,
-        }}
+        overlayClassName={css(ruleSets.popover)}
       >
-        { /* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */ }
         <div
           tabIndex="0"
           role="button"
@@ -86,18 +116,9 @@ class Example extends Component {
           onClick={this.nextImage}
           onMouseMove={this.loadImage}
           onMouseOut={this.loadDefaultImage}
-          style={{
-            backgroundImage: `url(${images[imageIndex]})`,
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
-            cursor: 'pointer',
-            width: '25%',
-            paddingBottom: '25%',
-            float: 'left',
-            position: 'relative',
-            display: 'inline-block',
-            overflow: 'hidden',
-          }}
+          onBlur={this.loadDefaultImage}
+          className={css(ruleSets.example)}
+          style={{ backgroundImage: `url(${images[imageIndex]})` }}
         />
       </Popover>
     );
