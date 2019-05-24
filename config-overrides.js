@@ -46,6 +46,7 @@ module.exports = override(
       '@slider-handle-color': Styles.colors[0],
       '@link-hover-decoration': 'underline',
       '@popover-bg': Styles.colors[0],
+      '@border-radius-base': 0,
     },
   }),
 );
