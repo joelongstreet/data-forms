@@ -11,7 +11,6 @@ import Preview from './Preview';
 import Settings from './Settings';
 import SettingsProvider from './Settings.provider';
 import SettingsContext from './Settings.context';
-import { isAbsolute } from 'path';
 
 const {
   Content,
