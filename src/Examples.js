@@ -44,7 +44,6 @@ const ruleSets = StyleSheet.create({
     [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
       width: '90%',
       left: '5%',
-      top: 125,
     },
   },
   onboardingHeading: {

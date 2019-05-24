@@ -3,6 +3,9 @@ const breaks = {
     headerHeight: 77,
     footerHeight: 75,
   },
+  large: {
+    width: 1000,
+  },
   medium: { // tablets
     width: 769,
     headerHeight: 50,

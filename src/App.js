@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  Col,
-  Layout,
-  Row,
-} from 'antd';
+import { StyleSheet, css } from 'aphrodite';
+import { Layout, Row } from 'antd';
 
 import * as Styles from './Styles';
 import Analytics from './Analytics';
@@ -14,11 +11,71 @@ import Preview from './Preview';
 import Settings from './Settings';
 import SettingsProvider from './Settings.provider';
 import SettingsContext from './Settings.context';
+import { isAbsolute } from 'path';
 
 const {
   Content,
   Sider,
 } = Layout;
+
+const ruleSets = StyleSheet.create({
+  heading: {
+    height: Styles.breaks.default.headerHeight,
+    fontFamily: Styles.displayFont,
+    color: Styles.colors[8],
+    paddingTop: 10,
+    margin: '0 100px 0',
+    textShadow: `2px 2px 2px ${Styles.colors[10]}`,
+    letterSpacing: 20,
+    fontSize: 40,
+    textTransform: 'uppercase',
+    [`@media (max-width: ${Styles.breaks.large.width}px)`]: {
+      marginLeft: 30,
+      paddingTop: 20,
+      fontSize: 25,
+      letterSpacing: 15,
+    },
+    [`@media (max-width: ${Styles.breaks.medium.width}px)`]: {
+      marginLeft: 0,
+      marginRight: 0,
+      height: 50,
+      letterSpacing: 30,
+      paddingTop: 10,
+      fontSize: 20,
+      textAlign: 'center',
+    },
+  },
+  layout: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    background: 'none',
+    overflow: 'hidden',
+  },
+  content: {
+    marginTop: Styles.breaks.default.headerHeight,
+    marginBottom: Styles.breaks.default.footerHeight,
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  sider: {
+    marginBottom: Styles.breaks.default.footerHeight,
+    marginRight: 20,
+    marginTop: 33,
+    background: Styles.colors[0],
+    border: `1px solid ${Styles.colors[5]}`,
+    borderBottom: 'none',
+    overflowY: 'scroll',
+    [`@media (max-width: ${Styles.breaks.medium.width}px)`]: {
+      transform: 'translateX(140%)',
+      position: 'absolute',
+      borderTop: 'none',
+      height: '100%',
+      marginTop: 0,
+    },
+  },
+});
 
 function App() {
   return (
@@ -27,37 +84,12 @@ function App() {
 
       {/* Page Header */}
       <Row style={{ borderBottom: `1px solid ${Styles.colors[5]}` }}>
-        <Col span={23} offset={1}>
-          <h1 style={{
-            height: Styles.headerHeight,
-            fontFamily: "'Share Tech Mono', monospace",
-            color: Styles.colors[8],
-            padding: '10px 0 7px 0',
-            margin: 0,
-            letterSpacing: 20,
-            fontSize: '40px',
-            textShadow: '2px 2px 2px black',
-          }}
-          >
-            DATA FORMS
-          </h1>
-        </Col>
+        <h1 className={css(ruleSets.heading)}>Data Forms</h1>
       </Row>
 
       { /* Sidebar and preview */ }
-      <Layout
-        style={{
-          width: '100%', height: '100%', position: 'absolute', top: 0, background: 'none', overflow: 'hidden',
-        }}
-      >
-        <Content
-          style={{
-            marginTop: Styles.headerHeight,
-            marginBottom: Styles.footerHeight,
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
+      <Layout className={css(ruleSets.layout)}>
+        <Content className={css(ruleSets.content)}>
           <SettingsContext.Consumer>
             {context => (
               <React.Fragment>
@@ -78,18 +110,7 @@ function App() {
             )}
           </SettingsContext.Consumer>
         </Content>
-        <Sider
-          width={450}
-          style={{
-            marginBottom: Styles.footerHeight,
-            marginRight: 20,
-            marginTop: 33,
-            background: Styles.colors[0],
-            border: `1px solid ${Styles.colors[5]}`,
-            borderBottom: 'none',
-            overflowY: 'scroll',
-          }}
-        >
+        <Sider width={450} className={css(ruleSets.sider)}>
           <Settings />
         </Sider>
       </Layout>

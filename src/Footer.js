@@ -41,7 +41,7 @@ class Footer extends Component {
     return (
       <React.Fragment>
         <Row style={{
-          height: Styles.footerHeight,
+          height: Styles.breaks.default.footerHeight,
           borderTop: `1px solid ${Styles.colors[5]}`,
           position: 'absolute',
           bottom: 0,
