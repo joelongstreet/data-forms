@@ -38,7 +38,7 @@ const ruleSets = StyleSheet.create({
       marginLeft: 0,
       marginRight: 0,
       height: 50,
-      letterSpacing: 30,
+      letterSpacing: 12,
       paddingTop: 10,
       fontSize: 20,
       textAlign: 'center',

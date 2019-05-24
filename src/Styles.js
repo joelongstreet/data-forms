@@ -5,6 +5,7 @@ const breaks = {
   },
   large: {
     width: 1000,
+    headerHeight: 77,
   },
   medium: { // tablets
     width: 769,

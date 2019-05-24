@@ -17,6 +17,9 @@ const ruleSets = StyleSheet.create({
     position: 'absolute',
     zIndex: 2,
     top: Styles.breaks.default.headerHeight + 30,
+    [`@media (max-width: ${Styles.breaks.medium.width}px)`]: {
+      top: Styles.breaks.medium.headerHeight + 30,
+    },
   },
   line: {
     borderTop: '1px solid',
