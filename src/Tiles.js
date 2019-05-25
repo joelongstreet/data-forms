@@ -108,15 +108,18 @@ class Tiles extends Component {
     throughHoleY = convertUnitsToPixels(throughHoleY, units);
 
     // break the stringed datasets into rows and columns
-    const dataSets = datum
-      .split('\n')
-      .map((ds) => {
-        let row = ds.split(',');
-        if (isDramatic) {
-          row = row.reduce((r, a) => r.concat(a, 0), []);
-        }
-        return row.map(d => Number(d));
-      });
+    let dataSets = [];
+    if (datum.length) {
+      dataSets = datum
+        .split('\n')
+        .map((ds) => {
+          let row = ds.split(',');
+          if (isDramatic) {
+            row = row.reduce((r, a) => r.concat(a, 0), []);
+          }
+          return row.map(d => Number(d));
+        });
+    }
 
     // find the highest and lowest values for the data set
     const yDomain = d3.extent(
