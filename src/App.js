@@ -4,8 +4,8 @@ import { Icon, Layout, Row } from 'antd';
 
 import * as Styles from './Styles';
 import Analytics from './Analytics';
-import Footer from './Footer';
 import Legend from './Legend';
+import Menu from './Menu';
 import PagePreview from './PagePreview';
 import Preview from './Preview';
 import Settings from './Settings';
@@ -57,6 +57,11 @@ const ruleSets = StyleSheet.create({
     overflow: 'hidden',
     [`@media (max-width: ${Styles.breaks.medium.width}px)`]: {
       marginTop: Styles.breaks.medium.headerHeight,
+      marginBottom: Styles.breaks.medium.footerHeight,
+    },
+    [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
+      marginTop: Styles.breaks.small.headerHeight,
+      marginBottom: Styles.breaks.small.footerHeight,
     },
   },
   aside: {
@@ -76,26 +81,65 @@ const ruleSets = StyleSheet.create({
     transform: 'translateX(0%)',
     [`@media (max-width: ${Styles.breaks.medium.width}px)`]: {
       transform: 'translateX(100%)',
+      paddingTop: 7,
       transition: 'transform 0.5s',
       position: 'absolute',
       borderTop: 'none',
-      border: 'none',
-      height: '100%',
+      height: '101%',
       marginTop: 0,
+      minWidth: '50%',
+      width: '50%',
+      flex: 'auto',
+      maxWidth: '50%',
+    },
+    [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
+      border: `1px solid ${Styles.colors[5]}`,
       minWidth: '100%',
       width: '100%',
-      flex: 'auto',
       maxWidth: '100%',
     },
   },
   asideStateOpen: {
     [`@media (max-width: ${Styles.breaks.medium.width}px)`]: {
+      transform: 'translateX(100%)',
+    },
+    [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
       transform: 'translateX(0%)',
     },
   },
   asideStateClosed: {
     [`@media (max-width: ${Styles.breaks.medium.width}px)`]: {
+      transform: 'translateX(200%)',
+    },
+    [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
       transform: 'translateX(100%)',
+    },
+  },
+  menu: {
+    background: Styles.colors[0],
+    height: Styles.breaks.default.footerHeight,
+    borderTop: `1px solid ${Styles.colors[5]}`,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
+      border: `1px solid ${Styles.colors[5]}`,
+      zIndex: 2,
+      transition: 'transform 0.5s',
+      width: '100%',
+      height: '101%',
+      position: 'absolute',
+      top: 0,
+    },
+  },
+  menuStateOpen: {
+    [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
+      transform: 'translateX(0%)',
+    },
+  },
+  menuStateClosed: {
+    [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
+      transform: 'translateX(-100%)',
     },
   },
   settingsIcon: {
@@ -111,10 +155,23 @@ const ruleSets = StyleSheet.create({
       display: 'block',
     },
   },
+  menuIcon: {
+    zIndex: 2,
+    position: 'absolute',
+    padding: 15,
+    top: 0,
+    left: 0,
+    fontSize: 16,
+    cursor: 'pointer',
+    display: 'none',
+    [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
+      display: 'block',
+    },
+  },
   closeIcon: {
     zIndex: 2,
     position: 'absolute',
-    top: 10,
+    top: 15,
     left: 10,
     fontSize: 20,
     cursor: 'pointer',
@@ -127,17 +184,24 @@ const ruleSets = StyleSheet.create({
 
 class App extends Component {
   state = {
-    settingsMenuOpen: false,
+    settingsOpen: false,
+    menuOpen: false,
   }
 
   toggleSettings() {
-    const { settingsMenuOpen } = this.state;
-    this.setState({ settingsMenuOpen: !settingsMenuOpen });
+    const { settingsOpen } = this.state;
+    this.setState({ settingsOpen: !settingsOpen });
+  }
+
+  toggleMenu() {
+    const { menuOpen } = this.state;
+    this.setState({ menuOpen: !menuOpen });
   }
 
   render() {
-    const { settingsMenuOpen } = this.state;
-    const asideStateClass = settingsMenuOpen ? ruleSets.asideStateOpen : ruleSets.asideStateClosed;
+    const { settingsOpen, menuOpen } = this.state;
+    const asideStateClass = settingsOpen ? ruleSets.asideStateOpen : ruleSets.asideStateClosed;
+    const menuStateClass = menuOpen ? ruleSets.menuStateOpen : ruleSets.menuStateClosed;
 
     return (
       <SettingsProvider>
@@ -145,6 +209,7 @@ class App extends Component {
 
         {/* Page Header */}
         <Row style={{ borderBottom: `1px solid ${Styles.colors[5]}` }}>
+          <Icon type="menu" className={css(ruleSets.menuIcon)} onClick={() => { this.toggleMenu(); }} />
           <h1 className={css(ruleSets.heading)}>Data Forms</h1>
           <Icon theme="filled" type="setting" className={css(ruleSets.settingsIcon)} onClick={() => { this.toggleSettings(); }} />
         </Row>
@@ -173,12 +238,16 @@ class App extends Component {
             </SettingsContext.Consumer>
           </Content>
           <aside className={css(ruleSets.aside, asideStateClass)}>
-            <Icon type="close-circle" className={css(ruleSets.closeIcon)} onClick={() => { this.toggleSettings(); }} />
+            <Icon type="close" className={css(ruleSets.closeIcon)} onClick={() => { this.toggleSettings(); }} />
             <Settings />
           </aside>
         </Layout>
 
-        <Footer />
+        <div className={css(ruleSets.menu, menuStateClass)}>
+          <Icon type="close" className={css(ruleSets.closeIcon)} style={{ left: 'auto', right: 10 }} onClick={() => { this.toggleMenu(); }} />
+          <Menu />
+        </div>
+
         <Analytics />
       </SettingsProvider>
     );

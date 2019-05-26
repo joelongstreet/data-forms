@@ -15,7 +15,7 @@ const breaks = {
   small: { // phones
     width: 450,
     headerHeight: 50,
-    footerHeight: 50,
+    footerHeight: 0,
   },
 };
 
