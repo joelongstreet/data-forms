@@ -26,6 +26,10 @@ const ruleSets = StyleSheet.create({
     zIndex: 1,
     padding: '0px 20px',
     borderRight: 'none',
+    [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
+      lineHeight: 1.25,
+      padding: '0px 10px',
+    },
   },
   onboarding: {
     position: 'absolute',

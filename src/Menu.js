@@ -3,12 +3,8 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import { Modal, Button } from 'antd';
 
 import ContactForm from './Contact.form';
-import Examples from './Examples';
 import * as Styles from './Styles';
 import downloadSvgDocument from './Download';
-
-const env = process.env.NODE_ENV;
-const isProduction = env === 'production';
 
 const ruleSets = StyleSheet.create({
   button: {
@@ -54,7 +50,6 @@ const ruleSets = StyleSheet.create({
 class Menu extends Component {
   state = {
     contactModalVisible: false,
-    examplesVisible: isProduction,
   }
 
   toggleContactModal = (e) => {
@@ -63,19 +58,9 @@ class Menu extends Component {
     this.setState({ contactModalVisible: !contactModalVisible });
   }
 
-  openExamples = (e) => {
-    e.preventDefault();
-    this.setState({ examplesVisible: true });
-  }
-
-  closeExamples = () => {
-    const { toggleMenu } = this.props;
-    toggleMenu();
-    this.setState({ examplesVisible: false });
-  }
-
   render() {
-    const { contactModalVisible, examplesVisible } = this.state;
+    const { contactModalVisible } = this.state;
+    const { openExamples } = this.props;
     return (
       <React.Fragment>
         <a
@@ -95,7 +80,7 @@ class Menu extends Component {
         <a
           className={css(ruleSets.link, ruleSets.linkLast)}
           href="#show-examples"
-          onClick={this.openExamples}
+          onClick={() => { openExamples(); }}
         >
           Examples
         </a>
@@ -112,12 +97,6 @@ class Menu extends Component {
         >
           <ContactForm onSubmit={this.toggleContactModal} />
         </Modal>
-
-        {/* Examples page */}
-        <Examples
-          onClose={this.closeExamples}
-          visible={examplesVisible}
-        />
       </React.Fragment>
     );
   }

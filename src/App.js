@@ -4,6 +4,7 @@ import { Icon, Layout, Row } from 'antd';
 
 import * as Styles from './Styles';
 import Analytics from './Analytics';
+import Examples from './Examples';
 import Legend from './Legend';
 import Menu from './Menu';
 import PagePreview from './PagePreview';
@@ -13,6 +14,8 @@ import SettingsProvider from './Settings.provider';
 import SettingsContext from './Settings.context';
 
 const { Content } = Layout;
+const env = process.env.NODE_ENV;
+const isProduction = env === 'production';
 
 const ruleSets = StyleSheet.create({
   heading: {
@@ -94,6 +97,7 @@ const ruleSets = StyleSheet.create({
     },
     [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
       border: `1px solid ${Styles.colors[5]}`,
+      borderTop: 'none',
       minWidth: '100%',
       width: '100%',
       maxWidth: '100%',
@@ -125,6 +129,7 @@ const ruleSets = StyleSheet.create({
     width: '100%',
     [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
       border: `1px solid ${Styles.colors[5]}`,
+      borderTop: 'none',
       transition: 'transform 0.5s',
       width: '100%',
       height: '101%',
@@ -180,12 +185,32 @@ const ruleSets = StyleSheet.create({
       display: 'block',
     },
   },
+  closeMenu: {
+    left: 'auto',
+    right: 0,
+    [`@media (max-width: ${Styles.breaks.medium.width}px)`]: {
+      display: 'none',
+    },
+    [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
+      display: 'block',
+    },
+  },
 });
 
 class App extends Component {
   state = {
     settingsOpen: false,
+    examplesVisible: isProduction,
     menuOpen: false,
+  }
+
+  openExamples = () => {
+    this.setState({ examplesVisible: true });
+  }
+
+  closeExamples = () => {
+    this.closeMenu();
+    this.setState({ examplesVisible: false });
   }
 
   toggleSettings() {
@@ -193,13 +218,16 @@ class App extends Component {
     this.setState({ settingsOpen: !settingsOpen });
   }
 
-  toggleMenu() {
-    const { menuOpen } = this.state;
-    this.setState({ menuOpen: !menuOpen });
+  openMenu() {
+    this.setState({ menuOpen: true });
+  }
+
+  closeMenu() {
+    this.setState({ menuOpen: false });
   }
 
   render() {
-    const { settingsOpen, menuOpen } = this.state;
+    const { settingsOpen, menuOpen, examplesVisible } = this.state;
     const asideStateClass = settingsOpen ? ruleSets.asideStateOpen : ruleSets.asideStateClosed;
     const menuStateClass = menuOpen ? ruleSets.menuStateOpen : ruleSets.menuStateClosed;
 
@@ -209,7 +237,7 @@ class App extends Component {
 
         {/* Page Header */}
         <Row style={{ borderBottom: `1px solid ${Styles.colors[5]}` }}>
-          <Icon type="menu" className={css(ruleSets.menuIcon)} onClick={() => { this.toggleMenu(); }} />
+          <Icon type="menu" className={css(ruleSets.menuIcon)} onClick={() => { this.openMenu(); }} />
           <h1 className={css(ruleSets.heading)}>Data Forms</h1>
           <Icon theme="filled" type="setting" className={css(ruleSets.settingsIcon)} onClick={() => { this.toggleSettings(); }} />
         </Row>
@@ -244,10 +272,15 @@ class App extends Component {
         </Layout>
 
         <div className={css(ruleSets.menu, menuStateClass)}>
-          <Icon type="close" className={css(ruleSets.closeIcon)} style={{ left: 'auto', right: 0 }} onClick={() => { this.toggleMenu(); }} />
-          <Menu toggleMenu={() => this.toggleMenu()} />
+          <Icon type="close" className={css(ruleSets.closeIcon, ruleSets.closeMenu)} onClick={() => { this.closeMenu(); }} />
+          <Menu openExamples={this.openExamples} />
         </div>
-
+        
+        {/* Examples page */}
+        <Examples
+          onClose={this.closeExamples}
+          visible={examplesVisible}
+        />
         <Analytics />
       </SettingsProvider>
     );
