@@ -7,6 +7,17 @@ Visit [dataforms.joelongstreet.com](https://dataforms.joelongstreet.com) to use 
 
 ## Examples
 
+### Slugging Percentage - American Baseball
+![Slugging Percentage - 1](public/examples/slugging-percentage/2.jpg)
+![Slugging Percentage - 2](public/examples/slugging-percentage/4.jpg)
+
+### Monthly Weather - Kansas City, Missouri USA
+![KC Weather - 1](public/examples/kc-weather/3.jpg)
+![KC Weather - 2](public/examples/kc-weather/5.jpg)
+
+### Weekly S&P 500 closing price - 1950 to 2018
+![S&P 500 - 1](public/examples/s-p-500/3.jpg)
+
 ### Customer value over time (C2FO) - 2014 to 2018
 ![C2FO Customer Value - 1](public/examples/c2fo-accepted-invoice-amount/2.jpg)
 ![C2FO Customer Value - 2](public/examples/c2fo-accepted-invoice-amount/4.jpg)
