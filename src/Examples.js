@@ -23,13 +23,19 @@ const ruleSets = StyleSheet.create({
     fontSize: 50,
     right: 0,
     top: 20,
-    zIndex: 1,
+    zIndex: 2,
     padding: '0px 20px',
     borderRight: 'none',
     [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
       lineHeight: 1.25,
       padding: '0px 10px',
     },
+  },
+  interactivityBlocker: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    zIndex: 1,
   },
   onboarding: {
     position: 'absolute',
@@ -103,18 +109,20 @@ class Examples extends Component {
     let onboarding = '';
     if (showOnboarding) {
       onboarding = (
-        <div className={css(ruleSets.onboarding)}>
-          <h2 className={css(ruleSets.onboardingHeading)}>DataForms</h2>
-          <p>DataForms allows you to create physical manifestations of data.Data sets are drawn on a 2D plane and downloadable as a single SVG. Modify the downloaded file or send it straight to a laser cutter for processing.</p>
-          <p>Fork the examples to get started.</p>
-          <div
-            tabIndex="0"
-            role="button"
-            onKeyPress={() => { this.hideOnboarding(); }}
-            onClick={() => { this.hideOnboarding(); }}
-            className={css(ruleSets.onboardingButton)}
-          >
-            OK
+        <div className={css(ruleSets.interactivityBlocker)}>
+          <div className={css(ruleSets.onboarding)}>
+            <h2 className={css(ruleSets.onboardingHeading)}>DataForms</h2>
+            <p>DataForms allows you to create physical manifestations of data.Data sets are drawn on a 2D plane and downloadable as a single SVG. Modify the downloaded file or send it straight to a laser cutter for processing.</p>
+            <p>Fork the examples to get started.</p>
+            <div
+              tabIndex="0"
+              role="button"
+              onKeyPress={() => { this.hideOnboarding(); }}
+              onClick={() => { this.hideOnboarding(); }}
+              className={css(ruleSets.onboardingButton)}
+            >
+              OK
+            </div>
           </div>
         </div>
       );
