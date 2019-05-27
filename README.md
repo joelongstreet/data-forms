@@ -1,3 +1,8 @@
+* hide the example popover when clicked
+* add details to the warning saying the preview might not be "visible" on some devices since the strokes are so small
+* make the add to home screen button have a yellow color
+* use or get rid of the service workers file
+
 # Data Forms
 
 DataForms allows you to create physical manifestations of data. Data sets are drawn on a 2D plane and downloadable as a single SVG. Modify the downloaded file or send it straight to a laser cutter for processing.

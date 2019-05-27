@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://dataforms.joelongstreet.com",
   "dependencies": {
-    "antd": "^3.15.0",
+    "antd": "^3.19.1",
     "aphrodite": "^2.3.1",
     "customize-cra": "^0.2.12",
     "d3": "^5.9.2",
@@ -21,9 +21,11 @@
     "react-fullstory": "^1.0.3",
     "react-ga": "^2.5.7",
     "react-scripts": "2.1.8",
-    "react-scroll-to": "^2.0.5"
+    "react-scroll-to": "^2.0.5",
+    "source-map-explorer": "^1.8.0"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
