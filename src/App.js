@@ -120,15 +120,14 @@ const ruleSets = StyleSheet.create({
     height: Styles.breaks.default.footerHeight,
     borderTop: `1px solid ${Styles.colors[5]}`,
     position: 'absolute',
+    zIndex: 2,
     bottom: 0,
     width: '100%',
     [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
       border: `1px solid ${Styles.colors[5]}`,
-      zIndex: 2,
       transition: 'transform 0.5s',
       width: '100%',
       height: '101%',
-      position: 'absolute',
       top: 0,
     },
   },
@@ -171,8 +170,9 @@ const ruleSets = StyleSheet.create({
   closeIcon: {
     zIndex: 2,
     position: 'absolute',
-    top: 15,
-    left: 10,
+    left: 0,
+    top: 0,
+    padding: 20,
     fontSize: 20,
     cursor: 'pointer',
     display: 'none',
@@ -238,14 +238,14 @@ class App extends Component {
             </SettingsContext.Consumer>
           </Content>
           <aside className={css(ruleSets.aside, asideStateClass)}>
-            <Icon type="close" className={css(ruleSets.closeIcon)} onClick={() => { this.toggleSettings(); }} />
+            <Icon type="close" className={css(ruleSets.closeIcon)} style={{ top: '-5px' }} onClick={() => { this.toggleSettings(); }} />
             <Settings />
           </aside>
         </Layout>
 
         <div className={css(ruleSets.menu, menuStateClass)}>
-          <Icon type="close" className={css(ruleSets.closeIcon)} style={{ left: 'auto', right: 10 }} onClick={() => { this.toggleMenu(); }} />
-          <Menu />
+          <Icon type="close" className={css(ruleSets.closeIcon)} style={{ left: 'auto', right: 0 }} onClick={() => { this.toggleMenu(); }} />
+          <Menu toggleMenu={() => this.toggleMenu()} />
         </div>
 
         <Analytics />

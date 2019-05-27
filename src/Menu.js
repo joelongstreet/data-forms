@@ -63,10 +63,15 @@ class Menu extends Component {
     this.setState({ contactModalVisible: !contactModalVisible });
   }
 
-  toggleExamples = (e) => {
-    if (e) e.preventDefault();
-    const { examplesVisible } = this.state;
-    this.setState({ examplesVisible: !examplesVisible });
+  openExamples = (e) => {
+    e.preventDefault();
+    this.setState({ examplesVisible: true });
+  }
+
+  closeExamples = () => {
+    const { toggleMenu } = this.props;
+    toggleMenu();
+    this.setState({ examplesVisible: false });
   }
 
   render() {
@@ -90,7 +95,7 @@ class Menu extends Component {
         <a
           className={css(ruleSets.link, ruleSets.linkLast)}
           href="#show-examples"
-          onClick={this.toggleExamples}
+          onClick={this.openExamples}
         >
           Examples
         </a>
@@ -110,7 +115,7 @@ class Menu extends Component {
 
         {/* Examples page */}
         <Examples
-          onClose={this.toggleExamples}
+          onClose={this.closeExamples}
           visible={examplesVisible}
         />
       </React.Fragment>
