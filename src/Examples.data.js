@@ -2,7 +2,7 @@ export default [
   {
     title: 'Slugging Percentage - American Baseball',
     description: '162 game average slugging percentage (Singles * 1, Doubles * 2, Triples * 3, HR * 4). Players include Ty Cobb, Babe Ruth, Shoeless Joe Jackson, Honus Wagner, Ted Williams, Lou Gehrig, Joe DiMaggio, Jackie Robinson, Stan Musial, Mickey Mantle, Yogi Berra, Roberto Clemente, Willie Mays, Hank Aaron, Pete Rose, George Brett, Derek Jeter, Ken Griffey Jr, Mark McGwire, Cal Ripken Jr, and Sammy Sosa.',
-    images: ['examples/slugging-percentage/1.jpg'],
+    images: ['examples/slugging-percentage/1.jpg', 'examples/slugging-percentage/2.jpg', 'examples/slugging-percentage/3.jpg', 'examples/slugging-percentage/4.jpg', 'examples/slugging-percentage/5.jpg'],
     settings: {
       cellSize: 2.5,
       curveOffsetX: 0,
@@ -84,7 +84,7 @@ export default [
   {
     title: 'Monthly Weather - Kansas City, Missouri USA',
     description: 'Every other day\'s high temperature in Kansas City, Missouri USA for 4 notable months. Jane, Ruby, Lucy (my 3 children) and Megan (wife) birth month year. November 2015, March 2017, June 2018, and March 1986 respectively.',
-    images: ['examples/kc-weather/1.jpg'],
+    images: ['examples/kc-weather/1.jpg', 'examples/kc-weather/2.jpg', 'examples/kc-weather/3.jpg', 'examples/kc-weather/4.jpg', 'examples/kc-weather/5.jpg'],
     settings: {
       cellSize: 0.75,
       curveOffsetX: 0,
@@ -116,7 +116,7 @@ export default [
   {
     title: 'Weekly S&P 500 closing price - 1950 to 2018',
     description: 'The weekly closing price of the S&P 500, grouped by year. Range includes every week for even years between Jan 03 1950 and Dec 31 2018.',
-    images: ['examples/s-p-500/1.jpg'],
+    images: ['examples/s-p-500/1.jpg', 'examples/s-p-500/2.jpg', 'examples/s-p-500/3.jpg', 'examples/s-p-500/4.jpg'],
     settings: {
       cellSize: 9,
       curveOffsetX: 0,
