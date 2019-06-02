@@ -20,12 +20,16 @@ const ruleSets = StyleSheet.create({
     },
   },
   link: {
+    color: Styles.colors[1],
     display: 'inline-block',
     padding: 20,
     ':after': {
       color: Styles.colors[5],
       content: '"|"',
       marginLeft: 40,
+    },
+    ':hover': {
+      color: Styles.colors[8],
     },
     [`@media (max-width: ${Styles.breaks.small.width}px)`]: {
       display: 'block',
